@@ -64,7 +64,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public MitgliedImpl() throws RemoteException
   {
     super();
-    variable = new HashMap<String, String>();
+    variable = new HashMap<>();
   }
 
   @Override

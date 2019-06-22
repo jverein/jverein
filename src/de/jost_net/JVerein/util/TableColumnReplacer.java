@@ -68,13 +68,13 @@ public class TableColumnReplacer
      * lists. This knowledge helps you to understand some code later.
      */
 
-    necColumns = new HashMap<String, String>();
+    necColumns = new HashMap<>();
     for (String key : necessaryColumns)
     {
       necColumns.put(key, null);
     }
 
-    optColumns = new HashMap<String, String>();
+    optColumns = new HashMap<>();
     for (String key : optionalColumns)
     {
       optColumns.put(key, null);
@@ -92,8 +92,8 @@ public class TableColumnReplacer
     if (tcr == null)
       throw new NullPointerException("tcr may not be null");
 
-    necColumns = new HashMap<String, String>(tcr.necColumns);
-    optColumns = new HashMap<String, String>(tcr.optColumns);
+    necColumns = new HashMap<>(tcr.necColumns);
+    optColumns = new HashMap<>(tcr.optColumns);
 
   }
 
@@ -120,7 +120,9 @@ public class TableColumnReplacer
         || (!necessary && optColumns.containsKey(column)))
       return;
 
-    /* move it from one map to the other or create a new one if it didn't exist */
+    /*
+     * move it from one map to the other or create a new one if it didn't exist
+     */
     if (necessary)
     {
       if (optColumns.containsKey(column))
@@ -175,7 +177,7 @@ public class TableColumnReplacer
   public List<String> getMissingNecessaryColumns()
   {
 
-    LinkedList<String> tmp = new LinkedList<String>();
+    LinkedList<String> tmp = new LinkedList<>();
 
     for (String key : necColumns.keySet())
     {
@@ -194,7 +196,7 @@ public class TableColumnReplacer
   public List<String> getAllColumns()
   {
 
-    LinkedList<String> tmp = new LinkedList<String>();
+    LinkedList<String> tmp = new LinkedList<>();
 
     tmp.addAll(necColumns.keySet());
     tmp.addAll(optColumns.keySet());
@@ -213,7 +215,7 @@ public class TableColumnReplacer
   public Map<String, String> getNecessaryColumns()
   {
 
-    Map<String, String> tmp = new HashMap<String, String>();
+    Map<String, String> tmp = new HashMap<>();
     for (String key : necColumns.keySet())
     {
       if (necColumns.get(key) != null)
@@ -232,7 +234,7 @@ public class TableColumnReplacer
   public Map<String, String> getOptionalColumns()
   {
 
-    HashMap<String, String> tmp = new HashMap<String, String>();
+    HashMap<String, String> tmp = new HashMap<>();
     for (String key : optColumns.keySet())
     {
       if (optColumns.get(key) != null)

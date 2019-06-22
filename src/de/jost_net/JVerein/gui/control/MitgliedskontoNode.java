@@ -78,7 +78,7 @@ public class MitgliedskontoNode implements GenericObjectNode
     this.name = Adressaufbereitung.getNameVorname(m);
     this.soll = new Double(0);
     this.ist = new Double(0);
-    this.children = new ArrayList<MitgliedskontoNode>();
+    this.children = new ArrayList<>();
     this.id = m.getID();
     DBIterator<Mitgliedskonto> it = Einstellungen.getDBService()
         .createList(Mitgliedskonto.class);
@@ -122,7 +122,7 @@ public class MitgliedskontoNode implements GenericObjectNode
     this.ist = mk.getIstSumme();
     if (this.type == SOLL)
     {
-      this.children = new ArrayList<MitgliedskontoNode>();
+      this.children = new ArrayList<>();
       DBIterator<Buchung> it = Einstellungen.getDBService()
           .createList(Buchung.class);
       it.addFilter("mitgliedskonto = ?", new Object[] { mk.getID() });

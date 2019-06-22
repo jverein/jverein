@@ -40,7 +40,7 @@ public class VCardTool
   public static VCard[] getVCards(ArrayList<Mitglied> mitglieder)
       throws RemoteException
   {
-    ArrayList<VCard> ret = new ArrayList<VCard>();
+    ArrayList<VCard> ret = new ArrayList<>();
 
     for (Mitglied m : mitglieder)
     {

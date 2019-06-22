@@ -50,7 +50,7 @@ public class Suchbetrag
     }
 
     // Suchstring in Einzelteile zerlegen
-    ArrayList<String> liste = new ArrayList<String>();
+    ArrayList<String> liste = new ArrayList<>();
     StringTokenizer tok = new StringTokenizer(suchbetrag, "<>=.", true);
     while (tok.hasMoreTokens())
     {

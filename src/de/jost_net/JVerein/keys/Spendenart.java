@@ -60,7 +60,7 @@ public class Spendenart
 
   public static ArrayList<Spendenart> getArray()
   {
-    ArrayList<Spendenart> ret = new ArrayList<Spendenart>();
+    ArrayList<Spendenart> ret = new ArrayList<>();
     ret.add(new Spendenart(GELDSPENDE));
     ret.add(new Spendenart(SACHSPENDE));
     return ret;

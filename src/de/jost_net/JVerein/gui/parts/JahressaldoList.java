@@ -117,7 +117,7 @@ public class JahressaldoList extends TablePart implements Part
 
   public ArrayList<SaldoZeile> getInfo() throws RemoteException
   {
-    ArrayList<SaldoZeile> zeile = new ArrayList<SaldoZeile>();
+    ArrayList<SaldoZeile> zeile = new ArrayList<>();
     Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
         null);
     DBIterator<Konto> konten = k.getKontenEinesJahres(gj);

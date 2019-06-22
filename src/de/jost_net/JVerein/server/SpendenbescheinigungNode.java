@@ -71,7 +71,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
    */
   public SpendenbescheinigungNode(final int jahr) throws RemoteException
   {
-    childrens = new ArrayList<GenericObjectNode>();
+    childrens = new ArrayList<>();
     nodetype = ROOT;
     double minBetrag = Einstellungen.getEinstellung()
         .getSpendenbescheinigungminbetrag();
@@ -82,7 +82,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
-        List<String> ids = new ArrayList<String>();
+        List<String> ids = new ArrayList<>();
         while (rs.next())
         {
           ids.add(rs.getString(1));
@@ -90,13 +90,11 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         return ids;
       }
     };
-    String sql = "SELECT mitglied.id, sum(buchung.betrag) "
-        + "FROM buchung "
+    String sql = "SELECT mitglied.id, sum(buchung.betrag) " + "FROM buchung "
         + "  JOIN buchungsart ON buchung.buchungsart = buchungsart.id "
         + "  JOIN mitgliedskonto ON buchung.mitgliedskonto = mitgliedskonto.id "
         + "  JOIN mitglied ON mitgliedskonto.mitglied = mitglied.id "
-        + "WHERE year(buchung.datum) = ? "
-        + "  AND buchungsart.spende = true "
+        + "WHERE year(buchung.datum) = ? " + "  AND buchungsart.spende = true "
         + "  AND buchung.spendenbescheinigung IS NULL "
         + "  AND buchung.mitgliedskonto IS NOT NULL "
         // rdc: Nur Mitglieder mit bekannter Adresse
@@ -108,13 +106,13 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         + "HAVING sum(buchung.betrag) >= ? "
         + "ORDER BY mitglied.name, mitglied.vorname, mitglied.id";
     @SuppressWarnings("unchecked")
-    ArrayList<String> idliste = (ArrayList<String>) Einstellungen
-        .getDBService().execute(sql, new Object[] { jahr, minBetrag }, rse);
+    ArrayList<String> idliste = (ArrayList<String>) Einstellungen.getDBService()
+        .execute(sql, new Object[] { jahr, minBetrag }, rse);
 
     for (String id : idliste)
     {
-      Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-          Mitglied.class, id);
+      Mitglied m = (Mitglied) Einstellungen.getDBService()
+          .createObject(Mitglied.class, id);
       // rdc: hier nochmal prüfen, ob auch wirklich eine gültige Adresse
       // vorliegt.
       // rdc: Es kommen manchmal Datensätze ohne Straße/Ort ...
@@ -147,7 +145,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
   {
     this.mitglied = mitglied;
 
-    childrens = new ArrayList<GenericObjectNode>();
+    childrens = new ArrayList<>();
     nodetype = MITGLIED;
 
     ResultSetExtractor rs = new ResultSetExtractor()
@@ -156,7 +154,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
-        List<String> ids = new ArrayList<String>();
+        List<String> ids = new ArrayList<>();
         while (rs.next())
         {
           ids.add(rs.getString(1));
@@ -173,14 +171,13 @@ public class SpendenbescheinigungNode implements GenericObjectNode
         + "  AND buchung.mitgliedskonto IS NOT NULL "
         + "ORDER BY buchung.datum";
     @SuppressWarnings("unchecked")
-    ArrayList<String> idliste = (ArrayList<String>) Einstellungen
-        .getDBService().execute(sql, new Object[] { jahr, mitglied.getID() },
-            rs);
+    ArrayList<String> idliste = (ArrayList<String>) Einstellungen.getDBService()
+        .execute(sql, new Object[] { jahr, mitglied.getID() }, rs);
 
     for (String id : idliste)
     {
-      Buchung buchung = (Buchung) Einstellungen.getDBService().createObject(
-          Buchung.class, id);
+      Buchung buchung = (Buchung) Einstellungen.getDBService()
+          .createObject(Buchung.class, id);
       childrens.add(new SpendenbescheinigungNode(mitglied, buchung));
     }
   }
@@ -190,7 +187,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     this.mitglied = mitglied;
     this.buchung = buchung;
 
-    childrens = new ArrayList<GenericObjectNode>();
+    childrens = new ArrayList<>();
     nodetype = BUCHUNG;
   }
 
@@ -201,8 +198,8 @@ public class SpendenbescheinigungNode implements GenericObjectNode
     {
       return null;
     }
-    return PseudoIterator.fromArray(childrens
-        .toArray(new GenericObject[childrens.size()]));
+    return PseudoIterator
+        .fromArray(childrens.toArray(new GenericObject[childrens.size()]));
   }
 
   public boolean removeChild(GenericObjectNode child)
@@ -266,11 +263,11 @@ public class SpendenbescheinigungNode implements GenericObjectNode
       }
       case BUCHUNG:
       {
-        return new JVDateFormatTTMMJJJJ().format(buchung.getDatum())
-            + ", "
-            + (buchung.getZweck() != null && buchung.getZweck().length() > 0 ? buchung
-                .getZweck() : "") + ", "
-            + Einstellungen.DECIMALFORMAT.format(buchung.getBetrag());
+        return new JVDateFormatTTMMJJJJ().format(buchung.getDatum()) + ", "
+            + (buchung.getZweck() != null && buchung.getZweck().length() > 0
+                ? buchung.getZweck()
+                : "")
+            + ", " + Einstellungen.DECIMALFORMAT.format(buchung.getBetrag());
       }
     }
     return "bla";
@@ -351,8 +348,8 @@ public class SpendenbescheinigungNode implements GenericObjectNode
       }
       if (this.nodetype == BUCHUNG)
       {
-        return "----> BUCHUNG: " + buchung.getDatum() + ";"
-            + buchung.getZweck() + ";" + buchung.getBetrag();
+        return "----> BUCHUNG: " + buchung.getDatum() + ";" + buchung.getZweck()
+            + ";" + buchung.getBetrag();
       }
     }
     catch (RemoteException e)

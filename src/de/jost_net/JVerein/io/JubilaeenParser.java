@@ -30,7 +30,7 @@ public class JubilaeenParser
   {
     // Zerlegen in die einzelnen Elemente
     StringTokenizer stt = new StringTokenizer(jubilaeen, ",");
-    elemente = new Vector<Integer>();
+    elemente = new Vector<>();
     while (stt.hasMoreElements())
     {
       String element = stt.nextToken();
@@ -41,8 +41,8 @@ public class JubilaeenParser
       }
       catch (NumberFormatException e)
       {
-        throw new RuntimeException(String.format("Ungültiger Eintrag: %s",
-            element));
+        throw new RuntimeException(
+            String.format("Ungültiger Eintrag: %s", element));
       }
     }
   }

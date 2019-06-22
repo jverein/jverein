@@ -53,7 +53,7 @@ public class Buchungsuebernahme
       Logger.info("Buchungsübernahme zu JVerein gestartet");
 
       // Protokollliste initialisieren
-      buchungen = new ArrayList<Buchung>();
+      buchungen = new ArrayList<>();
       // Über alle Hibiscus-Konten (aus JVerein-Sicht) iterieren
       DBIterator<Konto> hibkto = Einstellungen.getDBService()
           .createList(Konto.class);

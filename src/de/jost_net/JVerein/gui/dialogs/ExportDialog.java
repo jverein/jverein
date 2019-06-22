@@ -292,7 +292,7 @@ public class ExportDialog extends AbstractDialog<Object>
     Exporter[] exporters = IORegistry.getExporters();
 
     int size = 0;
-    ArrayList<Exp> l = new ArrayList<Exp>();
+    ArrayList<Exp> l = new ArrayList<>();
     String lastFormat = settings.getString("lastformat", null);
     Exp selected = null;
 

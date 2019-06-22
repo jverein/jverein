@@ -130,8 +130,8 @@ public abstract class AbstractMitgliedskontoDokument
     {
       fd.setFilterPath(path);
     }
-    fd.setFileName(new Dateiname(typ.name(), "", Einstellungen.getEinstellung()
-        .getDateinamenmuster(), extension).get());
+    fd.setFileName(new Dateiname(typ.name(), "",
+        Einstellungen.getEinstellung().getDateinamenmuster(), extension).get());
     fd.setFilterExtensions(new String[] { "*." + extension });
 
     String s = fd.open();
@@ -156,11 +156,11 @@ public abstract class AbstractMitgliedskontoDokument
   ArrayList<ArrayList<Mitgliedskonto>> getRechnungsempfaenger(
       Object currentObject)
   {
-    ArrayList<ArrayList<Mitgliedskonto>> ret = new ArrayList<ArrayList<Mitgliedskonto>>();
+    ArrayList<ArrayList<Mitgliedskonto>> ret = new ArrayList<>();
     if (currentObject instanceof Mitgliedskonto)
     {
       Mitgliedskonto mk = (Mitgliedskonto) currentObject;
-      ArrayList<Mitgliedskonto> r = new ArrayList<Mitgliedskonto>();
+      ArrayList<Mitgliedskonto> r = new ArrayList<>();
       r.add(mk);
       ret.add(r);
       return ret;
@@ -241,20 +241,19 @@ public abstract class AbstractMitgliedskontoDokument
 
       try
       {
-        ArrayList<Mitgliedskonto> r = new ArrayList<Mitgliedskonto>();
-        r = new ArrayList<Mitgliedskonto>();
+        ArrayList<Mitgliedskonto> r = new ArrayList<>();
+        r = new ArrayList<>();
         for (Mitgliedskonto mk : mkn)
         {
-          if (r.size() == 0
-              || r.get(0).getMitglied().getID()
-                  .equals(mk.getMitglied().getID()))
+          if (r.size() == 0 || r.get(0).getMitglied().getID()
+              .equals(mk.getMitglied().getID()))
           {
             r.add(mk);
           }
           else
           {
             ret.add(r);
-            r = new ArrayList<Mitgliedskonto>();
+            r = new ArrayList<>();
             r.add(mk);
           }
         }

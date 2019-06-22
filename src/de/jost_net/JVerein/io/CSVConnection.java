@@ -107,7 +107,7 @@ public class CSVConnection
    */
   public List<String> getColumnHeaders() throws SQLException
   {
-    List<String> importColumnList = new LinkedList<String>();
+    List<String> importColumnList = new LinkedList<>();
 
     try
     {
@@ -225,8 +225,8 @@ public class CSVConnection
       throw new SQLException("Wasn't able to load CSV DB Driver");
     }
 
-    conn = DriverManager.getConnection(
-        "jdbc:relique:csv:" + csvFile.getParent(), props);
+    conn = DriverManager
+        .getConnection("jdbc:relique:csv:" + csvFile.getParent(), props);
 
     /*
      * The arguments are necessary to get a traveresable result set, so first()

@@ -39,22 +39,23 @@ public abstract class Spaltenauswahl
   {
     this.settings = new Settings(this.getClass());
     this.tabelle = tabelle;
-    spalten = new ArrayList<Spalte>();
+    spalten = new ArrayList<>();
   }
 
   public void add(String spaltenbezeichnung, String spaltenname,
       boolean defaultvalue, boolean nurMitglied)
   {
-    spalten.add(new Spalte(spaltenbezeichnung, spaltenname, settings
-        .getBoolean(tabelle + "." + spaltenname, defaultvalue), nurMitglied));
+    spalten.add(new Spalte(spaltenbezeichnung, spaltenname,
+        settings.getBoolean(tabelle + "." + spaltenname, defaultvalue),
+        nurMitglied));
   }
 
   public void add(String spaltenbezeichnung, String spaltenname,
       boolean defaultvalue, Formatter formatter, int align, boolean nurMitglied)
   {
-    spalten.add(new Spalte(spaltenbezeichnung, spaltenname, settings
-        .getBoolean(tabelle + "." + spaltenname, defaultvalue), formatter,
-        align, nurMitglied));
+    spalten.add(new Spalte(spaltenbezeichnung, spaltenname,
+        settings.getBoolean(tabelle + "." + spaltenname, defaultvalue),
+        formatter, align, nurMitglied));
   }
 
   public void setColumns(TablePart part, int adresstyp)

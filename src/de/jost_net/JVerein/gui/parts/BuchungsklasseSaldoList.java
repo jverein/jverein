@@ -111,7 +111,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
 
   public ArrayList<BuchungsklasseSaldoZeile> getInfo() throws RemoteException
   {
-    ArrayList<BuchungsklasseSaldoZeile> zeile = new ArrayList<BuchungsklasseSaldoZeile>();
+    ArrayList<BuchungsklasseSaldoZeile> zeile = new ArrayList<>();
     Buchungsklasse buchungsklasse = null;
     Buchungsart buchungsart = null;
     Double einnahmen;

@@ -24,11 +24,11 @@ import de.jost_net.JVerein.rmi.Mitglied;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class MitgliedschaftsjubilaeumExportCSV extends
-    MitgliedschaftsjubilaeumsExport
+public class MitgliedschaftsjubilaeumExportCSV
+    extends MitgliedschaftsjubilaeumsExport
 {
 
-  private ArrayList<Mitglied> mitglieder = new ArrayList<Mitglied>();
+  private ArrayList<Mitglied> mitglieder = new ArrayList<>();
 
   private int jahrgang;
 
@@ -60,10 +60,10 @@ public class MitgliedschaftsjubilaeumExportCSV extends
       @Override
       public String[] getFileExtensions()
       {
-        return new String[] { "*.csv"};
+        return new String[] { "*.csv" };
       }
     };
-    return new IOFormat[] { f};
+    return new IOFormat[] { f };
   }
 
   @Override

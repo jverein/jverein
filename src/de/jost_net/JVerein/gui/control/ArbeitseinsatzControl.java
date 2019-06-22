@@ -156,7 +156,7 @@ public class ArbeitseinsatzControl extends AbstractControl
       von.setTime(ae.getDatum());
     }
     Calendar bis = Calendar.getInstance();
-    ArrayList<Integer> jahre = new ArrayList<Integer>();
+    ArrayList<Integer> jahre = new ArrayList<>();
 
     for (int i = von.get(Calendar.YEAR); i <= bis.get(Calendar.YEAR); i++)
     {
@@ -377,7 +377,7 @@ public class ArbeitseinsatzControl extends AbstractControl
           while (it.hasNext())
           {
             ArbeitseinsatzZeile z = (ArbeitseinsatzZeile) it.next();
-            final HashMap<String, ? super Object> data1 = new HashMap<String, Object>();
+            final HashMap<String, ? super Object> data1 = new HashMap<>();
             Mitglied m = (Mitglied) z.getAttribute("mitglied");
             data1.put(header[0], m.getName());
             data1.put(header[1], m.getVorname());

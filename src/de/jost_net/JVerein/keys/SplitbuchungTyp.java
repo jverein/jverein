@@ -63,7 +63,7 @@ public class SplitbuchungTyp
 
   public static ArrayList<SplitbuchungTyp> getArray()
   {
-    ArrayList<SplitbuchungTyp> ret = new ArrayList<SplitbuchungTyp>();
+    ArrayList<SplitbuchungTyp> ret = new ArrayList<>();
     ret.add(new SplitbuchungTyp(HAUPT));
     ret.add(new SplitbuchungTyp(GEGEN));
     ret.add(new SplitbuchungTyp(SPLIT));

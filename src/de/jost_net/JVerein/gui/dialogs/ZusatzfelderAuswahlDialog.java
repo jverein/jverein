@@ -61,7 +61,7 @@ public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
   {
     ScrolledContainer sc = new ScrolledContainer(parent);
     LabelGroup group = new LabelGroup(sc.getComposite(), "Bedingungen", false);
-    felder = new ArrayList<Input>();
+    felder = new ArrayList<>();
 
     DBIterator<Felddefinition> it = Einstellungen.getDBService()
         .createList(Felddefinition.class);

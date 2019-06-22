@@ -161,8 +161,8 @@ public class BuchungAuswertungPDF
   }
 
   private void createTableContent(Reporter reporter, Buchungsart bua,
-      List<Buchung> buchungen, boolean einzel) throws RemoteException,
-      DocumentException
+      List<Buchung> buchungen, boolean einzel)
+      throws RemoteException, DocumentException
   {
     if (Einstellungen.getEinstellung().getUnterdrueckungOhneBuchung()
         && buchungen.size() == 0)
@@ -190,8 +190,9 @@ public class BuchungAuswertungPDF
             Element.ALIGN_CENTER);
         if (b.getAuszugsnummer() != null)
         {
-          reporter.addColumn(b.getAuszugsnummer() + "/"
-              + (b.getBlattnummer() != null ? b.getBlattnummer() : "-"),
+          reporter.addColumn(
+              b.getAuszugsnummer() + "/"
+                  + (b.getBlattnummer() != null ? b.getBlattnummer() : "-"),
               Element.ALIGN_LEFT);
         }
         else
@@ -249,12 +250,11 @@ public class BuchungAuswertungPDF
   private List<Buchung> getBuchungenEinerBuchungsart(List<Buchung> buchungen,
       Buchungsart bua) throws RemoteException
   {
-    List<Buchung> liste = new ArrayList<Buchung>();
+    List<Buchung> liste = new ArrayList<>();
     for (Buchung b : buchungen)
     {
-      if (bua.getArt() != -1
-          && (b.getBuchungsart() == null || b.getBuchungsart().getNummer() != bua
-              .getNummer()))
+      if (bua.getArt() != -1 && (b.getBuchungsart() == null
+          || b.getBuchungsart().getNummer() != bua.getNummer()))
       {
         continue;
       }

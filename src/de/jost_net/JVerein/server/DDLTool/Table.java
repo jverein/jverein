@@ -15,8 +15,8 @@ public class Table
   public Table(String name)
   {
     this.name = name;
-    this.columns = new ArrayList<Column>();
-    this.indices = new ArrayList<Index>();
+    this.columns = new ArrayList<>();
+    this.indices = new ArrayList<>();
   }
 
   public String getName()

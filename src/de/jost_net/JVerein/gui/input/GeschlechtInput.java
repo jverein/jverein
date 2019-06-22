@@ -48,7 +48,7 @@ public class GeschlechtInput extends SelectInput
    */
   private static GenericIterator init() throws RemoteException
   {
-    ArrayList<GeschlechtObject> l = new ArrayList<GeschlechtObject>();
+    ArrayList<GeschlechtObject> l = new ArrayList<>();
     l.add(new GeschlechtObject(MAENNLICH));
     l.add(new GeschlechtObject(WEIBLICH));
     l.add(new GeschlechtObject(OHNEANGABE));

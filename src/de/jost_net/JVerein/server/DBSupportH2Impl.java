@@ -40,7 +40,7 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
   private static final long serialVersionUID = 8429636916402991936L;
 
   // Mapper von Datenbank-Hash zu Versionsnummer
-  private static HashMap<String, Double> DBMAPPING = new HashMap<String, Double>();
+  private static HashMap<String, Double> DBMAPPING = new HashMap<>();
 
   static
   {
@@ -134,9 +134,9 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
   @Override
   public String getJdbcUrl()
   {
-    String url = "jdbc:h2:"
-        + Application.getPluginLoader().getPlugin(JVereinPlugin.class)
-            .getResources().getWorkPath() + "/h2db/jverein";
+    String url = "jdbc:h2:" + Application.getPluginLoader()
+        .getPlugin(JVereinPlugin.class).getResources().getWorkPath()
+        + "/h2db/jverein";
 
     // if (JVereinDBService.SETTINGS.getBoolean("database.driver.h2.encryption",
     // true))
@@ -166,8 +166,8 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
         // + File.separator + "sql.h2", Application.getCallback()
         // .getStartupMonitor());
 
-        new JVereinUpdateProvider(conn, Application.getCallback()
-            .getStartupMonitor());
+        new JVereinUpdateProvider(conn,
+            Application.getCallback().getStartupMonitor());
       }
       catch (Exception e2)
       {

@@ -63,7 +63,7 @@ public class Altermodel
 
   public static ArrayList<Altermodel> getArray()
   {
-    ArrayList<Altermodel> ret = new ArrayList<Altermodel>();
+    ArrayList<Altermodel> ret = new ArrayList<>();
     ret.add(new Altermodel(AKTUELLES_DATUM));
     ret.add(new Altermodel(JAHRES_START));
     ret.add(new Altermodel(JAHRES_ENDE));

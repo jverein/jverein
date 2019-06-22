@@ -62,17 +62,18 @@ public class ZipMailer
       {
         try
         {
-          MailSender sender = new MailSender(Einstellungen.getEinstellung()
-              .getSmtpServer(), Einstellungen.getEinstellung().getSmtpPort(),
-              Einstellungen.getEinstellung().getSmtpAuthUser(), Einstellungen
-                  .getEinstellung().getSmtpAuthPwd(), Einstellungen
-                  .getEinstellung().getSmtpFromAddress(), Einstellungen
-                  .getEinstellung().getSmtpFromAnzeigename(), Einstellungen
-                  .getEinstellung().getMailAlwaysBcc(), Einstellungen
-                  .getEinstellung().getMailAlwaysCc(), Einstellungen
-                  .getEinstellung().getSmtpSsl(), Einstellungen
-                  .getEinstellung().getSmtpStarttls(), Einstellungen
-                  .getEinstellung().getMailVerzoegerung(),
+          MailSender sender = new MailSender(
+              Einstellungen.getEinstellung().getSmtpServer(),
+              Einstellungen.getEinstellung().getSmtpPort(),
+              Einstellungen.getEinstellung().getSmtpAuthUser(),
+              Einstellungen.getEinstellung().getSmtpAuthPwd(),
+              Einstellungen.getEinstellung().getSmtpFromAddress(),
+              Einstellungen.getEinstellung().getSmtpFromAnzeigename(),
+              Einstellungen.getEinstellung().getMailAlwaysBcc(),
+              Einstellungen.getEinstellung().getMailAlwaysCc(),
+              Einstellungen.getEinstellung().getSmtpSsl(),
+              Einstellungen.getEinstellung().getSmtpStarttls(),
+              Einstellungen.getEinstellung().getMailVerzoegerung(),
               Einstellungen.getImapCopyData());
 
           Velocity.init();
@@ -91,8 +92,8 @@ public class ZipMailer
             {
               // Entry mit Mail-Adresse
               String id = currentEntry.substring(0, currentEntry.indexOf("#"));
-              String mail = currentEntry.substring(currentEntry
-                  .lastIndexOf("#") + 1);
+              String mail = currentEntry
+                  .substring(currentEntry.lastIndexOf("#") + 1);
               mail = mail.substring(0, mail.length() - 4);
               Mitglied m = (Mitglied) Einstellungen.getDBService()
                   .createObject(Mitglied.class, id);
@@ -110,7 +111,7 @@ public class ZipMailer
               in.close();
               ma.setAnhang(bos.toByteArray());
               ma.setDateiname("Rechnung.pdf");
-              TreeSet<MailAnhang> anhang = new TreeSet<MailAnhang>();
+              TreeSet<MailAnhang> anhang = new TreeSet<>();
               anhang.add(ma);
 
               VelocityContext context = new VelocityContext();
@@ -129,8 +130,8 @@ public class ZipMailer
               monitor.log("Versende an " + mail);
               try
               {
-                sender.sendMail(mail, wtext1.getBuffer().toString(), wtext2
-                    .getBuffer().toString(), anhang);
+                sender.sendMail(mail, wtext1.getBuffer().toString(),
+                    wtext2.getBuffer().toString(), anhang);
               }
               catch (SendFailedException e1)
               {

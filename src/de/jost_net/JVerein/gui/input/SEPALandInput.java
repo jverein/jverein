@@ -50,7 +50,7 @@ public class SEPALandInput extends SelectInput
   private static GenericIterator init() throws RemoteException
   {
     ArrayList<SEPALand> l = SEPALaender.getLaender();
-    ArrayList<SEPALandObject> lo = new ArrayList<SEPALandObject>();
+    ArrayList<SEPALandObject> lo = new ArrayList<>();
     for (SEPALand land : l)
     {
       lo.add(new SEPALandObject(land));

@@ -76,7 +76,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
   protected void paint(Composite parent) throws Exception
   {
 
-    List<GenericObject> list = new ArrayList<GenericObject>();
+    List<GenericObject> list = new ArrayList<>();
 
     for (Entry<String, Object> entry : vars.entrySet())
     {
@@ -148,7 +148,7 @@ public class ShowVariablesDialog extends AbstractDialog<Object>
     @Override
     public String[] getAttributeNames()
     {
-      return new String[] { "name", "wert"};
+      return new String[] { "name", "wert" };
     }
 
     @Override

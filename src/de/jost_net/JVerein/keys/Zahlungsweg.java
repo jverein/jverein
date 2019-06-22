@@ -64,7 +64,7 @@ public class Zahlungsweg
 
   public static ArrayList<Zahlungsweg> getArray()
   {
-    ArrayList<Zahlungsweg> ret = new ArrayList<Zahlungsweg>();
+    ArrayList<Zahlungsweg> ret = new ArrayList<>();
     ret.add(new Zahlungsweg(BASISLASTSCHRIFT));
     ret.add(new Zahlungsweg(ÜBERWEISUNG));
     ret.add(new Zahlungsweg(BARZAHLUNG));

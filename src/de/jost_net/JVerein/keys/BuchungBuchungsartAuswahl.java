@@ -59,7 +59,7 @@ public class BuchungBuchungsartAuswahl
 
   public static ArrayList<BuchungBuchungsartAuswahl> getArray()
   {
-    ArrayList<BuchungBuchungsartAuswahl> ret = new ArrayList<BuchungBuchungsartAuswahl>();
+    ArrayList<BuchungBuchungsartAuswahl> ret = new ArrayList<>();
     ret.add(new BuchungBuchungsartAuswahl(SearchInput));
     ret.add(new BuchungBuchungsartAuswahl(ComboBox));
     return ret;
@@ -70,7 +70,7 @@ public class BuchungBuchungsartAuswahl
   {
     if (obj instanceof BuchungBuchungsartAuswahl)
     {
-    	BuchungBuchungsartAuswahl v = (BuchungBuchungsartAuswahl) obj;
+      BuchungBuchungsartAuswahl v = (BuchungBuchungsartAuswahl) obj;
       return (getKey() == v.getKey());
     }
     return false;

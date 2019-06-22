@@ -61,7 +61,7 @@ public class MitgliedQuery
   public ArrayList<Mitglied> get(int adresstyp) throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();
-    ArrayList<Object> bedingungen = new ArrayList<Object>();
+    ArrayList<Object> bedingungen = new ArrayList<>();
 
     sql = "select distinct mitglied.*, ucase(name), ucase(vorname) ";
     String sort = (String) control.getSortierung().getValue();
@@ -397,7 +397,7 @@ public class MitgliedQuery
       @Override
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
-        ArrayList<Mitglied> list = new ArrayList<Mitglied>();
+        ArrayList<Mitglied> list = new ArrayList<>();
         while (rs.next())
         {
           list.add(

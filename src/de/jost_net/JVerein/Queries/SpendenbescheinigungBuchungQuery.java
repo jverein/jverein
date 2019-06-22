@@ -36,7 +36,7 @@ public class SpendenbescheinigungBuchungQuery
 
   private String sql = "";
 
-  private ArrayList<Object> bedingungen = new ArrayList<Object>();
+  private ArrayList<Object> bedingungen = new ArrayList<>();
 
   private ArrayList<Buchung> ergebnis;
 
@@ -81,10 +81,10 @@ public class SpendenbescheinigungBuchungQuery
   public ArrayList<Buchung> get() throws RemoteException
   {
     and = false;
-    bedingungen = new ArrayList<Object>();
+    bedingungen = new ArrayList<>();
 
     final DBService service = Einstellungen.getDBService();
-    ergebnis = new ArrayList<Buchung>();
+    ergebnis = new ArrayList<>();
     sql = "select buchung.* ";
     sql += "from buchung ";
 
@@ -128,11 +128,11 @@ public class SpendenbescheinigungBuchungQuery
       @Override
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
-        ArrayList<Buchung> list = new ArrayList<Buchung>();
+        ArrayList<Buchung> list = new ArrayList<>();
         while (rs.next())
         {
-          list.add((Buchung) service.createObject(Buchung.class,
-              rs.getString(1)));
+          list.add(
+              (Buchung) service.createObject(Buchung.class, rs.getString(1)));
         }
         return list;
       }

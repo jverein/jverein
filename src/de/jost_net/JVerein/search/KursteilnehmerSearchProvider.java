@@ -56,7 +56,7 @@ public class KursteilnehmerSearchProvider implements SearchProvider
         "LOWER(name) LIKE ? OR LOWER(vzweck1) LIKE ? OR iban LIKE ? OR BIC like ?",
         text, text, text, text);
 
-    ArrayList<MyResult> results = new ArrayList<MyResult>();
+    ArrayList<MyResult> results = new ArrayList<>();
     while (list.hasNext())
     {
       results.add(new MyResult((Kursteilnehmer) list.next()));

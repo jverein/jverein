@@ -35,8 +35,8 @@ public class EigenschaftenUtil
 
   public EigenschaftenUtil(String eigenschaften) throws RemoteException
   {
-    gruppen = new HashMap<String, EigenschaftGruppe>();
-    eigenschaftenList = new ArrayList<Eigenschaft>();
+    gruppen = new HashMap<>();
+    eigenschaftenList = new ArrayList<>();
     if (eigenschaften == null || eigenschaften.length() == 0)
     {
       return;
@@ -63,7 +63,7 @@ public class EigenschaftenUtil
 
   public ArrayList<EigenschaftGruppe> getGruppen() throws RemoteException
   {
-    ArrayList<EigenschaftGruppe> ret = new ArrayList<EigenschaftGruppe>();
+    ArrayList<EigenschaftGruppe> ret = new ArrayList<>();
     for (String key : gruppen.keySet())
     {
       ret.add((EigenschaftGruppe) Einstellungen.getDBService()
@@ -74,7 +74,7 @@ public class EigenschaftenUtil
 
   public ArrayList<Eigenschaft> get(EigenschaftGruppe eg) throws RemoteException
   {
-    ArrayList<Eigenschaft> ret = new ArrayList<Eigenschaft>();
+    ArrayList<Eigenschaft> ret = new ArrayList<>();
     for (Eigenschaft ei : eigenschaftenList)
     {
       if (ei.getEigenschaftGruppe().getID().equals(eg.getID()))

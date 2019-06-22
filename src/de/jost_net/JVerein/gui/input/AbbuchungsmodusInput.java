@@ -45,7 +45,7 @@ public class AbbuchungsmodusInput extends SelectInput
   private static GenericIterator<AbbuchungsmodusObject> init()
       throws RemoteException
   {
-    ArrayList<AbbuchungsmodusObject> l = new ArrayList<AbbuchungsmodusObject>();
+    ArrayList<AbbuchungsmodusObject> l = new ArrayList<>();
     l.add(new AbbuchungsmodusObject(Abrechnungsmodi.KEINBEITRAG));
     switch (Einstellungen.getEinstellung().getBeitragsmodel())
     {

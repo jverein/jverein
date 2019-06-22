@@ -115,7 +115,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
 
     if (control.getAnhang().getItems().size() > 0)
     {
-      ArrayList<VorschauAnhang> anhang2 = new ArrayList<VorschauAnhang>();
+      ArrayList<VorschauAnhang> anhang2 = new ArrayList<>();
       for (Object o : control.getAnhang().getItems())
       {
         MailAnhang a = (MailAnhang) o;
@@ -177,7 +177,7 @@ public class MailVorschauDialog extends AbstractDialog<Object>
     public VorschauAnhang() throws RemoteException
     {
       super();
-      properties = new HashMap<String, Object>();
+      properties = new HashMap<>();
     }
 
     @Override

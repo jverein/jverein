@@ -193,7 +193,7 @@ public class FormularfeldControl extends AbstractControl
     {
       return name;
     }
-    ArrayList<String> namen = new ArrayList<String>();
+    ArrayList<String> namen = new ArrayList<>();
     if (formular.getArt() == FormularArt.SPENDENBESCHEINIGUNG)
     {
       for (AllgemeineVar av : AllgemeineVar.values())
@@ -318,7 +318,7 @@ public class FormularfeldControl extends AbstractControl
     {
       return font;
     }
-    ArrayList<String> fonts = new ArrayList<String>();
+    ArrayList<String> fonts = new ArrayList<>();
     fonts.add("FreeSans");
     fonts.add("FreeSans-Bold");
     fonts.add("FreeSans-BoldOblique");

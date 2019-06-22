@@ -134,7 +134,7 @@ public class ZusatzbetragControl extends AbstractControl
       return ausfuehrungSuch;
     }
 
-    final Vector<String> werte = new Vector<String>();
+    final Vector<String> werte = new Vector<>();
     werte.addElement("Alle");
     werte.addElement("Aktive");
     werte.addElement("Noch nicht ausgeführt");

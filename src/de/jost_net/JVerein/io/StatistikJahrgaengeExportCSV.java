@@ -84,7 +84,7 @@ public class StatistikJahrgaengeExportCSV extends StatistikJahrgaengeExport
           CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
 
       String[] header = new String[] { "Jahrgang", "m", "w", "o" };
-      Map<String, Object> map = new HashMap<String, Object>();
+      Map<String, Object> map = new HashMap<>();
       map.put("Jahrgang", 2000);
       map.put("m", 1);
       map.put("w", 1);

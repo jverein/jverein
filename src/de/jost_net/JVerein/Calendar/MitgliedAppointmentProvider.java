@@ -58,7 +58,7 @@ public class MitgliedAppointmentProvider implements AppointmentProvider
       Calendar cal = Calendar.getInstance(); // Geburtstag des Mitglieds (lfd.
                                              // Jahr)
 
-      List<Appointment> result = new LinkedList<Appointment>();
+      List<Appointment> result = new LinkedList<>();
       while (list.hasNext())
       {
         Mitglied m = list.next();

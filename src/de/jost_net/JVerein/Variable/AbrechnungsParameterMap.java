@@ -39,7 +39,7 @@ public class AbrechnungsParameterMap
     Map<String, Object> map = null;
     if (inma == null)
     {
-      map = new HashMap<String, Object>();
+      map = new HashMap<>();
     }
     else
     {
@@ -57,8 +57,8 @@ public class AbrechnungsParameterMap
         param.kompakteabbuchung ? "J" : "N");
     map.put(AbrechnungsParameterVar.KURSTEILNEHMER.getName(),
         param.kursteilnehmer ? "J" : "N");
-    map.put(AbrechnungsParameterVar.SEPAPRINT.getName(), param.sepaprint ? "J"
-        : "N");
+    map.put(AbrechnungsParameterVar.SEPAPRINT.getName(),
+        param.sepaprint ? "J" : "N");
     map.put(AbrechnungsParameterVar.STICHTAG.getName(),
         new JVDateFormatTTMMJJJJ().format(param.stichtag));
     map.put(AbrechnungsParameterVar.VERWENDUNGSZWECK.getName(),

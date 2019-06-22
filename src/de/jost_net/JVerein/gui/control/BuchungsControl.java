@@ -173,7 +173,7 @@ public class BuchungsControl extends AbstractControl
 
   public static final String MITGLIEDZUGEORDNET = "suchmitgliedzugeordnet";
 
-  private Vector<Listener> changeKontoListener = new Vector<Listener>();
+  private Vector<Listener> changeKontoListener = new Vector<>();
 
   public BuchungsControl(AbstractView view)
   {
@@ -552,7 +552,7 @@ public class BuchungsControl extends AbstractControl
     {
       return suchprojekt;
     }
-    ArrayList<Projekt> projektliste = new ArrayList<Projekt>();
+    ArrayList<Projekt> projektliste = new ArrayList<>();
     Projekt p1 = (Projekt) Einstellungen.getDBService()
         .createObject(Projekt.class, null);
     p1.setBezeichnung("Ohne Projekt");
@@ -590,7 +590,7 @@ public class BuchungsControl extends AbstractControl
     {
       list.setOrder("ORDER BY bezeichnung");
     }
-    ArrayList<Buchungsart> liste = new ArrayList<Buchungsart>();
+    ArrayList<Buchungsart> liste = new ArrayList<>();
     Buchungsart b1 = (Buchungsart) Einstellungen.getDBService()
         .createObject(Buchungsart.class, null);
     b1.setNummer(-2);
@@ -1191,7 +1191,7 @@ public class BuchungsControl extends AbstractControl
         list.addFilter("id = ?", -1);
       }
       list.setOrder("ORDER BY nummer");
-      ArrayList<Buchungsart> buchungsarten = new ArrayList<Buchungsart>();
+      ArrayList<Buchungsart> buchungsarten = new ArrayList<>();
       while (list.hasNext())
       {
         buchungsarten.add(list.next());
@@ -1668,7 +1668,7 @@ public class BuchungsControl extends AbstractControl
       return hasmitglied;
     }
 
-    ArrayList<MitgliedZustand> liste = new ArrayList<MitgliedZustand>();
+    ArrayList<MitgliedZustand> liste = new ArrayList<>();
 
     MitgliedZustand ja = new MitgliedZustand(true, "Ja");
     liste.add(ja);

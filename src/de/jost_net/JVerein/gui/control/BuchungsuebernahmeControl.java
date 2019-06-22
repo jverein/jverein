@@ -65,7 +65,7 @@ public class BuchungsuebernahmeControl extends AbstractControl
 
   public TablePart getKontenList() throws RemoteException
   {
-    List<Uebernahmekonto> ueko = new ArrayList<Uebernahmekonto>();
+    List<Uebernahmekonto> ueko = new ArrayList<>();
     DBService service = Einstellungen.getDBService();
     DBIterator<Konto> kontenit = service.createList(Konto.class);
     kontenit.addFilter("hibiscusid > 0");

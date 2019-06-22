@@ -20,6 +20,7 @@ public class LizenzView extends AbstractView
   /**
    * @see de.willuhn.jameica.gui.AbstractView#bind()
    */
+  @Override
   public void bind() throws Exception
   {
     GUI.getView().setTitle("Lizenzinformationen JVerein");
@@ -33,6 +34,7 @@ public class LizenzView extends AbstractView
   /**
    * @see de.willuhn.jameica.gui.AbstractView#canBookmark()
    */
+  @Override
   public boolean canBookmark()
   {
     return false;

@@ -145,7 +145,7 @@ public class ArbeitseinsatzUeberpruefungList extends TablePart implements Part
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
-        ArrayList<ArbeitseinsatzZeile> ergebnis = new ArrayList<ArbeitseinsatzZeile>();
+        ArrayList<ArbeitseinsatzZeile> ergebnis = new ArrayList<>();
         while (rs.next())
         {
           ArbeitseinsatzZeile z = new ArbeitseinsatzZeile(rs.getString("id"),

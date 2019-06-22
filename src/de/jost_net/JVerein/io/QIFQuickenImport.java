@@ -197,8 +197,8 @@ public class QIFQuickenImport implements Importer
   {
     QIFBlock qifBlock = new QIFBlock();
     QIFType qifTyp = null;
-    ArrayList<QIFKonto> kontoListe = new ArrayList<QIFKonto>();
-    ArrayList<QIFType> typeListe = new ArrayList<QIFType>();
+    ArrayList<QIFKonto> kontoListe = new ArrayList<>();
+    ArrayList<QIFType> typeListe = new ArrayList<>();
 
     while (qifBlock.readBlock())
     {
@@ -444,7 +444,7 @@ public class QIFQuickenImport implements Importer
     {
       try
       {
-        blockDaten = new ArrayList<String>();
+        blockDaten = new ArrayList<>();
         String zeile = null;
         while (null != (zeile = br.readLine()))
         {

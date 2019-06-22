@@ -61,7 +61,7 @@ public class MitgliedAuswertungPDF implements IAuswertung
   @Override
   public void beforeGo() throws RemoteException
   {
-    params = new TreeMap<String, String>();
+    params = new TreeMap<>();
     this.adresstyp = (Adresstyp) control.getAdresstyp().getValue();
     if (adresstyp == null)
     {
@@ -176,17 +176,18 @@ public class MitgliedAuswertungPDF implements IAuswertung
           BaseColor.LIGHT_GRAY);
       if (adresstyp.getJVereinid() == 1)
       {
-        report.addHeaderColumn(
-            "Eintritt / \nAustritt / \nKündigung"
-                + (Einstellungen.getEinstellung().getSterbedatum()
-                    ? ("/\n" + "Sterbedatum") : ""),
+        report.addHeaderColumn("Eintritt / \nAustritt / \nKündigung"
+            + (Einstellungen.getEinstellung().getSterbedatum()
+                ? ("/\n" + "Sterbedatum")
+                : ""),
             Element.ALIGN_CENTER, 30, BaseColor.LIGHT_GRAY);
       }
       report.addHeaderColumn(
 
           "Beitragsgruppe /\nEigenschaften"
               + (Einstellungen.getEinstellung().getExterneMitgliedsnummer()
-                  ? "\nMitgliedsnummer" : ""),
+                  ? "\nMitgliedsnummer"
+                  : ""),
           Element.ALIGN_CENTER, 60, BaseColor.LIGHT_GRAY);
       report.createHeader(100, Element.ALIGN_CENTER);
 
@@ -269,7 +270,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
         if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
         {
           zelle += (m.getExterneMitgliedsnummer() != null
-              ? m.getExterneMitgliedsnummer() : "");
+              ? m.getExterneMitgliedsnummer()
+              : "");
         }
 
         report.addColumn(beitragsgruppebemerkung.toString() + " "
@@ -277,10 +279,8 @@ public class MitgliedAuswertungPDF implements IAuswertung
       }
       report.closeTable();
 
-      report.add(new Paragraph(
-          String.format("Anzahl %d: %s", list.size(),
-              adresstyp.getBezeichnungPlural()),
-          Reporter.getFreeSans(8)));
+      report.add(new Paragraph(String.format("Anzahl %d: %s", list.size(),
+          adresstyp.getBezeichnungPlural()), Reporter.getFreeSans(8)));
 
       report.add(new Paragraph("Parameter", Reporter.getFreeSans(12)));
 

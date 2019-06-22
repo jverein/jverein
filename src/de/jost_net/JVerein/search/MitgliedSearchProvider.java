@@ -60,7 +60,7 @@ public class MitgliedSearchProvider implements SearchProvider
             + "ort LIKE ? OR " + "bic LIKE ? OR " + "iban LIKE ?",
         text, text, text, text, text);
 
-    ArrayList<MyResult> results = new ArrayList<MyResult>();
+    ArrayList<MyResult> results = new ArrayList<>();
     while (list.hasNext())
     {
       results.add(new MyResult((Mitglied) list.next()));

@@ -19,8 +19,8 @@ package de.jost_net.JVerein.keys;
 import java.util.ArrayList;
 
 /**
- * Schlüssel Einstellung.Arbeitsmodel
- * Diese Klasse hilft beim Einstellen wie mit Arbeitsstunden umgegangen werden soll
+ * Schlüssel Einstellung.Arbeitsmodel Diese Klasse hilft beim Einstellen wie mit
+ * Arbeitsstunden umgegangen werden soll
  */
 public class ArbeitsstundenModel
 {
@@ -61,7 +61,7 @@ public class ArbeitsstundenModel
 
   public static ArrayList<ArbeitsstundenModel> getArray()
   {
-    ArrayList<ArbeitsstundenModel> ret = new ArrayList<ArbeitsstundenModel>();
+    ArrayList<ArbeitsstundenModel> ret = new ArrayList<>();
     ret.add(new ArbeitsstundenModel(STANDARD));
     ret.add(new ArbeitsstundenModel(ERLAUBE_NEGATIV));
     return ret;

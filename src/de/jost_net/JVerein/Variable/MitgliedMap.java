@@ -65,7 +65,7 @@ public class MitgliedMap
 
     if (inma == null)
     {
-      map = new HashMap<String, Object>();
+      map = new HashMap<>();
     }
     else
     {
@@ -132,11 +132,15 @@ public class MitgliedMap
     map.put(MitgliedVar.ANREDE_DU.getName(), Adressaufbereitung.getAnredeDu(m));
     map.put(MitgliedVar.AUSTRITT.getName(), Datum.formatDate(m.getAustritt()));
     map.put(MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_BETRAG.getName(),
-        m.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(m.getBeitragsgruppe().getArbeitseinsatzBetrag()) : "");
+        m.getBeitragsgruppe() != null
+            ? Einstellungen.DECIMALFORMAT
+                .format(m.getBeitragsgruppe().getArbeitseinsatzBetrag())
+            : "");
     map.put(MitgliedVar.BEITRAGSGRUPPE_ARBEITSEINSATZ_STUNDEN.getName(),
-        m.getBeitragsgruppe() != null ? Einstellungen.DECIMALFORMAT
-            .format(m.getBeitragsgruppe().getArbeitseinsatzStunden()) : "");
+        m.getBeitragsgruppe() != null
+            ? Einstellungen.DECIMALFORMAT
+                .format(m.getBeitragsgruppe().getArbeitseinsatzStunden())
+            : "");
     try
     {
       map.put(MitgliedVar.BEITRAGSGRUPPE_BETRAG.getName(),
@@ -257,7 +261,7 @@ public class MitgliedMap
     }
     map.put(MitgliedVar.ZAHLUNGSWEGTEXT.getName(), zahlungsweg);
 
-    HashMap<String, String> format = new HashMap<String, String>();
+    HashMap<String, String> format = new HashMap<>();
     DBIterator<Felddefinition> itfd = Einstellungen.getDBService()
         .createList(Felddefinition.class);
     while (itfd.hasNext())

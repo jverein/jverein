@@ -68,7 +68,7 @@ public class Zahlungsrhythmus
 
   public static ArrayList<Zahlungsrhythmus> getArray()
   {
-    ArrayList<Zahlungsrhythmus> ret = new ArrayList<Zahlungsrhythmus>();
+    ArrayList<Zahlungsrhythmus> ret = new ArrayList<>();
     ret.add(new Zahlungsrhythmus(JAEHRLICH));
     ret.add(new Zahlungsrhythmus(HALBJAEHRLICH));
     ret.add(new Zahlungsrhythmus(VIERTELJAEHRLICH));

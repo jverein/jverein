@@ -120,19 +120,24 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
 
     /* Pr?fung des Projektes */
     Projekt projekt = getProjekt();
-    if ( projekt != null ) {
-        Date startDatum = projekt.getStartDatum();
-        Date endeDatum = projekt.getEndeDatum();
+    if (projekt != null)
+    {
+      Date startDatum = projekt.getStartDatum();
+      Date endeDatum = projekt.getEndeDatum();
 
-        if ( startDatum != null && !Einstellungen.NODATE.equals( startDatum ) && startDatum.after( getDatum() ) ) {
-            throw new ApplicationException(
-                    "Buchungsdatum liegt vor dem Projektbeginn!");
-        }
+      if (startDatum != null && !Einstellungen.NODATE.equals(startDatum)
+          && startDatum.after(getDatum()))
+      {
+        throw new ApplicationException(
+            "Buchungsdatum liegt vor dem Projektbeginn!");
+      }
 
-        if ( endeDatum != null && !Einstellungen.NODATE.equals( endeDatum ) && endeDatum.before( getDatum() ) ) {
-            throw new ApplicationException(
-                    "Buchungsdatum liegt nach dem Projektende!");
-        }
+      if (endeDatum != null && !Einstellungen.NODATE.equals(endeDatum)
+          && endeDatum.before(getDatum()))
+      {
+        throw new ApplicationException(
+            "Buchungsdatum liegt nach dem Projektende!");
+      }
     }
 
     if (!getSpeicherung() && getBuchungsart() == null)
@@ -450,7 +455,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     Map<String, Object> map = null;
     if (inma == null)
     {
-      map = new HashMap<String, Object>();
+      map = new HashMap<>();
     }
     else
     {
@@ -462,7 +467,8 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     }
     map.put(BuchungVar.ABRECHNUNGSLAUF.getName(),
         (this.getAbrechnungslauf() != null
-            ? this.getAbrechnungslauf().getDatum() : ""));
+            ? this.getAbrechnungslauf().getDatum()
+            : ""));
     map.put(BuchungVar.ART.getName(),
         StringTool.toNotNullString(this.getArt()));
     map.put(BuchungVar.AUSZUGSNUMMER.getName(), this.getAuszugsnummer());
@@ -517,8 +523,10 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
     map.put(BuchungVar.KONTONUMMER.getName(),
         this.getKonto() != null ? this.getKonto().getNummer() : "");
     map.put(BuchungVar.MITGLIEDSKONTO.getName(),
-        this.getMitgliedskonto() != null ? Adressaufbereitung
-            .getNameVorname(this.getMitgliedskonto().getMitglied()) : "");
+        this.getMitgliedskonto() != null
+            ? Adressaufbereitung
+                .getNameVorname(this.getMitgliedskonto().getMitglied())
+            : "");
     map.put(BuchungVar.NAME.getName(), this.getName());
     map.put(BuchungVar.ZWECK1.getName(),
         StringTool.toNotNullString(this.getZweck()));

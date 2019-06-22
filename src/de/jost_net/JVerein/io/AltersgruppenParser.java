@@ -35,23 +35,22 @@ public class AltersgruppenParser
     }
     // Schritt 1: Zerlegen in die einzelnen Gruppen
     StringTokenizer stt = new StringTokenizer(altersgruppe, ",");
-    ArrayList<String> gruppen = new ArrayList<String>();
+    ArrayList<String> gruppen = new ArrayList<>();
     while (stt.hasMoreElements())
     {
       String token = stt.nextToken().trim();
       gruppen.add(token);
     }
     // Schritt 2: Zerlegen der Gruppen in ihre einzelnen Elemente
-    elemente = new ArrayList<VonBis>();
+    elemente = new ArrayList<>();
     for (int i = 0; i < gruppen.size(); i++)
     {
       stt = new StringTokenizer(gruppen.get(i), "-");
       if (stt.countTokens() != 2)
       {
-        throw new RuntimeException(
-            String.format(
-                "Ungültige Altersgruppe: %s \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
-                gruppen.get(i)));
+        throw new RuntimeException(String.format(
+            "Ungültige Altersgruppe: %s \nDie Eingaben müssen folgendes Format haben: 1-6,7-13,14-22,23-50",
+            gruppen.get(i)));
       }
       try
       {
@@ -61,8 +60,8 @@ public class AltersgruppenParser
       }
       catch (NumberFormatException e)
       {
-        throw new RuntimeException("Fehler in den Altergruppen" + " "
-            + e.getMessage());
+        throw new RuntimeException(
+            "Fehler in den Altergruppen" + " " + e.getMessage());
       }
       iterator = elemente.iterator();
     }

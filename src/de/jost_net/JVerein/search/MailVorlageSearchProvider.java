@@ -54,7 +54,7 @@ public class MailVorlageSearchProvider implements SearchProvider
         .createList(MailVorlage.class);
     list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", text, text);
 
-    ArrayList<MyResult> results = new ArrayList<MyResult>();
+    ArrayList<MyResult> results = new ArrayList<>();
     while (list.hasNext())
     {
       results.add(new MyResult((MailVorlage) list.next()));

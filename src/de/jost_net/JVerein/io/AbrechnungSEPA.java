@@ -251,13 +251,13 @@ public class AbrechnungSEPA
           new Object[] { new java.sql.Date(param.stichtag.getTime()) });
       // Das Mitglied darf noch nicht ausgetreten sein
       list.addFilter("(austritt is null or austritt > ?)",
-	      new Object[] { new java.sql.Date(param.stichtag.getTime()) });
+          new Object[] { new java.sql.Date(param.stichtag.getTime()) });
       // Bei Abbuchungen im Laufe des Jahres werden nur die Mitglieder
       // berücksichtigt, die bis zu einem bestimmten Zeitpunkt ausgetreten sind.
       if (param.bisdatum != null)
       {
-	      list.addFilter("(austritt <= ?)",
-	          new Object[] { new java.sql.Date(param.bisdatum.getTime()) });
+        list.addFilter("(austritt <= ?)",
+            new Object[] { new java.sql.Date(param.bisdatum.getTime()) });
       }
       // Bei Abbuchungen im Laufe des Jahres werden nur die Mitglieder
       // berücksichtigt, die ab einem bestimmten Zeitpunkt eingetreten sind.
@@ -722,7 +722,8 @@ public class AbrechnungSEPA
     }
   }
 
-  private String getVerwendungszweck(AbrechnungSEPAParam param) throws RemoteException
+  private String getVerwendungszweck(AbrechnungSEPAParam param)
+      throws RemoteException
   {
     Map<String, Object> map = new AllgemeineMap().getMap(null);
     map = new AbrechnungsParameterMap().getMap(param, map);
@@ -791,8 +792,9 @@ public class AbrechnungSEPA
       buchung.setBetrag(betrag);
       buchung.setDatum(datum);
       buchung.setKonto(konto);
-      buchung.setName(mitglied != null
-          ? Adressaufbereitung.getNameVorname(mitglied) : "JVerein");
+      buchung.setName(
+          mitglied != null ? Adressaufbereitung.getNameVorname(mitglied)
+              : "JVerein");
       buchung.setZweck(zweck1);
       if (mk != null)
       {
@@ -960,7 +962,7 @@ class JVereinBasislastschrift
 
   public ArrayList<Zahler> getZahler()
   {
-    ArrayList<Zahler> ret = new ArrayList<Zahler>();
+    ArrayList<Zahler> ret = new ArrayList<>();
     for (Zahler z : lastschriftFRST.getZahler())
     {
       ret.add(z);

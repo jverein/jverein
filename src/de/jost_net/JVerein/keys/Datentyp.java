@@ -72,7 +72,7 @@ public class Datentyp
 
   public static ArrayList<Datentyp> getArray()
   {
-    ArrayList<Datentyp> ret = new ArrayList<Datentyp>();
+    ArrayList<Datentyp> ret = new ArrayList<>();
     ret.add(new Datentyp(ZEICHENFOLGE));
     ret.add(new Datentyp(DATUM));
     ret.add(new Datentyp(GANZZAHL));

@@ -64,7 +64,7 @@ public class WiedervorlageAppointmentProvider implements AppointmentProvider
           new Object[] { new java.sql.Date(to.getTime()) });
       list.setOrder("ORDER BY day(datum)");
 
-      List<Appointment> result = new LinkedList<Appointment>();
+      List<Appointment> result = new LinkedList<>();
       while (list.hasNext())
       {
         result.add(new MyAppointment(list.next()));

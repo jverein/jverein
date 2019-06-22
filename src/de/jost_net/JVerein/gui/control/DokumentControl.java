@@ -175,7 +175,7 @@ public class DokumentControl extends AbstractControl
       doc.setDatum((Date) dopa.getDatum().getValue());
       doc.store();
       // Zusätzliche Eigenschaft speichern
-      Map<String, String> map = new HashMap<String, String>();
+      Map<String, String> map = new HashMap<>();
       map.put("filename", file.getName());
       qm = new QueryMessage(uuid, map);
       Application.getMessagingFactory()

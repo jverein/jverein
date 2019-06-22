@@ -76,7 +76,7 @@ public class IntervallZusatzzahlung
 
   public static ArrayList<IntervallZusatzzahlung> getArray()
   {
-    ArrayList<IntervallZusatzzahlung> ret = new ArrayList<IntervallZusatzzahlung>();
+    ArrayList<IntervallZusatzzahlung> ret = new ArrayList<>();
     ret.add(new IntervallZusatzzahlung(KEIN));
     ret.add(new IntervallZusatzzahlung(MONATLICH));
     ret.add(new IntervallZusatzzahlung(ZWEIMONATLICH));

@@ -35,9 +35,9 @@ public class DBTool
   /**
    * Liste aller Tabellen
    */
-  private ArrayList<String> tabellen = new ArrayList<String>();
+  private ArrayList<String> tabellen = new ArrayList<>();
 
-  private ArrayList<String> ausgabe = new ArrayList<String>();
+  private ArrayList<String> ausgabe = new ArrayList<>();
 
   public DBTool()
   {

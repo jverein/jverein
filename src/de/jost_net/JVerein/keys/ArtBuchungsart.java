@@ -63,7 +63,7 @@ public class ArtBuchungsart
 
   public static ArrayList<ArtBuchungsart> getArray()
   {
-    ArrayList<ArtBuchungsart> ret = new ArrayList<ArtBuchungsart>();
+    ArrayList<ArtBuchungsart> ret = new ArrayList<>();
     ret.add(new ArtBuchungsart(EINNAHME));
     ret.add(new ArtBuchungsart(AUSGABE));
     ret.add(new ArtBuchungsart(UMBUCHUNG));

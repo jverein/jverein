@@ -53,7 +53,7 @@ public class MailSearchProvider implements SearchProvider
     DBIterator<Mail> list = Einstellungen.getDBService().createList(Mail.class);
     list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", text, text);
 
-    ArrayList<MyResult> results = new ArrayList<MyResult>();
+    ArrayList<MyResult> results = new ArrayList<>();
     while (list.hasNext())
     {
       results.add(new MyResult((Mail) list.next()));

@@ -70,7 +70,8 @@ public class Reporter
 
   public static Font getFreeSans(float size, BaseColor color)
   {
-    return FontFactory.getFont("/fonts/FreeSans.ttf", BaseFont.IDENTITY_H, size, Font.UNDEFINED, color);
+    return FontFactory.getFont("/fonts/FreeSans.ttf", BaseFont.IDENTITY_H, size,
+        Font.UNDEFINED, color);
   }
 
   public static Font getFreeSans(float size)
@@ -80,7 +81,8 @@ public class Reporter
 
   public static Font getFreeSansBold(float size, BaseColor color)
   {
-    return FontFactory.getFont("/fonts/FreeSansBold.ttf", BaseFont.IDENTITY_H, size, Font.UNDEFINED, color);
+    return FontFactory.getFont("/fonts/FreeSansBold.ttf", BaseFont.IDENTITY_H,
+        size, Font.UNDEFINED, color);
   }
 
   public static Font getFreeSansBold(float size)
@@ -102,13 +104,13 @@ public class Reporter
     rpt.setMargins(linkerRand, rechterRand, obererRand, untererRand);
     hyph = new HyphenationAuto("de", "DE", 2, 2);
     PdfWriter.getInstance(rpt, out);
-    AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
-        JVereinPlugin.class);
+    AbstractPlugin plugin = Application.getPluginLoader()
+        .getPlugin(JVereinPlugin.class);
     rpt.addAuthor(plugin.getManifest().getName() + " - Version "
         + plugin.getManifest().getVersion());
     rpt.open();
-    headers = new ArrayList<PdfPCell>();
-    widths = new ArrayList<Integer>();
+    headers = new ArrayList<>();
+    widths = new ArrayList<>();
   }
 
   public Reporter(OutputStream out, String title, String subtitle,
@@ -120,19 +122,14 @@ public class Reporter
     hyph = new HyphenationAuto("de", "DE", 2, 2);
     PdfWriter writer = PdfWriter.getInstance(rpt, out);
     rpt.setMargins(linkerRand, rechterRand, obererRand, untererRand);
-    AbstractPlugin plugin = Application.getPluginLoader().getPlugin(
-        JVereinPlugin.class);
+    AbstractPlugin plugin = Application.getPluginLoader()
+        .getPlugin(JVereinPlugin.class);
     rpt.addAuthor(plugin.getManifest().getName() + " - Version "
         + plugin.getManifest().getVersion());
     rpt.addTitle(subtitle);
 
-    String fuss = title
-        + " | "
-        + subtitle
-        + " | "
-        + "erstellt am "+
-            new JVDateFormatTTMMJJJJ().format(new Date()) + "     "
-        + "Seite: ";
+    String fuss = title + " | " + subtitle + " | " + "erstellt am "
+        + new JVDateFormatTTMMJJJJ().format(new Date()) + "     " + "Seite: ";
     HeaderFooter hf = new HeaderFooter();
     hf.setFooter(fuss);
     writer.setPageEvent(hf);
@@ -149,8 +146,8 @@ public class Reporter
       psubTitle.setAlignment(Element.ALIGN_CENTER);
       rpt.add(psubTitle);
     }
-    headers = new ArrayList<PdfPCell>();
-    widths = new ArrayList<Integer>();
+    headers = new ArrayList<>();
+    widths = new ArrayList<>();
   }
 
   /**
@@ -179,7 +176,8 @@ public class Reporter
    * @param width
    * @param color
    */
-  public void addHeaderColumn(String text, int align, int width, BaseColor color)
+  public void addHeaderColumn(String text, int align, int width,
+      BaseColor color)
   {
     headers.add(getDetailCell(text, align, color, true));
     widths.add(Integer.valueOf(width));
@@ -211,8 +209,8 @@ public class Reporter
   }
 
   public void addColumn(byte[] image, int width, int height,
-      int horizontalalignment) throws BadElementException,
-      MalformedURLException, IOException
+      int horizontalalignment)
+      throws BadElementException, MalformedURLException, IOException
   {
     Image i = Image.getInstance(image);
     float w = i.getWidth() / width;
@@ -379,8 +377,8 @@ public class Reporter
     }
     rpt.add(table);
     table = null;
-    headers = new ArrayList<PdfPCell>();
-    widths = new ArrayList<Integer>();
+    headers = new ArrayList<>();
+    widths = new ArrayList<>();
   }
 
   /**
@@ -393,8 +391,7 @@ public class Reporter
   {
     try
     {
-      GUI.getStatusBar().setSuccessText(
-          "PDF-Export beendet");
+      GUI.getStatusBar().setSuccessText("PDF-Export beendet");
       if (table != null)
       {
         rpt.add(table);
@@ -426,13 +423,12 @@ public class Reporter
     PdfPCell cell = null;
     if (silbentrennung)
     {
-      cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
-          getFreeSans(8)).setHyphenation(hyph)));
+      cell = new PdfPCell(new Phrase(
+          new Chunk(notNull(text), getFreeSans(8)).setHyphenation(hyph)));
     }
     else
     {
-      cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
-          getFreeSans(8))));
+      cell = new PdfPCell(new Phrase(new Chunk(notNull(text), getFreeSans(8))));
     }
     cell.setHorizontalAlignment(align);
     cell.setBackgroundColor(backgroundcolor);
@@ -442,8 +438,8 @@ public class Reporter
   private PdfPCell getDetailCell(String text, int align,
       BaseColor backgroundcolor, int colspan)
   {
-    PdfPCell cell = new PdfPCell(new Phrase(new Chunk(notNull(text),
-        getFreeSans(8)).setHyphenation(hyph)));
+    PdfPCell cell = new PdfPCell(new Phrase(
+        new Chunk(notNull(text), getFreeSans(8)).setHyphenation(hyph)));
     cell.setHorizontalAlignment(align);
     cell.setBackgroundColor(backgroundcolor);
     cell.setColspan(colspan);
@@ -482,8 +478,8 @@ public class Reporter
     {
       f = getFreeSans(8, BaseColor.RED);
     }
-    PdfPCell cell = new PdfPCell(new Phrase(
-        Einstellungen.DECIMALFORMAT.format(value), f));
+    PdfPCell cell = new PdfPCell(
+        new Phrase(Einstellungen.DECIMALFORMAT.format(value), f));
     cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
     return cell;
   }

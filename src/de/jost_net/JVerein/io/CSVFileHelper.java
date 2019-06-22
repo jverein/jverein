@@ -102,8 +102,8 @@ public class CSVFileHelper
       /* not ending header */
       if (!headerComplete)
       {
-        monitor
-            .setStatusText("Keine Daten oder keine Kopfzeile oder Encoding falsch. Siehe http://http://www.jverein.de/administration_import.php");
+        monitor.setStatusText(
+            "Keine Daten oder keine Kopfzeile oder Encoding falsch. Siehe http://http://www.jverein.de/administration_import.php");
         valid = false;
       }
 
@@ -207,7 +207,7 @@ public class CSVFileHelper
   private List<String> parseHeader(final String headerString)
   {
 
-    List<String> header = new LinkedList<String>();
+    List<String> header = new LinkedList<>();
     for (String column : headerString.split(SEPARATOR + ""))
     {
       if (column.trim().equalsIgnoreCase(""))
@@ -232,12 +232,12 @@ public class CSVFileHelper
   public List<String> replaceDuplicates(final List<String> columns)
   {
 
-    List<String> returnList = new LinkedList<String>(columns);
+    List<String> returnList = new LinkedList<>(columns);
 
     for (int i = 0; i < returnList.size(); i++)
     {
       /* find all duplicate columns and collect the indicies .. */
-      Set<Integer> equalColIndexes = new HashSet<Integer>();
+      Set<Integer> equalColIndexes = new HashSet<>();
       equalColIndexes.add(i);
       for (int j = i + 1; j < returnList.size(); j++)
       {

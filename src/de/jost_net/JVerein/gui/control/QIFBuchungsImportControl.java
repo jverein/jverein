@@ -322,7 +322,7 @@ public class QIFBuchungsImportControl extends AbstractControl
 
   private GenericIterator getIterator() throws RemoteException
   {
-    ArrayList<QIFImportPos> zeile = new ArrayList<QIFImportPos>();
+    ArrayList<QIFImportPos> zeile = new ArrayList<>();
 
     GenericIterator gi = PseudoIterator
         .fromArray(zeile.toArray(new GenericObject[zeile.size()]));
@@ -591,7 +591,7 @@ public class QIFBuchungsImportControl extends AbstractControl
 
     private int saldoJahr;
 
-    private ArrayList<SaldoJahr> jahresListe = new ArrayList<SaldoJahr>();
+    private ArrayList<SaldoJahr> jahresListe = new ArrayList<>();
 
     private Calendar calenderItem = Calendar.getInstance();
 
@@ -840,7 +840,7 @@ public class QIFBuchungsImportControl extends AbstractControl
       buchungen = 0;
       datumStart = null;
       datumEnde = null;
-      importHeadList = new ArrayList<QIFImportHead>();
+      importHeadList = new ArrayList<>();
     }
 
     private void pruefenDaten() throws RemoteException, ApplicationException

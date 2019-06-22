@@ -35,7 +35,7 @@ public class EigenschaftenTool
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
-        ArrayList<String> ei = new ArrayList<String>();
+        ArrayList<String> ei = new ArrayList<>();
         while (rs.next())
         {
           ei.add(rs.getString(1));

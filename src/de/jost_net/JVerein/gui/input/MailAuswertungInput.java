@@ -49,11 +49,12 @@ public class MailAuswertungInput extends SelectInput
    */
   private static GenericIterator init() throws RemoteException
   {
-    ArrayList<MailAuswertungObject> l = new ArrayList<MailAuswertungObject>();
+    ArrayList<MailAuswertungObject> l = new ArrayList<>();
     l.add(new MailAuswertungObject(MailAuswertungInput.ALLE));
     l.add(new MailAuswertungObject(MailAuswertungInput.OHNE));
     l.add(new MailAuswertungObject(MailAuswertungInput.MIT));
-    return PseudoIterator.fromArray(l.toArray(new MailAuswertungObject[l.size()]));
+    return PseudoIterator
+        .fromArray(l.toArray(new MailAuswertungObject[l.size()]));
   }
 
   /**
@@ -115,7 +116,7 @@ public class MailAuswertungInput extends SelectInput
     @Override
     public String[] getAttributeNames()
     {
-      return new String[] { "name"};
+      return new String[] { "name" };
     }
 
     @Override

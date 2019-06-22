@@ -28,7 +28,7 @@ public class EigenschaftenAuswahlParameter
 
   public EigenschaftenAuswahlParameter()
   {
-    eigenschaften = new ArrayList<EigenschaftenNode>();
+    eigenschaften = new ArrayList<>();
   }
 
   public void add(EigenschaftenNode node)

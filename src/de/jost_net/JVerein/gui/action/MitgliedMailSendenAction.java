@@ -46,8 +46,8 @@ public class MitgliedMailSendenAction implements Action
       if (context != null
           && (context instanceof Mitglied || context instanceof Mitglied[]))
       {
-        ArrayList<Mitglied> mitgl = new ArrayList<Mitglied>();
-        TreeSet<MailEmpfaenger> empf = new TreeSet<MailEmpfaenger>();
+        ArrayList<Mitglied> mitgl = new ArrayList<>();
+        TreeSet<MailEmpfaenger> empf = new TreeSet<>();
         if (context instanceof Mitglied)
         {
           mitgl.add((Mitglied) context);
@@ -70,8 +70,8 @@ public class MitgliedMailSendenAction implements Action
             {
               mitgliederohnemail.append(", ");
             }
-            mitgliederohnemail.append(Adressaufbereitung
-                .getNameVorname(mitglied));
+            mitgliederohnemail
+                .append(Adressaufbereitung.getNameVorname(mitglied));
           }
           else
           {
@@ -103,8 +103,8 @@ public class MitgliedMailSendenAction implements Action
         MailVorlagenAuswahlDialog mvad = new MailVorlagenAuswahlDialog(
             new MailVorlageControl(null),
             MailVorlagenAuswahlDialog.POSITION_CENTER);
-        Mail mail = (Mail) Einstellungen.getDBService().createObject(
-            Mail.class, null);
+        Mail mail = (Mail) Einstellungen.getDBService().createObject(Mail.class,
+            null);
         try
         {
           MailVorlage mv = mvad.open();

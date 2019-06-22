@@ -665,7 +665,7 @@ public class MitgliedskontoControl extends AbstractControl
     if (suchname2 != null && suchname2.getValue() != null)
     {
       StringBuffer where = new StringBuffer();
-      ArrayList<String> object = new ArrayList<String>();
+      ArrayList<String> object = new ArrayList<>();
       StringTokenizer tok = new StringTokenizer((String) suchname2.getValue(),
           " ,-");
       where.append("(");
@@ -734,7 +734,7 @@ public class MitgliedskontoControl extends AbstractControl
     String sql = "select  mitgliedskonto.*, mitglied.name, mitglied.vorname from mitgliedskonto "
         + "join mitglied on (mitgliedskonto.mitglied = mitglied.id) ";
     String where = "";
-    ArrayList<Object> param = new ArrayList<Object>();
+    ArrayList<Object> param = new ArrayList<>();
     if (vd != null)
     {
       where += (where.length() > 0 ? "and " : "")
@@ -760,7 +760,7 @@ public class MitgliedskontoControl extends AbstractControl
           public Object extract(ResultSet rs)
               throws RemoteException, SQLException
           {
-            ArrayList<Mitgliedskonto> ergebnis = new ArrayList<Mitgliedskonto>();
+            ArrayList<Mitgliedskonto> ergebnis = new ArrayList<>();
 
             // In case the text search input is used, we calculate
             // an "equality" score for each Mitgliedskonto (aka

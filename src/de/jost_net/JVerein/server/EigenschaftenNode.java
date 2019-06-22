@@ -58,7 +58,7 @@ public class EigenschaftenNode implements GenericObjectNode
 
   private int nodetype = NONE;
 
-  private ArrayList<String> eigenschaftids = new ArrayList<String>();
+  private ArrayList<String> eigenschaftids = new ArrayList<>();
 
   public EigenschaftenNode(Mitglied mitglied) throws RemoteException
   {
@@ -80,7 +80,7 @@ public class EigenschaftenNode implements GenericObjectNode
     {
       eigenschaftids.add(stt.nextToken());
     }
-    childrens = new ArrayList<GenericObjectNode>();
+    childrens = new ArrayList<>();
     nodetype = ROOT;
     DBIterator<EigenschaftGruppe> it = Einstellungen.getDBService()
         .createList(EigenschaftGruppe.class);
@@ -103,7 +103,7 @@ public class EigenschaftenNode implements GenericObjectNode
   {
     this.parent = parent;
     this.mitglied = mitglied;
-    childrens = new ArrayList<GenericObjectNode>();
+    childrens = new ArrayList<>();
     this.eigenschaftgruppe = eg;
     nodetype = EIGENSCHAFTGRUPPE;
     DBIterator<Eigenschaft> it = Einstellungen.getDBService()

@@ -57,7 +57,7 @@ public class BuchungSearchProvider implements SearchProvider
             + "LOWER(zweck) LIKE ? OR LOWER(kommentar) LIKE ?",
         text, text, text, text);
 
-    ArrayList<MyResult> results = new ArrayList<MyResult>();
+    ArrayList<MyResult> results = new ArrayList<>();
     while (list.hasNext())
     {
       results.add(new MyResult((Buchung) list.next()));

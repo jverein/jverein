@@ -345,7 +345,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     it.setOrder("ORDER BY " + QIFImportPos.COL_QIF_BUCHART + ","
         + QIFImportPos.COL_POSID);
 
-    List<QIFImportPos> l = new ArrayList<QIFImportPos>();
+    List<QIFImportPos> l = new ArrayList<>();
 
     String letzteBuchart = "";
     while (it.hasNext())

@@ -48,12 +48,12 @@ public class IORegistry
    * Sucht im Classpath nach allen Importern/Exportern.
    * 
    * @param type
-   *        zu ladender Typ.
+   *          zu ladender Typ.
    * @return Liste der gefundenen Importer/Exporter.
    */
   private static synchronized ArrayList<IO> load(Class<?> type)
   {
-    ArrayList<IO> l = new ArrayList<IO>();
+    ArrayList<IO> l = new ArrayList<>();
     try
     {
       ClassFinder finder = Application.getClassLoader().getClassFinder();

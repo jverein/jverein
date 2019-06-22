@@ -39,19 +39,19 @@ public class MitgliedskontoMap
     Map<String, Object> map = null;
     if (inma == null)
     {
-      map = new HashMap<String, Object>();
+      map = new HashMap<>();
     }
     else
     {
       map = inma;
     }
 
-    ArrayList<Date> buda = new ArrayList<Date>();
-    ArrayList<String> zg = new ArrayList<String>();
-    ArrayList<String> zg1 = new ArrayList<String>();
-    ArrayList<Double> betrag = new ArrayList<Double>();
-    ArrayList<Double> ist = new ArrayList<Double>();
-    ArrayList<Double> differenz = new ArrayList<Double>();
+    ArrayList<Date> buda = new ArrayList<>();
+    ArrayList<String> zg = new ArrayList<>();
+    ArrayList<String> zg1 = new ArrayList<>();
+    ArrayList<Double> betrag = new ArrayList<>();
+    ArrayList<Double> ist = new ArrayList<>();
+    ArrayList<Double> differenz = new ArrayList<>();
     double summe = 0;
     double saldo = 0;
     double suist = 0;
@@ -96,7 +96,7 @@ public class MitgliedskontoMap
     Map<String, Object> map = null;
     if (inma == null)
     {
-      map = new HashMap<String, Object>();
+      map = new HashMap<>();
     }
     else
     {

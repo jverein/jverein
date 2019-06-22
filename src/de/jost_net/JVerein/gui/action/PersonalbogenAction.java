@@ -238,7 +238,8 @@ public class PersonalbogenAction implements Action
     {
       rpt.addColumn("Ext. Mitgliedsnummer", Element.ALIGN_LEFT);
       rpt.addColumn(m.getExterneMitgliedsnummer() != null
-          ? m.getExterneMitgliedsnummer() + "" : "", Element.ALIGN_LEFT);
+          ? m.getExterneMitgliedsnummer() + ""
+          : "", Element.ALIGN_LEFT);
     }
     else
     {
@@ -604,7 +605,7 @@ public class PersonalbogenAction implements Action
       @Override
       public Object extract(ResultSet rs) throws SQLException
       {
-        List<String> ids = new ArrayList<String>();
+        List<String> ids = new ArrayList<>();
         while (rs.next())
         {
           ids.add(rs.getString(1));

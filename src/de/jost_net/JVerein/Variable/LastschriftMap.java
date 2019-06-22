@@ -36,7 +36,7 @@ public class LastschriftMap
     Map<String, Object> map = null;
     if (inma == null)
     {
-      map = new HashMap<String, Object>();
+      map = new HashMap<>();
     }
     else
     {
@@ -45,8 +45,8 @@ public class LastschriftMap
     Abrechnungslauf abrl = null;
     if (ls.getID() == null)
     {
-      abrl = (Abrechnungslauf) Einstellungen.getDBService().createObject(
-          Abrechnungslauf.class, null);
+      abrl = (Abrechnungslauf) Einstellungen.getDBService()
+          .createObject(Abrechnungslauf.class, null);
       abrl.setDatum(new Date());
       abrl.setFaelligkeit(new Date());
       abrl.setID("123");
@@ -111,7 +111,8 @@ public class LastschriftMap
     map.put(LastschriftVar.IBAN.getName(), ls.getIBAN());
     map.put(LastschriftVar.IBANMASKIERT.getName(),
         VarTools.maskieren(ls.getIBAN()));
-    map.put(LastschriftVar.VERWENDUNGSZWECK.getName(), ls.getVerwendungszweck());
+    map.put(LastschriftVar.VERWENDUNGSZWECK.getName(),
+        ls.getVerwendungszweck());
     map.put(LastschriftVar.BETRAG.getName(), ls.getBetrag());
     map.put(LastschriftVar.EMPFAENGER.getName(),
         Adressaufbereitung.getAdressfeld(ls));

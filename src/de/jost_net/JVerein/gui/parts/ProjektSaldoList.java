@@ -109,7 +109,7 @@ public class ProjektSaldoList extends TablePart implements Part
 
   public ArrayList<ProjektSaldoZeile> getInfo() throws RemoteException
   {
-    ArrayList<ProjektSaldoZeile> zeile = new ArrayList<ProjektSaldoZeile>();
+    ArrayList<ProjektSaldoZeile> zeile = new ArrayList<>();
     Projekt projekt = null;
     Buchungsart buchungsart = null;
     Double einnahmen;

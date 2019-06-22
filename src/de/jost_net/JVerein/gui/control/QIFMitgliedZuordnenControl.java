@@ -366,7 +366,7 @@ public class QIFMitgliedZuordnenControl extends AbstractControl
     it.addFilter(QIFImportPos.COL_SPERRE + " = ? ", QIFImportPos.SPERRE_NEIN);
     it.setOrder("ORDER BY " + QIFImportPos.COL_NAME);
 
-    List<QIFImportPos> l = new ArrayList<QIFImportPos>();
+    List<QIFImportPos> l = new ArrayList<>();
 
     String letzterName = "";
     while (it.hasNext())

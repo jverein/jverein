@@ -35,7 +35,7 @@ public class SplitbuchungsContainer
   public static void init(Buchung b)
       throws RemoteException, ApplicationException
   {
-    splitbuchungen = new ArrayList<Buchung>();
+    splitbuchungen = new ArrayList<>();
     // Wenn eine gesplittete Buchung aufgerufen wird, wird die Hauptbuchung
     // gelesen
     if (b.getSplitId() != null)

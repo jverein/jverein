@@ -71,7 +71,7 @@ public class BuchungsartSort
 
   public static ArrayList<BuchungsartSort> getArray()
   {
-    ArrayList<BuchungsartSort> ret = new ArrayList<BuchungsartSort>();
+    ArrayList<BuchungsartSort> ret = new ArrayList<>();
     ret.add(new BuchungsartSort(NACH_BEZEICHNUNG));
     ret.add(new BuchungsartSort(NACH_NUMMER));
     ret.add(new BuchungsartSort(NACH_BEZEICHNUNG_NR));

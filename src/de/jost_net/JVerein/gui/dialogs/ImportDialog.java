@@ -283,7 +283,7 @@ public class ImportDialog extends AbstractDialog<Object>
     Importer[] importers = IORegistry.getImporters();
 
     int size = 0;
-    ArrayList<Imp> l = new ArrayList<Imp>();
+    ArrayList<Imp> l = new ArrayList<>();
     String lastFormat = settings.getString("lastformat", null);
     Imp selected = null;
 

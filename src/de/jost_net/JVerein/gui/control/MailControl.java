@@ -115,7 +115,7 @@ public class MailControl extends AbstractControl
       it.join("mitglied");
       it.addFilter("mail = ?", new Object[] { getMail().getID() });
       it.setOrder("order by mitglied.name, mitglied.vorname");
-      TreeSet<MailEmpfaenger> empf = new TreeSet<MailEmpfaenger>();
+      TreeSet<MailEmpfaenger> empf = new TreeSet<>();
       while (it.hasNext())
       {
         MailEmpfaenger me = it.next();
@@ -128,7 +128,7 @@ public class MailControl extends AbstractControl
       getMail().setEmpfaenger(new TreeSet<MailEmpfaenger>());
     }
     // Umwandeln in ArrayList
-    ArrayList<MailEmpfaenger> empf2 = new ArrayList<MailEmpfaenger>();
+    ArrayList<MailEmpfaenger> empf2 = new ArrayList<>();
     for (MailEmpfaenger me : getMail().getEmpfaenger())
     {
       empf2.add(me);
@@ -227,7 +227,7 @@ public class MailControl extends AbstractControl
       DBIterator<MailAnhang> it = Einstellungen.getDBService()
           .createList(MailAnhang.class);
       it.addFilter("mail = ?", new Object[] { getMail().getID() });
-      TreeSet<MailAnhang> anh = new TreeSet<MailAnhang>();
+      TreeSet<MailAnhang> anh = new TreeSet<>();
       while (it.hasNext())
       {
         MailAnhang an = it.next();
@@ -240,7 +240,7 @@ public class MailControl extends AbstractControl
       getMail().setAnhang(new TreeSet<MailAnhang>());
     }
     // Umwandeln in ArrayList
-    ArrayList<MailAnhang> anhang2 = new ArrayList<MailAnhang>();
+    ArrayList<MailAnhang> anhang2 = new ArrayList<>();
     for (MailAnhang ma : getMail().getAnhang())
     {
       anhang2.add(ma);

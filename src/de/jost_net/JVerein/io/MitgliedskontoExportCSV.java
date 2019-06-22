@@ -77,7 +77,7 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
   @Override
   protected void open()
   {
-    mkonten = new ArrayList<Mitgliedskonto>();
+    mkonten = new ArrayList<>();
   }
 
   @Override
@@ -115,10 +115,10 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
       }
       else
       {
-        mk = (Mitgliedskonto) Einstellungen.getDBService().createObject(
-            Mitgliedskonto.class, null);
-        m = (Mitglied) Einstellungen.getDBService().createObject(
-            Mitglied.class, null);
+        mk = (Mitgliedskonto) Einstellungen.getDBService()
+            .createObject(Mitgliedskonto.class, null);
+        m = (Mitglied) Einstellungen.getDBService().createObject(Mitglied.class,
+            null);
       }
 
       Map<String, Object> map = new MitgliedMap().getMap(m, null);
@@ -139,8 +139,8 @@ public class MitgliedskontoExportCSV extends MitgliedskontoExport
             null);
         map = new MitgliedskontoMap().getMap(mkto, mp);
         writer.write(map, header, processors);
-        monitor.log("Export: "
-            + Adressaufbereitung.getNameVorname(mkto.getMitglied()));
+        monitor.log(
+            "Export: " + Adressaufbereitung.getNameVorname(mkto.getMitglied()));
       }
       writer.close();
     }

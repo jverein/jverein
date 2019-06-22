@@ -34,8 +34,8 @@ import de.willuhn.logging.Logger;
 /**
  * Dialog, zur Auswahl von Eigenschaften eines Mitglied.
  */
-public class EigenschaftenAuswahlDialog extends
-    AbstractDialog<EigenschaftenAuswahlParameter>
+public class EigenschaftenAuswahlDialog
+    extends AbstractDialog<EigenschaftenAuswahlParameter>
 {
 
   private MitgliedControl control;
@@ -110,7 +110,8 @@ public class EigenschaftenAuswahlDialog extends
           }
           if (verknuepfung)
           {
-            param.setVerknuepfung((String) eigenschaftenverknuepfung.getValue());
+            param
+                .setVerknuepfung((String) eigenschaftenverknuepfung.getValue());
           }
         }
         catch (RemoteException e)
@@ -136,7 +137,7 @@ public class EigenschaftenAuswahlDialog extends
     {
       return eigenschaftenverknuepfung;
     }
-    ArrayList<String> werte = new ArrayList<String>();
+    ArrayList<String> werte = new ArrayList<>();
     werte.add("und");
     werte.add("oder");
     eigenschaftenverknuepfung = new SelectInput(werte,

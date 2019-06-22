@@ -404,7 +404,7 @@ public class ImportView extends AbstractView
 
         try
         {
-          HashMap<String, String> colMap = new HashMap<String, String>();
+          HashMap<String, String> colMap = new HashMap<>();
           colMap.putAll(columns.getNecessaryColumns());
           colMap.putAll(columns.getOptionalColumns());
 
@@ -488,7 +488,7 @@ public class ImportView extends AbstractView
   private java.util.List<String> getEigenschaftFields(
       final java.util.List<String> columns)
   {
-    LinkedList<String> eigenschaftCol = new LinkedList<String>();
+    LinkedList<String> eigenschaftCol = new LinkedList<>();
 
     for (String column : columns)
     {

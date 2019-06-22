@@ -50,7 +50,7 @@ public class MitgliedVCardQRCodeAction implements Action
     {
       if (context != null && context instanceof Mitglied)
       {
-        ArrayList<Mitglied> mitgl = new ArrayList<Mitglied>();
+        ArrayList<Mitglied> mitgl = new ArrayList<>();
         mitgl.add((Mitglied) context);
         try
         {
@@ -60,9 +60,9 @@ public class MitgliedVCardQRCodeAction implements Action
           @SuppressWarnings("rawtypes")
           Map hintMap = new HashMap();
           hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-          BitMatrix matrix = new MultiFormatWriter().encode(new String(
-              qrCodeData.getBytes(charset), charset), BarcodeFormat.QR_CODE,
-              300, 300, hintMap);
+          BitMatrix matrix = new MultiFormatWriter().encode(
+              new String(qrCodeData.getBytes(charset), charset),
+              BarcodeFormat.QR_CODE, 300, 300, hintMap);
           BufferedImage bi = MatrixToImageWriter.toBufferedImage(matrix);
 
           QRCodeImageDialog dia = new QRCodeImageDialog(

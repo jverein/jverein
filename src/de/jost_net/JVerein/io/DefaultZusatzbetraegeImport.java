@@ -146,7 +146,7 @@ public class DefaultZusatzbetraegeImport implements Importer
         throw new ApplicationException("Fehler in Spaltenüberschriften");
       }
 
-      List<Zusatzbetrag> zusatzbetraegeList = new ArrayList<Zusatzbetrag>();
+      List<Zusatzbetrag> zusatzbetraegeList = new ArrayList<>();
       if (fehlerInUeberschrift == false)
       {
         monitor.setStatusText(

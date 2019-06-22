@@ -280,7 +280,7 @@ public class JVereinUpdateProvider
       String[] sqls = statements.get(driver);
       for (String sql : sqls)
       {
-        Map<String, String> stmt = new HashMap<String, String>();
+        Map<String, String> stmt = new HashMap<>();
         stmt.put(driver, sql);
         execute(conn, stmt, version);
       }
@@ -311,7 +311,7 @@ public class JVereinUpdateProvider
 
   private void install(Connection conn) throws ApplicationException
   {
-    Map<String, String> statements = new HashMap<String, String>();
+    Map<String, String> statements = new HashMap<>();
     // Update fuer H2
     sb = new StringBuilder();
     sb.append("CREATE TABLE mitglied (");

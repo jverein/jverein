@@ -56,8 +56,7 @@ public class BuchungsklassesaldoCSV
   }
 
   public BuchungsklassesaldoCSV(ArrayList<BuchungsklasseSaldoZeile> zeile,
-      final File file, Date datumvon, Date datumbis)
-      throws ApplicationException
+      final File file, Date datumvon, Date datumbis) throws ApplicationException
   {
     ICsvMapWriter writer = null;
     try
@@ -65,7 +64,7 @@ public class BuchungsklassesaldoCSV
       writer = new CsvMapWriter(new FileWriter(file),
           CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
       final CellProcessor[] processors = getProcessors();
-      Map<String, Object> csvzeile = new HashMap<String, Object>();
+      Map<String, Object> csvzeile = new HashMap<>();
 
       String[] header = { "Buchungsart", "Einnahmen", "Ausgaben", "Umbuchung" };
       writer.writeHeader(header);
@@ -77,7 +76,7 @@ public class BuchungsklassesaldoCSV
 
       for (BuchungsklasseSaldoZeile bkz : zeile)
       {
-        csvzeile = new HashMap<String, Object>();
+        csvzeile = new HashMap<>();
         switch (bkz.getStatus())
         {
           case BuchungsklasseSaldoZeile.HEADER:

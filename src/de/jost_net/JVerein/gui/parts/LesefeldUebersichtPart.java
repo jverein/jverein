@@ -84,7 +84,7 @@ public class LesefeldUebersichtPart implements Part
     it.setOrder("order by name, vorname");
     // optional könnten Filter eingebaut werden:
     // it.addFilter("plz='" + (String) plz.getValue() + "'");
-    ArrayList<Mitglied> mitgliederList = new ArrayList<Mitglied>();
+    ArrayList<Mitglied> mitgliederList = new ArrayList<>();
     while (it.hasNext())
     {
       mitgliederList.add(it.next());

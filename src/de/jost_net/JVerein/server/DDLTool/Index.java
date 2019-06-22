@@ -14,7 +14,7 @@ public class Index
   {
     this.name = name;
     this.unique = unique;
-    this.columns = new ArrayList<Column>();
+    this.columns = new ArrayList<>();
   }
 
   public void add(Column column)

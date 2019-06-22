@@ -58,7 +58,7 @@ public class MyItem implements NavigationItem
     this.action = action;
     this.navitext = navitext;
     this.icon = icon;
-    children = new ArrayList<Item>();
+    children = new ArrayList<>();
   }
 
   /**

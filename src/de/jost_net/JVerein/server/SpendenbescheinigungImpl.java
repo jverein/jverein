@@ -444,7 +444,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject
       double betrag = 0.0;
       if (buchungen == null)
       {
-        buchungen = new ArrayList<Buchung>();
+        buchungen = new ArrayList<>();
       }
       buchungen.add(buchung);
       for (Buchung b : buchungen)
@@ -502,7 +502,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject
   {
     if (getSpendenart() == Spendenart.GELDSPENDE && buchungen == null)
     {
-      buchungen = new ArrayList<Buchung>();
+      buchungen = new ArrayList<>();
       DBIterator<Buchung> it = Einstellungen.getDBService()
           .createList(Buchung.class);
       it.addFilter("spendenbescheinigung = ?", getID());
@@ -556,7 +556,7 @@ public class SpendenbescheinigungImpl extends AbstractDBObject
     final String newLineStr = "\n";
     if (inma == null)
     {
-      map = new HashMap<String, Object>();
+      map = new HashMap<>();
     }
     else
     {

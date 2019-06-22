@@ -51,7 +51,7 @@ public class MitgliedVCardDateiAction implements Action
       if (context != null
           && (context instanceof Mitglied || context instanceof Mitglied[]))
       {
-        ArrayList<Mitglied> mitgl = new ArrayList<Mitglied>();
+        ArrayList<Mitglied> mitgl = new ArrayList<>();
         if (context instanceof Mitglied)
         {
           mitgl.add((Mitglied) context);

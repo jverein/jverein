@@ -22,7 +22,8 @@ public class SimpleVerticalContainer extends Container
   private static class GUIElementBuffer
   {
 
-    private enum GUIElementTypes {
+    private enum GUIElementTypes
+    {
       BUTTONAREA, CHECKBOX, HEADLINE, INPUT, LABELPAIRINPUT, LABELPAIRSTRING, PART, RADIOINPUT, SEPARATOR, TEXT, TEXTCOLOR
     }
 
@@ -32,7 +33,7 @@ public class SimpleVerticalContainer extends Container
 
     public GUIElementBuffer(GUIElementTypes type)
     {
-      arguments = new ArrayList<Object>();
+      arguments = new ArrayList<>();
       guiElementType = type;
     }
   }
@@ -57,13 +58,13 @@ public class SimpleVerticalContainer extends Container
    * arrangeVertically() die Elemente gezeichnet.
    * 
    * @param parent
-   *        Das Composite, in dem die Group gemalt werden soll.
+   *          Das Composite, in dem die Group gemalt werden soll.
    * @param fullSize
-   *        true, wenn es voelle Hoehe haben soll. Sollte normalerweise false
-   *        sein, da ansonsten kein Platz gespart werden kann, was jedoch die
-   *        Idee vom SimpleVerticalContainer ist.
+   *          true, wenn es voelle Hoehe haben soll. Sollte normalerweise false
+   *          sein, da ansonsten kein Platz gespart werden kann, was jedoch die
+   *          Idee vom SimpleVerticalContainer ist.
    * @param cols
-   *        Anzahl der Spalten.
+   *          Anzahl der Spalten.
    */
   public SimpleVerticalContainer(Composite parent, boolean fullSize, int cols)
   {
@@ -78,16 +79,16 @@ public class SimpleVerticalContainer extends Container
    * arrangeVertically() die Elemente gezeichnet.
    * 
    * @param parent
-   *        Das Composite, in dem die Group gemalt werden soll.
+   *          Das Composite, in dem die Group gemalt werden soll.
    * @param fullSize
-   *        true, wenn es voelle Hoehe haben soll. Sollte normalerweise false
-   *        sein, da ansonsten kein Platz gespart werden kann, was jedoch die
-   *        Idee vom SimpleVerticalContainer ist.
+   *          true, wenn es voelle Hoehe haben soll. Sollte normalerweise false
+   *          sein, da ansonsten kein Platz gespart werden kann, was jedoch die
+   *          Idee vom SimpleVerticalContainer ist.
    * @param cols
-   *        Anzahl der Spalten.
+   *          Anzahl der Spalten.
    * @param headlineFullWidth
-   *        true, wenn die Headline über alle Spalten gezeichnet werden soll.
-   *        Wenn false, wird die Headline innerhalb der Spalten gezeichnet.
+   *          true, wenn die Headline über alle Spalten gezeichnet werden soll.
+   *          Wenn false, wird die Headline innerhalb der Spalten gezeichnet.
    */
   public SimpleVerticalContainer(Composite parent, boolean fullSize, int cols,
       boolean headlineFullWidth)
@@ -97,7 +98,7 @@ public class SimpleVerticalContainer extends Container
     this.columns = cols;
     this.comp = parent;
     this.headlineFullWidth = headlineFullWidth;
-    this.GUIElements = new ArrayList<SimpleVerticalContainer.GUIElementBuffer>();
+    this.GUIElements = new ArrayList<>();
   }
 
   /**

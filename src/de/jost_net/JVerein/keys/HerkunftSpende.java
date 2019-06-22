@@ -64,7 +64,7 @@ public class HerkunftSpende
 
   public static ArrayList<HerkunftSpende> getArray()
   {
-    ArrayList<HerkunftSpende> ret = new ArrayList<HerkunftSpende>();
+    ArrayList<HerkunftSpende> ret = new ArrayList<>();
     ret.add(new HerkunftSpende(BETRIEBSVERMOEGEN));
     ret.add(new HerkunftSpende(PRIVATVERMOEGEN));
     ret.add(new HerkunftSpende(KEINEANGABEN));

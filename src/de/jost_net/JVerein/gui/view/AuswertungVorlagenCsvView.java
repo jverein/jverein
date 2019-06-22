@@ -156,10 +156,10 @@ public class AuswertungVorlagenCsvView extends AbstractView
     availdata.widthHint = 200;
     list.setLayoutData(availdata);
 
-    Mitglied m = (Mitglied) Einstellungen.getDBService().createObject(
-        Mitglied.class, null);
+    Mitglied m = (Mitglied) Einstellungen.getDBService()
+        .createObject(Mitglied.class, null);
     Set<String> keysUnsorted = new MitgliedMap().getMap(m, null).keySet();
-    java.util.List<String> keysSorted = new ArrayList<String>(keysUnsorted);
+    java.util.List<String> keysSorted = new ArrayList<>(keysUnsorted);
     java.util.Collections.sort(keysSorted);
 
     list.setItems(keysSorted.toArray(new String[0]));
@@ -521,9 +521,10 @@ public class AuswertungVorlagenCsvView extends AbstractView
     catch (Exception e)
     {
       Logger.error("unable to load file", e);
-      Application.getMessagingFactory().sendMessage(
-          new StatusBarMessage("Fehler beim Laden einer Vorlagendatei: "
-              + e.getMessage(), StatusBarMessage.TYPE_ERROR));
+      Application.getMessagingFactory()
+          .sendMessage(new StatusBarMessage(
+              "Fehler beim Laden einer Vorlagendatei: " + e.getMessage(),
+              StatusBarMessage.TYPE_ERROR));
     }
   }
 
@@ -548,8 +549,8 @@ public class AuswertungVorlagenCsvView extends AbstractView
       File file = new File(vorlagedateiname);
       CsvListWriter writer = new CsvListWriter(new FileWriter(file),
           CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
-      Vector<String> headerUser = new Vector<String>();
-      Vector<String> headerKeys = new Vector<String>();
+      Vector<String> headerUser = new Vector<>();
+      Vector<String> headerKeys = new Vector<>();
 
       for (int i = 0; i < csvTable.getItemCount(); i++)
       {
@@ -566,9 +567,10 @@ public class AuswertungVorlagenCsvView extends AbstractView
     catch (Exception e)
     {
       Logger.error("unable to write file", e);
-      Application.getMessagingFactory().sendMessage(
-          new StatusBarMessage("Fehler beim Speichern einer Vorlagendatei: "
-              + e.getMessage(), StatusBarMessage.TYPE_ERROR));
+      Application.getMessagingFactory()
+          .sendMessage(new StatusBarMessage(
+              "Fehler beim Speichern einer Vorlagendatei: " + e.getMessage(),
+              StatusBarMessage.TYPE_ERROR));
     }
   }
 

@@ -91,7 +91,7 @@ public class SEPABugsControl extends AbstractControl
 
   private List<Bug> getBugs() throws RemoteException
   {
-    ArrayList<Bug> bugs = new ArrayList<Bug>();
+    ArrayList<Bug> bugs = new ArrayList<>();
 
     DBIterator<Mitglied> it = getBaseIteratorMitglied();
 

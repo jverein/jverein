@@ -50,7 +50,7 @@ public class AllgemeineMap
     Map<String, Object> map = null;
     if (inma == null)
     {
-      map = new HashMap<String, Object>();
+      map = new HashMap<>();
     }
     else
     {

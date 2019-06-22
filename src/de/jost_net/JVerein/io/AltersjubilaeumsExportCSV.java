@@ -27,7 +27,7 @@ import de.willuhn.util.ApplicationException;
 public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
 {
 
-  private ArrayList<Mitglied> mitglieder = new ArrayList<Mitglied>();
+  private ArrayList<Mitglied> mitglieder = new ArrayList<>();
 
   private int jahrgang;
 
@@ -74,7 +74,7 @@ public class AltersjubilaeumsExportCSV extends AltersjubilaeumsExport
   @Override
   protected void open()
   {
-    mitglieder = new ArrayList<Mitglied>();
+    mitglieder = new ArrayList<>();
   }
 
   @Override

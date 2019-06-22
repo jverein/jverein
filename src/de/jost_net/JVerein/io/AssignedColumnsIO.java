@@ -112,7 +112,7 @@ public class AssignedColumnsIO
       final boolean nNec)
   {
 
-    List<String> conColAssign = new ArrayList<String>();
+    List<String> conColAssign = new ArrayList<>();
     Boolean n = new Boolean(nNec);
 
     for (String key : columns.keySet())

@@ -149,7 +149,7 @@ public class SpendenbescheinigungAction implements Action
   private void adressaufbereitung(Mitglied m, Spendenbescheinigung spb)
       throws RemoteException
   {
-    ArrayList<String> adresse = new ArrayList<String>();
+    ArrayList<String> adresse = new ArrayList<>();
     spb.setMitglied(m);
     if (m.getAnrede() != null && m.getAnrede().length() > 0)
     {

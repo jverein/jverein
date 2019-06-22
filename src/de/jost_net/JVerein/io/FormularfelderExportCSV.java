@@ -40,10 +40,12 @@ import de.jost_net.JVerein.rmi.Formularfeld;
 public class FormularfelderExportCSV extends FormularfelderExport
 {
 
-	private ICsvMapWriter writer;
-	private String[] header;
+  private ICsvMapWriter writer;
+
+  private String[] header;
+
   private ArrayList<Formularfeld> formularfelder;
-	
+
   @Override
   public String getName()
   {
@@ -93,35 +95,37 @@ public class FormularfelderExportCSV extends FormularfelderExport
   @Override
   protected void open() throws DocumentException
   {
-  	formularfelder = new ArrayList<Formularfeld>();
-  	try
-  	{
-  		writer = new CsvMapWriter(new FileWriter(file), CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
-  		header = new String[] { "Name", "Seite", "X", "Y", "Font", "Fontsize", "Fontstyle" };
-  		writer.writeHeader(header);
-  	}
-  	catch (IOException e)
-  	{
-  		throw new DocumentException(e);
-  	}
+    formularfelder = new ArrayList<>();
+    try
+    {
+      writer = new CsvMapWriter(new FileWriter(file),
+          CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
+      header = new String[] { "Name", "Seite", "X", "Y", "Font", "Fontsize",
+          "Fontstyle" };
+      writer.writeHeader(header);
+    }
+    catch (IOException e)
+    {
+      throw new DocumentException(e);
+    }
   }
 
   @Override
-  protected void close() throws  IOException, DocumentException
+  protected void close() throws IOException, DocumentException
   {
-  	Map<String, Object> ffmap = new HashMap<String, Object>();
+    Map<String, Object> ffmap = new HashMap<>();
     for (Formularfeld ff : formularfelder)
     {
-    	ffmap.put("Name", ff.getName());  
-    	ffmap.put("Seite", ff.getSeite());  
-    	ffmap.put("X", ff.getX());  
-    	ffmap.put("Y", ff.getY());  
-    	ffmap.put("Font", ff.getFont());  
-    	ffmap.put("Fontsize", ff.getFontsize());  
-    	ffmap.put("Fontstyle", ff.getFontstyle());  
+      ffmap.put("Name", ff.getName());
+      ffmap.put("Seite", ff.getSeite());
+      ffmap.put("X", ff.getX());
+      ffmap.put("Y", ff.getY());
+      ffmap.put("Font", ff.getFont());
+      ffmap.put("Fontsize", ff.getFontsize());
+      ffmap.put("Fontstyle", ff.getFontstyle());
       writer.write(ffmap, header);
     }
-		writer.close();
+    writer.close();
   }
 
 }

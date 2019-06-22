@@ -100,7 +100,7 @@ public enum InternalColumns
    */
   public static List<String> getNecessaryColumns()
   {
-    LinkedList<String> necList = new LinkedList<String>();
+    LinkedList<String> necList = new LinkedList<>();
 
     for (InternalColumns tmp : InternalColumns.values())
     {
@@ -116,7 +116,7 @@ public enum InternalColumns
    */
   public static List<String> getOptionalColumns()
   {
-    LinkedList<String> necList = new LinkedList<String>();
+    LinkedList<String> necList = new LinkedList<>();
 
     for (InternalColumns tmp : InternalColumns.values())
     {

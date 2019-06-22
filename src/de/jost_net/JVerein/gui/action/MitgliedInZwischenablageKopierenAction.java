@@ -60,7 +60,7 @@ public class MitgliedInZwischenablageKopierenAction implements Action
       StringBuilder clip = new StringBuilder();
 
       // bestimme ausgewählte/selektierte Mitglieder
-      ArrayList<Mitglied> ausgewählteMitglieder = new ArrayList<Mitglied>();
+      ArrayList<Mitglied> ausgewählteMitglieder = new ArrayList<>();
       if (context instanceof Mitglied)
       {
         ausgewählteMitglieder.add((Mitglied) context);
@@ -104,8 +104,8 @@ public class MitgliedInZwischenablageKopierenAction implements Action
           {
             if (aktiveSpalten.get(i).isChecked())
             {
-              clip.append(mitglied.getAttribute(aktiveSpalten.get(i)
-                  .getSpaltenname()));
+              clip.append(
+                  mitglied.getAttribute(aktiveSpalten.get(i).getSpaltenname()));
               clip.append("\t");
             }
           }

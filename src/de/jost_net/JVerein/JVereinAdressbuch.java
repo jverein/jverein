@@ -45,7 +45,7 @@ public class JVereinAdressbuch implements Addressbook
     it.addFilter("(lower(name) like ? or lower(vorname) like ?)",
         new Object[] { su, su });
     it.addFilter("(iban is not null and length(iban)>0)");
-    ArrayList<MitgliedAddress> list = new ArrayList<MitgliedAddress>();
+    ArrayList<MitgliedAddress> list = new ArrayList<>();
     while (it.hasNext())
     {
       Mitglied m = (Mitglied) it.next();

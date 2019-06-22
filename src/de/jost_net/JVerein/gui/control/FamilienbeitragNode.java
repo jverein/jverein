@@ -54,7 +54,7 @@ public class FamilienbeitragNode implements GenericObjectNode
   {
     this.parent = null;
     this.type = ROOT;
-    this.children = new ArrayList<FamilienbeitragNode>();
+    this.children = new ArrayList<>();
     DBIterator<Beitragsgruppe> it = Einstellungen.getDBService()
         .createList(Beitragsgruppe.class);
     it.addFilter("beitragsart = ?",
@@ -83,7 +83,7 @@ public class FamilienbeitragNode implements GenericObjectNode
     this.mitglied = m;
     this.id = mitglied.getID();
     this.type = ZAHLER;
-    this.children = new ArrayList<FamilienbeitragNode>();
+    this.children = new ArrayList<>();
     DBIterator<Mitglied> it = Einstellungen.getDBService()
         .createList(Mitglied.class);
     it.addFilter("zahlerid = ?", new Object[] { m.getID() });
@@ -108,7 +108,7 @@ public class FamilienbeitragNode implements GenericObjectNode
     {
       Logger.error("Fehler", e);
     }
-    this.children = new ArrayList<FamilienbeitragNode>();
+    this.children = new ArrayList<>();
   }
 
   public int getType()
@@ -151,9 +151,11 @@ public class FamilienbeitragNode implements GenericObjectNode
       JVDateFormatTTMMJJJJ jvttmmjjjj = new JVDateFormatTTMMJJJJ();
       return Adressaufbereitung.getNameVorname(mitglied)
           + (mitglied.getGeburtsdatum() != null
-              ? ", " + jvttmmjjjj.format(mitglied.getGeburtsdatum()) : "")
+              ? ", " + jvttmmjjjj.format(mitglied.getGeburtsdatum())
+              : "")
           + (mitglied.getIban().length() > 0
-              ? ", " + mitglied.getBic() + ", " + mitglied.getIban() : "");
+              ? ", " + mitglied.getBic() + ", " + mitglied.getIban()
+              : "");
     }
     catch (RemoteException e)
     {

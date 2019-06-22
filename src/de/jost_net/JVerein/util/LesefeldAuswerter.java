@@ -70,12 +70,12 @@ public class LesefeldAuswerter
   public LesefeldAuswerter()
   {
     bsh = new Interpreter();
-    lesefelder = new ArrayList<Lesefeld>();
+    lesefelder = new ArrayList<>();
   }
 
   public Map<String, Object> getMap() throws EvalError
   {
-    Map<String, Object> map = new HashMap<String, Object>();
+    Map<String, Object> map = new HashMap<>();
     String[] vars = bsh.getNameSpace().getVariableNames();
     for (int i = 0; i < vars.length; i++)
     {
@@ -178,7 +178,7 @@ public class LesefeldAuswerter
    */
   public Map<String, Object> getLesefelderMap() throws RemoteException
   {
-    Map<String, Object> map = new HashMap<String, Object>();
+    Map<String, Object> map = new HashMap<>();
     for (Lesefeld lesefeld : lesefelder)
     {
 

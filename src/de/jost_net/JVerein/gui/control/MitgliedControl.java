@@ -1280,7 +1280,7 @@ public class MitgliedControl extends AbstractControl
     {
       return sekundaerebeitragsgruppe;
     }
-    listeSeB = new ArrayList<SekundaereBeitragsgruppe>();
+    listeSeB = new ArrayList<>();
     if (!getMitglied().isNewObject())
     {
       DBIterator<Beitragsgruppe> bei = Einstellungen.getDBService()
@@ -2490,7 +2490,7 @@ public class MitgliedControl extends AbstractControl
     }
 
     // erzeuge Auswertungsobjekte
-    List<Object> objectList = new ArrayList<Object>();
+    List<Object> objectList = new ArrayList<>();
     objectList.add(new MitgliedAuswertungPDF(this));
     objectList.add(new MitgliedAuswertungCSV());
     objectList.add(new MitgliedAdressbuchExport());
@@ -3021,7 +3021,7 @@ public class MitgliedControl extends AbstractControl
 
       if (eigenschaftenTree != null)
       {
-        HashMap<String, Boolean> pflichtgruppen = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> pflichtgruppen = new HashMap<>();
         DBIterator<EigenschaftGruppe> it = Einstellungen.getDBService()
             .createList(EigenschaftGruppe.class);
         it.addFilter("pflicht = ?", new Object[] { Boolean.TRUE });
@@ -3055,7 +3055,7 @@ public class MitgliedControl extends AbstractControl
           }
         }
         // Max eine Eigenschaft pro Gruppe
-        HashMap<String, Boolean> max1gruppen = new HashMap<String, Boolean>();
+        HashMap<String, Boolean> max1gruppen = new HashMap<>();
         it = Einstellungen.getDBService().createList(EigenschaftGruppe.class);
         it.addFilter("max1 = ?", new Object[] { Boolean.TRUE });
         while (it.hasNext())
@@ -3323,7 +3323,8 @@ public class MitgliedControl extends AbstractControl
           zf.store();
         }
       }
-      if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen() && ist_mitglied)
+      if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen()
+          && ist_mitglied)
       {
         // Schritt 1: Die selektierten sekundären Beitragsgruppe prüfen, ob sie
         // bereits gespeichert sind. Ggfls. speichern.

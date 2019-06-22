@@ -86,7 +86,7 @@ public class JahressaldoControl extends AbstractControl
           "Abbruch! Es existiert noch keine Buchung");
     }
     Calendar bis = Calendar.getInstance();
-    ArrayList<Integer> jahre = new ArrayList<Integer>();
+    ArrayList<Integer> jahre = new ArrayList<>();
 
     for (int i = von.get(Calendar.YEAR); i <= bis.get(Calendar.YEAR); i++)
     {

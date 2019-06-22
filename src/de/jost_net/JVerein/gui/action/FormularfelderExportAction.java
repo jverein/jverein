@@ -61,7 +61,7 @@ public class FormularfelderExportAction implements Action
       DBIterator<Formularfeld> formularfelder = service
           .createList(Formularfeld.class);
       formularfelder.addFilter("formular = ?", new Object[] { f.getID() });
-      ArrayList<Formularfeld> fflist = new ArrayList<Formularfeld>();
+      ArrayList<Formularfeld> fflist = new ArrayList<>();
       while (formularfelder.hasNext())
       {
         Formularfeld ff = formularfelder.next();

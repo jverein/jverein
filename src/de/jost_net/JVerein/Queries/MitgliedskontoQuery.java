@@ -48,7 +48,7 @@ public class MitgliedskontoQuery
 
   private String sql = "";
 
-  private ArrayList<Object> bedingungen = new ArrayList<Object>();
+  private ArrayList<Object> bedingungen = new ArrayList<>();
 
   private ArrayList<Mitgliedskonto> ergebnis;
 
@@ -66,7 +66,7 @@ public class MitgliedskontoQuery
   public ArrayList<Mitgliedskonto> get() throws RemoteException
   {
     final DBService service = Einstellungen.getDBService();
-    ergebnis = new ArrayList<Mitgliedskonto>();
+    ergebnis = new ArrayList<>();
     sql = "select mitgliedskonto.*, sum(buchung.betrag) ";
     sql += "from mitgliedskonto ";
     sql += "left join buchung on mitgliedskonto.id = buchung.MITGLIEDSKONTO ";
@@ -120,7 +120,7 @@ public class MitgliedskontoQuery
       @Override
       public Object extract(ResultSet rs) throws RemoteException, SQLException
       {
-        ArrayList<Mitgliedskonto> list = new ArrayList<Mitgliedskonto>();
+        ArrayList<Mitgliedskonto> list = new ArrayList<>();
         while (rs.next())
         {
           list.add((Mitgliedskonto) service.createObject(Mitgliedskonto.class,

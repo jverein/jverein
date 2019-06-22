@@ -56,7 +56,7 @@ public abstract class StatistikJahrgaengeExport implements Exporter
       ProgressMonitor monitor) throws DocumentException, IOException
   {
     this.file = file;
-    statistik = new TreeMap<String, StatistikJahrgang>();
+    statistik = new TreeMap<>();
     Integer jahr = (Integer) objects[0];
     try
     {

@@ -42,7 +42,7 @@ public class EncodingInput extends SelectInput
    */
   private static ArrayList<String> init()
   {
-    ArrayList<String> ret = new ArrayList<String>();
+    ArrayList<String> ret = new ArrayList<>();
     Map<String, Charset> map = Charset.availableCharsets();
     Iterator<String> it = map.keySet().iterator();
     while (it.hasNext())

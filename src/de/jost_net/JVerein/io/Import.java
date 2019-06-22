@@ -74,7 +74,7 @@ public class Import
 
   private EigenschaftGruppe eigenschaftgruppe;
 
-  private HashMap<String, String> HM_eigenschaftsgruppen = new HashMap<String, String>();
+  private HashMap<String, String> HM_eigenschaftsgruppen = new HashMap<>();
 
   /* Variablen fuer Spalten und deren entsprechenden Namen */
   private Map<String, String> colMap;
@@ -112,7 +112,7 @@ public class Import
       throws SQLException, RemoteException, ApplicationException
   {
 
-    HashMap<String, Double> bestehendeBeitragsgruppen = new HashMap<String, Double>();
+    HashMap<String, Double> bestehendeBeitragsgruppen = new HashMap<>();
 
     try
     {
@@ -133,7 +133,7 @@ public class Import
     }
 
     /* add them to the db and return a string map */
-    HashMap<String, Integer> beitragsgruppen = new HashMap<String, Integer>();
+    HashMap<String, Integer> beitragsgruppen = new HashMap<>();
     for (String key : bestehendeBeitragsgruppen.keySet())
     {
       Double betr = bestehendeBeitragsgruppen.get(key);
@@ -164,8 +164,9 @@ public class Import
         .createObject(Beitragsgruppe.class, null);
 
     /* if beitragsgruppe larger than 30 signs it will be cuted */
-    b.setBezeichnung(beitragsgruppe.length() > 30
-        ? beitragsgruppe.substring(0, 29) : beitragsgruppe);
+    b.setBezeichnung(
+        beitragsgruppe.length() > 30 ? beitragsgruppe.substring(0, 29)
+            : beitragsgruppe);
     b.setBetrag(beitrag);
     b.store();
 
@@ -329,7 +330,7 @@ public class Import
   private ArrayList<String> getEigenschaftspalten(ResultSet results)
       throws SQLException
   {
-    ArrayList<String> ret = new ArrayList<String>();
+    ArrayList<String> ret = new ArrayList<>();
     ResultSetMetaData rsm = results.getMetaData();
     int anzspalten = rsm.getColumnCount();
     for (int i = 1; i <= anzspalten; i++)
@@ -450,7 +451,7 @@ public class Import
       /* Zusatzfelder ermitteln und in Liste ablegen */
       DBIterator<Felddefinition> it = Einstellungen.getDBService()
           .createList(Felddefinition.class);
-      LinkedList<Felddefinition> zusfeld = new LinkedList<Felddefinition>();
+      LinkedList<Felddefinition> zusfeld = new LinkedList<>();
       for (int i = 0; i < it.size(); i++)
       {
         zusfeld.add((Felddefinition) it.next());

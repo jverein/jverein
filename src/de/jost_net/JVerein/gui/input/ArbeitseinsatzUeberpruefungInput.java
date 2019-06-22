@@ -48,7 +48,7 @@ public class ArbeitseinsatzUeberpruefungInput extends SelectInput
   private static GenericIterator<ArbeitseinsatzUeberpruefungObject> init()
       throws RemoteException
   {
-    ArrayList<ArbeitseinsatzUeberpruefungObject> l = new ArrayList<ArbeitseinsatzUeberpruefungObject>();
+    ArrayList<ArbeitseinsatzUeberpruefungObject> l = new ArrayList<>();
     l.add(new ArbeitseinsatzUeberpruefungObject(MINDERLEISTUNG));
     l.add(new ArbeitseinsatzUeberpruefungObject(PASSENDELEISTUNG));
     l.add(new ArbeitseinsatzUeberpruefungObject(MEHRLEISTUNG));

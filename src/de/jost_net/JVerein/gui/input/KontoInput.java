@@ -55,7 +55,7 @@ public class KontoInput extends SelectInput
   {
     DBIterator<Konto> it = Settings.getDBService().createList(Konto.class);
     it.setOrder("ORDER BY blz, kontonummer");
-    List<Konto> l = new ArrayList<Konto>();
+    List<Konto> l = new ArrayList<>();
     while (it.hasNext())
     {
       l.add((Konto) it.next());
