@@ -22,7 +22,6 @@ import java.util.List;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Buchung;
-import de.willuhn.datasource.GenericIterator;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.parts.TablePart;
 
@@ -32,11 +31,6 @@ public class BuchungListTablePart extends TablePart
   public BuchungListTablePart(Action action)
   {
     super(action);
-  }
-
-  public BuchungListTablePart(GenericIterator list, Action action)
-  {
-    super(list, action);
   }
 
   public BuchungListTablePart(List<Buchung> list, Action action)
