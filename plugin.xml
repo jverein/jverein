@@ -1,10 +1,10 @@
 <plugin xmlns="http://www.willuhn.de/schema/jameica-plugin"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.willuhn.de/schema/jameica-plugin http://www.willuhn.de/schema/jameica-plugin-1.2.xsd"
-        name="jverein" version="2.8.17" class="de.jost_net.JVerein.JVereinPlugin">
+        name="jverein" version="2.8.18" class="de.jost_net.JVerein.JVereinPlugin">
 
   <description>OpenSource-Vereinsverwaltung</description>
-  <url>http://www.jverein.de/updates/2.8/jverein.2.8.17.zip</url>
+  <url>http://www.jverein.de/updates/2.8/jverein.2.8.18.zip</url>
   <homepage>http://www.jverein.de</homepage>
   <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
   <icon>jverein-icon-64x64.png</icon>
