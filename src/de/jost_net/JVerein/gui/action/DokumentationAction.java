@@ -44,15 +44,13 @@ public class DokumentationAction implements Action
           }
           else
           {
-            new Program()
-                .handleAction("http://www.jverein.de/wiki/index.php?title=Kategorie:Dokumentation");
+            new Program().handleAction("https://doku.jverein.de");
           }
         }
         catch (ApplicationException ae)
         {
-          Application.getMessagingFactory().sendMessage(
-              new StatusBarMessage(ae.getLocalizedMessage(),
-                  StatusBarMessage.TYPE_ERROR));
+          Application.getMessagingFactory().sendMessage(new StatusBarMessage(
+              ae.getLocalizedMessage(), StatusBarMessage.TYPE_ERROR));
         }
       }
     });
