@@ -113,7 +113,11 @@ public class LastschriftMap
         VarTools.maskieren(ls.getIBAN()));
     map.put(LastschriftVar.VERWENDUNGSZWECK.getName(),
         ls.getVerwendungszweck());
-    map.put(LastschriftVar.BETRAG.getName(), ls.getBetrag());
+    map.put(LastschriftVar.BETRAG.getName(),
+        ls.getBetrag() != null
+            ? Einstellungen.DECIMALFORMAT.format(ls.getBetrag())
+            : "");
+
     map.put(LastschriftVar.EMPFAENGER.getName(),
         Adressaufbereitung.getAdressfeld(ls));
 
