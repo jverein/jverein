@@ -49,10 +49,8 @@ public class AbrechnungsParameterMap
         new AbbuchungsmodusInput(param.abbuchungsmodus));
     map.put(AbrechnungsParameterVar.ABRECHNUNGSMONAT.getName(),
         Monat.getByKey(param.abrechnungsmonat));
-    map.put(AbrechnungsParameterVar.FAELLIGKEIT1.getName(),
-        new JVDateFormatTTMMJJJJ().format(param.faelligkeit1));
-    map.put(AbrechnungsParameterVar.FAELLIGKEIT2.getName(),
-        new JVDateFormatTTMMJJJJ().format(param.faelligkeit2));
+    map.put(AbrechnungsParameterVar.FAELLIGKEIT.getName(),
+        new JVDateFormatTTMMJJJJ().format(param.faelligkeit));
     map.put(AbrechnungsParameterVar.KOMPAKTEABBUCHUNG.getName(),
         param.kompakteabbuchung ? "J" : "N");
     map.put(AbrechnungsParameterVar.KURSTEILNEHMER.getName(),

@@ -38,10 +38,7 @@ public class AbrechnungSEPAView extends AbstractView
 
     LabelGroup group = new LabelGroup(getParent(), "Parameter");
     group.addLabelPair("Modus", control.getAbbuchungsmodus());
-    group.addLabelPair("Fälligkeit SEPA (Erst-/Einzel-Lastschrift)",
-        control.getFaelligkeit1());
-    group.addLabelPair("Fälligkeit SEPA (Folge-/Letzte-Lastschrift)",
-        control.getFaelligkeit2());
+    group.addLabelPair("Fälligkeit SEPA", control.getFaelligkeit());
     if (Einstellungen.getEinstellung()
         .getBeitragsmodel() == Beitragsmodel.FLEXIBEL)
     {

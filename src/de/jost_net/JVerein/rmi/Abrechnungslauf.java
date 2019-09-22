@@ -40,10 +40,6 @@ public interface Abrechnungslauf extends DBObject
 
   public void setFaelligkeit(Date faelligkeit) throws RemoteException;
 
-  public Date getFaelligkeit2() throws RemoteException;
-
-  public void setFaelligkeit2(Date faelligkeit) throws RemoteException;
-
   public Date getStichtag() throws RemoteException;
 
   public void setStichtag(Date stichtag) throws RemoteException;

@@ -36,7 +36,6 @@ import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Adresstyp;
 import de.jost_net.JVerein.rmi.Beitragsgruppe;
 import de.jost_net.JVerein.rmi.Felddefinition;
-import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Mitgliedfoto;
 import de.jost_net.JVerein.rmi.Zusatzfelder;
@@ -47,7 +46,6 @@ import de.jost_net.OBanToo.SEPA.BIC;
 import de.jost_net.OBanToo.SEPA.IBAN;
 import de.jost_net.OBanToo.SEPA.SEPAException;
 import de.jost_net.OBanToo.SEPA.SEPAException.Fehler;
-import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.db.AbstractDBObject;
 import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.datasource.rmi.ResultSetExtractor;
@@ -583,29 +581,6 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
   public void setMandatVersion(Integer mandatversion) throws RemoteException
   {
     setAttribute("mandatversion", mandatversion);
-  }
-
-  @Override
-  public MandatSequence getMandatSequence() throws RemoteException
-  {
-    DBIterator<Lastschrift> it = Einstellungen.getDBService()
-        .createList(Lastschrift.class);
-    it.addFilter("mandatid = ?", getMandatID());
-    if (it.size() == 0)
-    {
-      return MandatSequence.FRST;
-    }
-    else
-    {
-      return MandatSequence.RCUR;
-    }
-  }
-
-  @Override
-  public void setMandatSequence(MandatSequence mandatsequence)
-      throws RemoteException
-  {
-    setAttribute("mandatsequence", mandatsequence.getTxt());
   }
 
   @Override
