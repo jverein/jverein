@@ -81,7 +81,6 @@ public class MitgliedSpaltenauswahl extends Spaltenauswahl
     add("Kontoinhaber Staat", "ktoistaat", false, true);
     add("Kontoinhaber Email", "ktoiemail", false, true);
     add("Mandat Version", "mandatversion", false, true);
-    add("Mandat Sequence", "mandatsequence", false, true);
     add("Geburtsdatum", "geburtsdatum", true,
         new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
     add("Alter", "alter", false, true);

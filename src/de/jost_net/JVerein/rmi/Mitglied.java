@@ -23,7 +23,6 @@ import java.util.Map;
 import de.jost_net.JVerein.io.ILastschrift;
 import de.jost_net.JVerein.keys.Zahlungsrhythmus;
 import de.jost_net.JVerein.keys.Zahlungstermin;
-import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.rmi.DBObject;
 import de.willuhn.util.ApplicationException;
 
@@ -77,10 +76,6 @@ public interface Mitglied extends DBObject, ILastschrift
   public Integer getMandatVersion() throws RemoteException;
 
   public void setMandatVersion(Integer mandatversion) throws RemoteException;
-
-  public MandatSequence getMandatSequence() throws RemoteException;
-
-  public void setMandatSequence(MandatSequence sequence) throws RemoteException;
 
   public String getKtoiPersonenart() throws RemoteException;
 

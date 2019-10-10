@@ -20,13 +20,13 @@ package de.jost_net.JVerein.gui.action;
 
 import java.rmi.RemoteException;
 import java.util.Calendar;
+import java.util.Date;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.keys.ArtBeitragsart;
 import de.jost_net.JVerein.keys.Zahlungsweg;
 import de.jost_net.JVerein.rmi.Mitglied;
-import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.SimpleDialog;
@@ -45,7 +45,7 @@ public class MitgliedLastschriftAction implements Action
   {
     if (context == null || !(context instanceof Mitglied))
     {
-      throw new ApplicationException("kein Mitglied ausgew?hlt");
+      throw new ApplicationException("kein Mitglied ausgewählt");
     }
     Mitglied m = null; // Mitglied
     Mitglied mZ = null; // Zahler
@@ -95,8 +95,7 @@ public class MitgliedLastschriftAction implements Action
         // Mandat: ID, Datum, Typ
         sl.setMandateId(mZ.getMandatID());
         sl.setSignatureDate(mZ.getMandatDatum());
-        sl.setSequenceType(SepaLastSequenceType.valueOf(mZ.getMandatSequence()
-            .getTxt()));
+        sl.setSequenceType(SepaLastSequenceType.RCUR);
 
         // Verwendungszweck vorbelegen: "Mitgliedsnummer/Mitgliedsname"
         // Voranstellen eines Strings der zwingend ge?ndert werden muss,
@@ -140,30 +139,18 @@ public class MitgliedLastschriftAction implements Action
     }
 
     // pruefe Sepa Gueltigkeit: Datum der letzen Abbuchung
-    if (m.getLetzteLastschrift() != null)
+    Date letzte_lastschrift = m.getLetzteLastschrift();
+    if (letzte_lastschrift != null)
     {
       Calendar sepagueltigkeit = Calendar.getInstance();
       sepagueltigkeit.add(Calendar.MONTH, -36);
-
-      if (m.getLetzteLastschrift().before(sepagueltigkeit.getTime()))
+      if (letzte_lastschrift.before(sepagueltigkeit.getTime()))
       {
         if (!confirmDialog("Letzte Lastschrift",
             "Letzte Lastschrift ist älter als 36 Monate"))
         {
           return false;
         }
-      }
-    }
-
-    // pruefe Sequenz: sollte nicht FRST sein
-    if (m.getMandatSequence().equals(MandatSequence.FRST))
-    {
-      if (!confirmDialog(
-          "Mandat-Sequenz ist FRST",
-          "Erste Abrechnung für dieses Mitglied.\n"
-              + "Sollte besser über 'Abrechnung' -> 'eingetretene Mitglieder' abgerechnet werden."))
-      {
-        return false;
       }
     }
 

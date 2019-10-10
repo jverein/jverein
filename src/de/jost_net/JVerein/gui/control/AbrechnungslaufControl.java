@@ -61,9 +61,7 @@ public class AbrechnungslaufControl extends AbstractControl
 
   private LabelInput modus;
 
-  private LabelInput faelligkeit1;
-
-  private LabelInput faelligkeit2;
+  private LabelInput faelligkeit;
 
   private LabelInput stichtag;
 
@@ -134,28 +132,16 @@ public class AbrechnungslaufControl extends AbstractControl
     return modus;
   }
 
-  public LabelInput getFaelligkeit1() throws RemoteException
+  public LabelInput getFaelligkeit() throws RemoteException
   {
-    if (faelligkeit1 != null)
+    if (faelligkeit != null)
     {
-      return faelligkeit1;
+      return faelligkeit;
     }
-    faelligkeit1 = new LabelInput(new JVDateFormatTTMMJJJJ()
+    faelligkeit = new LabelInput(new JVDateFormatTTMMJJJJ()
         .format(getAbrechnungslaeufe().getFaelligkeit()));
-    faelligkeit1.setName("Fälligkeit 1");
-    return faelligkeit1;
-  }
-
-  public LabelInput getFaelligkeit2() throws RemoteException
-  {
-    if (faelligkeit2 != null)
-    {
-      return faelligkeit2;
-    }
-    faelligkeit2 = new LabelInput(new JVDateFormatTTMMJJJJ()
-        .format(getAbrechnungslaeufe().getFaelligkeit2()));
-    faelligkeit2.setName("Fälligkeit 2");
-    return faelligkeit2;
+    faelligkeit.setName("Fälligkeit");
+    return faelligkeit;
   }
 
   public LabelInput getStichtag() throws RemoteException
@@ -373,9 +359,7 @@ public class AbrechnungslaufControl extends AbstractControl
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Modus", "modus",
           new AbrechnungsmodusFormatter(), false, Column.ALIGN_LEFT);
-      abrechnungslaufList.addColumn("Fälligkeit 1", "faelligkeit",
-          new DateFormatter(new JVDateFormatTTMMJJJJ()));
-      abrechnungslaufList.addColumn("Fälligkeit 2", "faelligkeit2",
+      abrechnungslaufList.addColumn("Fälligkeit", "faelligkeit",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));
       abrechnungslaufList.addColumn("Stichtag", "stichtag",
           new DateFormatter(new JVDateFormatTTMMJJJJ()));

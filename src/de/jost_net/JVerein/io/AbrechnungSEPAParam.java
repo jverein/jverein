@@ -40,9 +40,7 @@ public class AbrechnungSEPAParam
 
   public final int abrechnungsmonat;
 
-  public final Date faelligkeit1;
-
-  public final Date faelligkeit2;
+  public final Date faelligkeit;
 
   public final Date stichtag;
 
@@ -62,11 +60,7 @@ public class AbrechnungSEPAParam
 
   public final Boolean sepaprint;
 
-  public final File sepafileFRST;
-
   public final File sepafileRCUR;
-
-  public final String pdffileFRST;
 
   public final String pdffileRCUR;
 
@@ -74,15 +68,13 @@ public class AbrechnungSEPAParam
 
   public Konto konto;
 
-  public AbrechnungSEPAParam(AbrechnungSEPAControl ac, File sepafileFRST,
-      File sepafileRCUR, String pdffileFRST, String pdffileRCUR)
+  public AbrechnungSEPAParam(AbrechnungSEPAControl ac, File sepafileRCUR, String pdffileRCUR)
       throws ApplicationException, RemoteException
   {
     abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
     Monat monat = (Monat) ac.getAbrechnungsmonat().getValue();
     abrechnungsmonat = monat.getKey();
-    faelligkeit1 = (Date) ac.getFaelligkeit1().getValue();
-    faelligkeit2 = (Date) ac.getFaelligkeit2().getValue();
+    faelligkeit = (Date) ac.getFaelligkeit().getValue();
     stichtag = (Date) ac.getStichtag().getValue();
     abbuchungsausgabe = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
         .getValue();
@@ -93,9 +85,7 @@ public class AbrechnungSEPAParam
     kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();
     kompakteabbuchung = (Boolean) ac.getKompakteAbbuchung().getValue();
     sepaprint = (Boolean) ac.getSEPAPrint().getValue();
-    this.pdffileFRST = pdffileFRST;
     this.pdffileRCUR = pdffileRCUR;
-    this.sepafileFRST = sepafileFRST;
     this.sepafileRCUR = sepafileRCUR;
 
     if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS)

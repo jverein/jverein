@@ -107,7 +107,6 @@ import de.jost_net.JVerein.util.JVDateFormatTIMESTAMP;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.jost_net.JVerein.util.LesefeldAuswerter;
 import de.jost_net.JVerein.util.MitgliedSpaltenauswahl;
-import de.jost_net.OBanToo.SEPA.Basislastschrift.MandatSequence;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.GenericObjectNode;
 import de.willuhn.datasource.pseudo.PseudoIterator;
@@ -195,8 +194,6 @@ public class MitgliedControl extends AbstractControl
   private DateInput mandatdatum = null;
 
   private SpinnerInput mandatversion = null;
-
-  private SelectInput mandatsequence = null;
 
   private DateInput letztelastschrift = null;
 
@@ -771,7 +768,6 @@ public class MitgliedControl extends AbstractControl
       getMandatID().setValue(null);
       getMandatDatum().setValue(null);
       getMandatVersion().setValue(null);
-      getMandatSequence().setValue(null);
       getLetzteLastschrift().setValue(null);
       getBic().setValue(null);
       getIban().setValue(null);
@@ -905,19 +901,6 @@ public class MitgliedControl extends AbstractControl
       }
     });
     return mandatversion;
-  }
-
-  public SelectInput getMandatSequence() throws RemoteException
-  {
-    if (mandatsequence != null)
-    {
-      return mandatsequence;
-    }
-    mandatsequence = new SelectInput(MandatSequence.values(),
-        getMitglied().getMandatSequence());
-    mandatsequence.setEnabled(false);
-    mandatsequence.setName("Sequenz");
-    return mandatsequence;
   }
 
   public DateInput getLetzteLastschrift() throws RemoteException
@@ -3144,7 +3127,6 @@ public class MitgliedControl extends AbstractControl
       }
       m.setMandatDatum((Date) getMandatDatum().getValue());
       m.setMandatVersion((Integer) getMandatVersion().getValue());
-      m.setMandatSequence((MandatSequence) getMandatSequence().getValue());
       m.setBic((String) getBic().getValue());
       m.setIban((String) getIban().getValue());
       m.setEintritt((Date) getEintritt().getValue());
