@@ -198,7 +198,7 @@ public class EinstellungControl extends AbstractControl
 
   private TextInput imapHost;
 
-  private TextInput imapPort;
+  private IntegerInput imapPort;
 
   private CheckboxInput imap_ssl;
 
@@ -933,8 +933,15 @@ public class EinstellungControl extends AbstractControl
     {
       return smtp_port;
     }
-    smtp_port = new IntegerInput(new Integer(Einstellungen.getEinstellung()
-        .getSmtpPort()));
+    String port = Einstellungen.getEinstellung().getSmtpPort();
+    if (port != null)
+    {
+      smtp_port = new IntegerInput(new Integer(port));
+    }
+    else
+    {
+      smtp_port = new IntegerInput();
+    }
     return smtp_port;
   }
 
@@ -1084,13 +1091,21 @@ public class EinstellungControl extends AbstractControl
     return imapHost;
   }
 
-  public TextInput getImapPort() throws RemoteException
+  public IntegerInput getImapPort() throws RemoteException
   {
     if (imapPort != null)
     {
       return imapPort;
     }
-    imapPort = new TextInput(Einstellungen.getEinstellung().getImapPort());
+    String port = Einstellungen.getEinstellung().getImapPort();
+    if (port != null)
+    {
+      imapPort = new IntegerInput(new Integer(port));
+    }
+    else
+    {
+      imapPort = new IntegerInput();
+    }
     return imapPort;
   }
 
@@ -1921,7 +1936,14 @@ public class EinstellungControl extends AbstractControl
       e.setID();
       e.setSmtpServer((String) smtp_server.getValue());
       Integer port = (Integer) smtp_port.getValue();
-      e.setSmtpPort(port.toString());
+      if (port != null)
+      {
+        e.setSmtpPort(port.toString());
+      }
+      else
+      {
+        e.setSmtpPort(null);
+      }
       e.setSmtpAuthUser((String) smtp_auth_user.getValue());
       e.setSmtpAuthPwd((String) smtp_auth_pwd.getValue());
       e.setSmtpFromAddress((String) smtp_from_address.getValue());
@@ -1934,7 +1956,15 @@ public class EinstellungControl extends AbstractControl
 
       e.setCopyToImapFolder((Boolean) copyToImapFolder.getValue());
       e.setImapHost((String) imapHost.getValue());
-      e.setImapPort((String) imapPort.getValue());
+      port = (Integer) imapPort.getValue();
+      if (port != null)
+      {
+        e.setImapPort(port.toString());
+      }
+      else
+      {
+        e.setImapPort(null);
+      }
       e.setImapAuthUser((String) imapAuthUser.getValue());
       e.setImapAuthPwd(((String) imapAuthPwd.getValue()));
       e.setImapSsl((Boolean) imap_ssl.getValue());

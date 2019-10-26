@@ -901,12 +901,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   @Override
   public String getSmtpPort() throws RemoteException
   {
-    String ret = (String) getAttribute("smtp_port");
-    if (ret == null)
-    {
-      ret = "25";
-    }
-    return ret;
+    return (String) getAttribute("smtp_port");
   }
 
   @Override
@@ -1134,7 +1129,6 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   public void setImapPort(String imap_port) throws RemoteException
   {
     setAttribute("imap_port", imap_port);
-
   }
 
   @Override
