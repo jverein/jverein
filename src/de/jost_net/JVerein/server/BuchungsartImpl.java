@@ -18,9 +18,11 @@ package de.jost_net.JVerein.server;
 
 import java.rmi.RemoteException;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.rmi.Buchungsart;
 import de.jost_net.JVerein.rmi.Buchungsklasse;
 import de.willuhn.datasource.db.AbstractDBObject;
+import de.willuhn.datasource.rmi.DBIterator;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
@@ -63,7 +65,7 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
       }
       if (getNummer() < 0)
       {
-        throw new ApplicationException("Nummer nicht gültig");
+        throw new ApplicationException("Nummer nicht gÃ¼ltig");
       }
     }
     catch (RemoteException e)
@@ -162,6 +164,44 @@ public class BuchungsartImpl extends AbstractDBObject implements Buchungsart
   public void setSpende(Boolean spende) throws RemoteException
   {
     setAttribute("spende", Boolean.valueOf(spende));
+  }
+
+  @Override
+  public double getSteuersatz() throws RemoteException
+  {
+    Double i = (Double) getAttribute("steuersatz");
+    if (i == null)
+    {
+      return 0;
+    }
+    return i.doubleValue();
+  }
+
+  @Override
+  public void setSteuersatz(double steuersatz) throws RemoteException
+  {
+    setAttribute("steuersatz", steuersatz);
+  }
+
+  @Override
+  public Buchungsart getSteuerBuchungsart() throws RemoteException
+  {
+    String id = (String) getAttribute("steuer_buchungsart");
+    if (id == null) {
+      return null;
+    }
+    else {
+      DBIterator<Buchungsart> steuer_buchungsart = Einstellungen.getDBService()
+        .createList(Buchungsart.class);
+        steuer_buchungsart.addFilter("ID = " + id);
+      return steuer_buchungsart.next();
+    }
+  }
+
+  @Override
+  public void setSteuerBuchungsart(String steuer_buchungsart) throws RemoteException
+  {
+    setAttribute("steuer_buchungsart", steuer_buchungsart);
   }
 
   @Override
