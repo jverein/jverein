@@ -21,7 +21,7 @@ package de.jost_net.JVerein.keys;
 import java.util.ArrayList;
 
 /**
- * Steuersatz: Entweder 7%, 19% oder es ist eine Spende
+ * Steuersatz: Entweder 7% oder 19%
  */
 
 public class SteuersatzBuchungsart

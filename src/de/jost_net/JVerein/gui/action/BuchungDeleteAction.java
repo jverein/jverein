@@ -19,6 +19,7 @@ package de.jost_net.JVerein.gui.action;
 import java.rmi.RemoteException;
 
 import de.jost_net.JVerein.Messaging.BuchungMessage;
+import de.jost_net.JVerein.io.SplitbuchungsContainer;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Jahresabschluss;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
@@ -107,15 +108,26 @@ public class BuchungDeleteAction implements Action
         }
         else if (splitbuchung)
         {
-          bu.setDelete(true);
-          Application.getMessagingFactory().sendMessage(new BuchungMessage(bu));
-          count++;
+          if (bu.getDependencyId() == -1) {            
+            bu.setDelete(true);
+            Application.getMessagingFactory().sendMessage(new BuchungMessage(bu));
+            count++;
+          }
+          else {
+            for (Buchung buchung_tmp : SplitbuchungsContainer.get()) {
+              if (buchung_tmp.getDependencyId() == bu.getDependencyId()) {
+                buchung_tmp.setDelete(true);
+                Application.getMessagingFactory().sendMessage(new BuchungMessage(buchung_tmp));
+                count++;
+              }
+            }
+          }
         }
       }
       if (count > 0)
       {
         GUI.getStatusBar().setSuccessText(
-            String.format("%d Buchung" + (b.length != 1 ? "en" : "")
+            String.format("%d Buchung" + (count != 1 ? "en" : "")
                 + " gelöscht.", count));
       }
       else
