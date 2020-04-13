@@ -1,18 +1,18 @@
 /**********************************************************************
  * Copyright (c) by Heiner Jostkleigrewe
- * This program is free software: you can redistribute it and/or modify it under the terms of the 
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without 
- *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
- *  the GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with this program.  If not, 
- * see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  * 
- * heiner@jverein.de
- * www.jverein.de
+ * heiner@jverein.de | www.jverein.de
  **********************************************************************/
 package de.jost_net.JVerein.server;
 
@@ -191,13 +191,22 @@ public class BuchungImpl extends AbstractDBObject implements Buchung {
   }
 
   @Override
-  public Long getBelegnummer() throws RemoteException {
-    return (Long) getAttribute("belegnummer");
+  public Integer getBelegnummer() throws RemoteException {
+    Integer belegnummer = (Integer) getAttribute("belegnummer");
+    if (belegnummer == null) {
+      return -1;
+    } else {
+      return belegnummer;
+    }
   }
 
   @Override
-  public void setBelegnummer(Long belegnummer) throws RemoteException {
-    setAttribute("belegnummer", belegnummer);
+  public void setBelegnummer(Integer belegnummer) throws RemoteException {
+    if (belegnummer == null) {
+      setAttribute("belegnummer", -1);
+    } else {
+      setAttribute("belegnummer", belegnummer);
+    }
   }
 
   @Override
@@ -394,6 +403,7 @@ public class BuchungImpl extends AbstractDBObject implements Buchung {
     map.put(BuchungVar.BETRAG.getName(), this.getBetrag());
     map.put(BuchungVar.BLATTNUMMER.getName(), this.getBlattnummer());
     map.put(BuchungVar.ID.getName(), this.getID());
+    map.put(BuchungVar.BELEG.getName(), this.getBelegnummer());
     if (this.getBuchungsart() != null) {
       map.put(BuchungVar.BUCHUNGSARBEZEICHNUNG.getName(), this.getBuchungsart().getBezeichnung());
       map.put(BuchungVar.BUCHUNGSARTNUMMER.getName(), this.getBuchungsart().getNummer());

@@ -1,18 +1,18 @@
 /**********************************************************************
  * Copyright (c) by Heiner Jostkleigrewe
- * This program is free software: you can redistribute it and/or modify it under the terms of the 
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without 
- *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
- *  the GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with this program.  If not, 
- * see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  * 
- * heiner@jverein.de
- * www.jverein.de
+ * heiner@jverein.de | www.jverein.de
  **********************************************************************/
 package de.jost_net.JVerein.gui.parts;
 
@@ -35,27 +35,22 @@ import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.gui.util.ScrolledContainer;
 import de.willuhn.jameica.gui.util.SimpleContainer;
 
-public class BuchungPart implements Part
-{
+public class BuchungPart implements Part {
   private BuchungsControl control;
 
   private AbstractView view;
 
   private boolean buchungabgeschlossen;
 
-  public BuchungPart(BuchungsControl control, AbstractView view,
-      boolean buchungabgeschlossen)
-  {
+  public BuchungPart(BuchungsControl control, AbstractView view, boolean buchungabgeschlossen) {
     this.control = control;
     this.view = view;
     this.buchungabgeschlossen = buchungabgeschlossen;
   }
 
   @Override
-  public void paint(Composite parent) throws RemoteException
-  {
-    String title = (control.getBuchung().getSpeicherung() ? "Buchung"
-        : "Splitbuchung");
+  public void paint(Composite parent) throws RemoteException {
+    String title = (control.getBuchung().getSpeicherung() ? "Buchung" : "Splitbuchung");
     GUI.getView().setTitle(title);
 
     ScrolledContainer scrolled = new ScrolledContainer(parent, 1);
@@ -65,7 +60,11 @@ public class BuchungPart implements Part
     SimpleContainer grKontoauszug = new SimpleContainer(cols1.getComposite());
 
     grKontoauszug.addHeadline(title);
-    grKontoauszug.addLabelPair("Buchungsnummer", control.getID());
+    if (!Einstellungen.getEinstellung().getVerwendeBelegnummer()) {
+      grKontoauszug.addLabelPair("Buchungsnummer", control.getID());
+    } else {
+      grKontoauszug.addLabelPair("Belegnummer", control.getBelegnummer());
+    }
     grKontoauszug.addLabelPair("Umsatz-ID", control.getUmsatzid());
     grKontoauszug.addLabelPair("Konto", control.getKonto(true));
     grKontoauszug.addLabelPair("Name", control.getName());
@@ -88,18 +87,14 @@ public class BuchungPart implements Part
     grSpendeninfos.addHeadline("Spendendetails");
     grSpendeninfos.addLabelPair("Erstattungsverzicht", control.getVerzicht());
 
-    if (JVereinPlugin.isArchiveServiceActive())
-    {
+    if (JVereinPlugin.isArchiveServiceActive()) {
       Buchung bu = (Buchung) control.getCurrentObject();
-      if (!bu.isNewObject())
-      {
-        LabelGroup grDokument = new LabelGroup(scrolled.getComposite(),
-            "Dokumente");
+      if (!bu.isNewObject()) {
+        LabelGroup grDokument = new LabelGroup(scrolled.getComposite(), "Dokumente");
         BuchungDokument budo = (BuchungDokument) Einstellungen.getDBService()
             .createObject(BuchungDokument.class, null);
         budo.setReferenz(new Long(bu.getID()));
-        DokumentControl dcontrol = new DokumentControl(view, "buchungen",
-            !buchungabgeschlossen);
+        DokumentControl dcontrol = new DokumentControl(view, "buchungen", !buchungabgeschlossen);
         grDokument.addPart(dcontrol.getDokumenteList(budo));
         ButtonArea butts = new ButtonArea();
         butts.addButton(dcontrol.getNeuButton(budo));
