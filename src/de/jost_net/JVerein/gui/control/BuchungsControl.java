@@ -892,7 +892,12 @@ public class BuchungsControl extends AbstractControl {
     if (splitbuchungsList == null) {
       splitbuchungsList =
           new SplitbuchungListTablePart(SplitbuchungsContainer.get(), new BuchungAction(true));
-      splitbuchungsList.addColumn("Nr", "id-int");
+      if (!Einstellungen.getEinstellung().getVerwendeBelegnummer()) {
+        splitbuchungsList.addColumn("Nr", "id-int");
+      } else {
+        splitbuchungsList.addColumn("Nr", "belegnummer");
+      }
+
       splitbuchungsList.addColumn("Konto", "konto", new Formatter() {
         @Override
         public String format(Object o) {
