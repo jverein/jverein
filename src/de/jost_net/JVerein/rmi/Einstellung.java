@@ -260,6 +260,11 @@ public interface Einstellung extends DBObject, IBankverbindung
 
   public void setUnterdrueckungOhneBuchung(Boolean unterdrueckungohnebuchung)
       throws RemoteException;
+      
+  public Boolean getVerwendeBelegnummer() throws RemoteException;
+
+  public void setVerwendeBelegnummer(Boolean verwendebelegnummer)
+      throws RemoteException;
 
   public void setBeginnGeschaeftsjahr(String beginngeschaeftsjahr)
       throws RemoteException;

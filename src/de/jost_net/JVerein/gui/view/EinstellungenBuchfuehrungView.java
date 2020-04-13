@@ -40,6 +40,7 @@ public class EinstellungenBuchfuehrungView extends AbstractView
         control.getBeginnGeschaeftsjahr());
     cont.addInput(control.getAutoBuchunguebernahme());
     cont.addInput(control.getUnterdrueckungOhneBuchung());
+    cont.addInput(control.getVerwendeBelegnummer());
 
     ButtonArea buttons = new ButtonArea();
     buttons.addButton("Hilfe", new DokumentationAction(),

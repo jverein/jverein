@@ -1654,6 +1654,19 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
   }
 
   @Override
+  public Boolean getVerwendeBelegnummer() throws RemoteException
+  {
+    return Util.getBoolean(getAttribute("verwendebelegnummer"));
+  }
+
+  @Override
+  public void setVerwendeBelegnummer(Boolean verwendebelegnummer)
+      throws RemoteException
+  {
+    setAttribute("verwendebelegnummer", verwendebelegnummer);
+  }
+
+  @Override
   public Integer getSEPADatumOffset() throws RemoteException
   {
     Integer offset = (Integer) getAttribute("sepadatumoffset");
