@@ -19,6 +19,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import de.jost_net.JVerein.Einstellungen;
+import de.jost_net.JVerein.gui.control.BuchungsControl;
 import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.jost_net.JVerein.rmi.Buchungsart;
@@ -156,6 +157,8 @@ public class SplitbuchungsContainer {
         b.delete();
       } else {
         b.store();
+        BuchungsControl.setNewLastBelegnummer(b.getBelegnummer(), b.getDatum(),
+            b.getKonto().getID());
       }
     }
   }

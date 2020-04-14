@@ -63,6 +63,12 @@ public class Update0418 extends AbstractDDLUpdate {
       execute(addColumn("einstellung",
           new Column("verwendebelegnummer", COLTYPE.BOOLEAN, 0, "FALSE", false, false)), false);
       execute(
+          addColumn("einstellung",
+              new Column("belegnummer_pro_konto", COLTYPE.BOOLEAN, 0, "TRUE", false, false)),
+          false);
+      execute(addColumn("einstellung",
+          new Column("belegnummer_pro_jahr", COLTYPE.BOOLEAN, 0, "TRUE", false, false)), false);
+      execute(
           addColumn("buchung", new Column("belegnummer", COLTYPE.INTEGER, 19, "-1", false, false)),
           false);
 

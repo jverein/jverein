@@ -20,7 +20,9 @@ import java.io.File;
 import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -176,10 +178,79 @@ public class BuchungsControl extends AbstractControl {
 
   private Vector<Listener> changeKontoListener = new Vector<>();
 
+  private static GregorianCalendar LastBeginnGeschaeftsjahr;
+  private static GregorianCalendar LastEndeGeschaeftsjahr;
+  private static String LastKontoId;
+  private static Integer LastBelegnummer;
+
   public BuchungsControl(AbstractView view) {
     super(view);
     settings = new de.willuhn.jameica.system.Settings(this.getClass());
     settings.setStoreWhenRead(true);
+  }
+
+  public static Integer getLastBelegnummer(Date NewDate_, String NewKontoId)
+      throws RemoteException {
+    if (Einstellungen.getEinstellung().getVerwendeBelegnummer()) {
+      Boolean getNewLastBelegnummer = false;
+
+      // Falls kein neues Datum bisher angegeben wurde, wird implizit angenommen, dass heute als
+      // aktuelles Datum eingetragen wird
+      GregorianCalendar NewDate = new GregorianCalendar();
+      if (NewDate_ != null) {
+        NewDate.setTime(NewDate_);
+      }
+
+      // Falls noch nichts initialisiert wurde, dann entsprechend alles setzen
+      if (LastBeginnGeschaeftsjahr == null || LastEndeGeschaeftsjahr == null
+          || LastKontoId == null) {
+        LastBeginnGeschaeftsjahr = Einstellungen.getBeginnGeschaeftsjahr(NewDate);
+        LastEndeGeschaeftsjahr = Einstellungen.getEndeGeschaeftsjahr(NewDate);
+        LastKontoId = NewKontoId;
+        getNewLastBelegnummer = true;
+      }
+
+      // Falls neues Datum nicht innerhalb des aktuellen Geschäftsjahres liegt, Belegnummer neu
+      // auslesen
+      if (!(NewDate.compareTo(LastBeginnGeschaeftsjahr) >= 0
+          && NewDate.compareTo(LastEndeGeschaeftsjahr) <= 0)
+          && Einstellungen.getEinstellung().getBelegnummerProJahr()) {
+        LastBeginnGeschaeftsjahr = Einstellungen.getBeginnGeschaeftsjahr(NewDate);
+        LastEndeGeschaeftsjahr = Einstellungen.getEndeGeschaeftsjahr(NewDate);
+        getNewLastBelegnummer = true;
+      }
+
+      // Falls KontoId anders ist, Belegnummer neu auslesen
+      if (LastKontoId != NewKontoId && Einstellungen.getEinstellung().getBelegnummerProKonto()) {
+        LastKontoId = NewKontoId;
+        getNewLastBelegnummer = true;
+      }
+
+      // neue max. Belegnummer auslesen
+      if (getNewLastBelegnummer) {
+        DBIterator<Buchung> it = Einstellungen.getDBService().createList(Buchung.class);
+        if (Einstellungen.getEinstellung().getBelegnummerProJahr()) {
+          it.addFilter("datum >= ?", LastBeginnGeschaeftsjahr.getTime());
+          it.addFilter("datum <= ?", LastEndeGeschaeftsjahr.getTime());
+        }
+        if (Einstellungen.getEinstellung().getBelegnummerProKonto()) {
+          it.addFilter("konto = " + LastKontoId);
+        }
+        LastBelegnummer = 0;
+        while (it.hasNext()) {
+          LastBelegnummer = Math.max(LastBelegnummer, ((Buchung) it.next()).getBelegnummer());
+        }
+      }
+      return LastBelegnummer;
+    } else {
+      return -1;
+    }
+  }
+
+  public static void setNewLastBelegnummer(Integer NewLastBelegnummer, Date NewDate_,
+      String NewKontoId) throws RemoteException {
+    getLastBelegnummer(NewDate_, NewKontoId);
+    LastBelegnummer = NewLastBelegnummer;
   }
 
   public Buchung getBuchung() throws RemoteException {
@@ -650,6 +721,7 @@ public class BuchungsControl extends AbstractControl {
       if (b.getSpeicherung()) {
         b.store();
         getID().setValue(b.getID());
+        setNewLastBelegnummer(b.getBelegnummer(), b.getDatum(), b.getKonto().getID());
         GUI.getStatusBar().setSuccessText("Buchung gespeichert");
       } else {
         SplitbuchungsContainer.add(b);

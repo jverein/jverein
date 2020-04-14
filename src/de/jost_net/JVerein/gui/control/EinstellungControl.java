@@ -1,18 +1,18 @@
 /**********************************************************************
  * Copyright (c) by Heiner Jostkleigrewe
- * This program is free software: you can redistribute it and/or modify it under the terms of the 
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without 
- *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
- *  the GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with this program.  If not, 
- * see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  * 
- * heiner@jverein.de
- * www.jverein.de
+ * heiner@jverein.de | www.jverein.de
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -168,6 +168,10 @@ public class EinstellungControl extends AbstractControl {
   private CheckboxInput unterdrueckungohnebuchung;
 
   private CheckboxInput verwendebelegnummer;
+
+  private CheckboxInput belegnummer_pro_konto;
+
+  private CheckboxInput belegnummer_pro_jahr;
 
   private TextInput smtp_server;
 
@@ -784,6 +788,26 @@ public class EinstellungControl extends AbstractControl {
     verwendebelegnummer
         .setName("manuelle Belegnummer anstatt Buchungsnummer aus Datenbank verwenden");
     return verwendebelegnummer;
+  }
+
+  public CheckboxInput getBelegnummerProKonto() throws RemoteException {
+    if (belegnummer_pro_konto != null) {
+      return belegnummer_pro_konto;
+    }
+    belegnummer_pro_konto =
+        new CheckboxInput(Einstellungen.getEinstellung().getBelegnummerProKonto());
+    belegnummer_pro_konto.setName("Jedes Konto erhält eine eigene Belegnummer.");
+    return belegnummer_pro_konto;
+  }
+
+  public CheckboxInput getBelegnummerProJahr() throws RemoteException {
+    if (belegnummer_pro_jahr != null) {
+      return belegnummer_pro_jahr;
+    }
+    belegnummer_pro_jahr =
+        new CheckboxInput(Einstellungen.getEinstellung().getBelegnummerProJahr());
+    belegnummer_pro_jahr.setName("Jedes Geschäftsjahr erhält eine eigene Belegnummer.");
+    return belegnummer_pro_jahr;
   }
 
   public TextInput getSmtpServer() throws RemoteException {
@@ -1555,6 +1579,8 @@ public class EinstellungControl extends AbstractControl {
       e.setAutoBuchunguebernahme((Boolean) autobuchunguebernahme.getValue());
       e.setUnterdrueckungOhneBuchung((Boolean) unterdrueckungohnebuchung.getValue());
       e.setVerwendeBelegnummer((Boolean) verwendebelegnummer.getValue());
+      e.setBelegnummerProKonto((Boolean) belegnummer_pro_konto.getValue());
+      e.setBelegnummerProJahr((Boolean) belegnummer_pro_jahr.getValue());
       e.store();
       Einstellungen.setEinstellung(e);
 
