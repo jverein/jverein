@@ -111,14 +111,14 @@ public class Update0418 extends AbstractDDLUpdate {
       // Falls alles geklappt hat, neue Versionsnummer setzen!
       setNewVersion(nr);
 
-    } catch (
-
-    OperationCanceledException oce) {
+    } catch (OperationCanceledException oce) {
       Logger.error(oce.getMessage());
       throw new ApplicationException("user canceled import of Belegnummern");
     } catch (Exception e) {
       // Falls irgendein Fehler aufgetreten ist, die neuen Spalten wieder löschen!
       execute(dropColumn("einstellung", "verwendebelegnummer"), false);
+      execute(dropColumn("einstellung", "belegnummer_pro_konto"), false);
+      execute(dropColumn("einstellung", "belegnummer_pro_jahr"), false);
       execute(dropColumn("buchung", "belegnummer"), false);
       Logger.error("error while importing Belegnummer", e);
       throw new ApplicationException("error while importing Belegnummern");
