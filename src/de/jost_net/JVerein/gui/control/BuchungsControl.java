@@ -18,9 +18,10 @@ package de.jost_net.JVerein.gui.control;
 
 import java.io.File;
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -70,6 +71,8 @@ import de.jost_net.JVerein.util.Dateiname;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.datasource.rmi.DBService;
+import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.AbstractControl;
 import de.willuhn.jameica.gui.AbstractView;
 import de.willuhn.jameica.gui.Action;
@@ -228,18 +231,33 @@ public class BuchungsControl extends AbstractControl {
 
       // neue max. Belegnummer auslesen
       if (getNewLastBelegnummer) {
-        DBIterator<Buchung> it = Einstellungen.getDBService().createList(Buchung.class);
+        // SQL Befehl zusammensetzen (je nachdem welche Einstellungen gesetzt sind)
+        List<Object> arg_list = new ArrayList<Object>();
+        String sql = "SELECT max(belegnummer) FROM buchung";
+        if (Einstellungen.getEinstellung().getBelegnummerProJahr()
+            && Einstellungen.getEinstellung().getBelegnummerProKonto()) {
+          sql += " WHERE ";
+        }
         if (Einstellungen.getEinstellung().getBelegnummerProJahr()) {
-          it.addFilter("datum >= ?", LastBeginnGeschaeftsjahr.getTime());
-          it.addFilter("datum <= ?", LastEndeGeschaeftsjahr.getTime());
+          sql += "datum >= ? AND datum <= ?";
+          arg_list.add(LastBeginnGeschaeftsjahr.getTime());
+          arg_list.add(LastEndeGeschaeftsjahr.getTime());
+          if (Einstellungen.getEinstellung().getBelegnummerProKonto()) {
+            sql += " AND ";
+          }
         }
         if (Einstellungen.getEinstellung().getBelegnummerProKonto()) {
-          it.addFilter("konto = " + LastKontoId);
+          sql += "konto = " + LastKontoId;
         }
-        LastBelegnummer = 0;
-        while (it.hasNext()) {
-          LastBelegnummer = Math.max(LastBelegnummer, ((Buchung) it.next()).getBelegnummer());
-        }
+        DBService service = Einstellungen.getDBService();
+        LastBelegnummer =
+            (Integer) service.execute(sql, arg_list.toArray(), new ResultSetExtractor() {
+              @Override
+              public Object extract(ResultSet rs) throws SQLException {
+                rs.next();
+                return rs.getInt(1);
+              }
+            });
       }
       return LastBelegnummer;
     } else {

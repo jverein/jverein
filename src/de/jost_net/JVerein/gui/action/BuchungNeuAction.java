@@ -39,7 +39,7 @@ public class BuchungNeuAction implements Action {
         if (null != konto)
           buch.setKonto(konto);
         buch.setBelegnummer(
-            control.getLastBelegnummer(buch.getDatum(), buch.getKonto().getID()) + 1);
+            BuchungsControl.getLastBelegnummer(buch.getDatum(), buch.getKonto().getID()) + 1);
       }
       GUI.startView(BuchungView.class, buch);
     } catch (RemoteException e) {
