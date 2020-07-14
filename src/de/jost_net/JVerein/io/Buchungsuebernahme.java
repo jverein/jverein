@@ -146,6 +146,7 @@ public class Buchungsuebernahme
         b.setUmsatzid(new Integer(u.getID()));
         b.setKonto(kto);
         b.setName(u.getGegenkontoName());
+        b.setIban(u.getGegenkontoNummer());
         b.setBetrag(u.getBetrag());
         b.setZweck(u.getZweck());
         String[] moreLines = u.getWeitereVerwendungszwecke();
