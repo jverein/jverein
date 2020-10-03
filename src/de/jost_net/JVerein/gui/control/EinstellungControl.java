@@ -1,18 +1,18 @@
 /**********************************************************************
  * Copyright (c) by Heiner Jostkleigrewe
- * This program is free software: you can redistribute it and/or modify it under the terms of the 
- * GNU General Public License as published by the Free Software Foundation, either version 3 of the 
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without 
- *  even the implied warranty of  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See 
- *  the GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with this program.  If not, 
- * see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with this program. If
+ * not, see <http://www.gnu.org/licenses/>.
  * 
- * heiner@jverein.de
- * www.jverein.de
+ * heiner@jverein.de | www.jverein.de
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
@@ -63,8 +63,7 @@ import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class EinstellungControl extends AbstractControl
-{
+public class EinstellungControl extends AbstractControl {
 
   private Input name;
 
@@ -167,6 +166,12 @@ public class EinstellungControl extends AbstractControl
   private CheckboxInput autobuchunguebernahme;
 
   private CheckboxInput unterdrueckungohnebuchung;
+
+  private CheckboxInput verwendebelegnummer;
+
+  private CheckboxInput belegnummer_pro_konto;
+
+  private CheckboxInput belegnummer_pro_jahr;
 
   private TextInput smtp_server;
 
@@ -281,174 +286,132 @@ public class EinstellungControl extends AbstractControl
    */
   private Wallet wallet = null;
 
-  public EinstellungControl(AbstractView view)
-  {
+  public EinstellungControl(AbstractView view) {
     super(view);
     settings = new Settings(this.getClass());
     settings.setStoreWhenRead(true);
-    try
-    {
+    try {
       wallet = new Wallet(EinstellungImpl.class);
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       Logger.error("Erstellen des Wallet-Objekts fehlgeschlagen");
     }
 
   }
 
-  public Einstellung getEinstellung()
-  {
+  public Einstellung getEinstellung() {
     return Einstellungen.getEinstellung();
   }
 
-  public Input getName(boolean withFocus) throws RemoteException
-  {
-    if (name != null)
-    {
+  public Input getName(boolean withFocus) throws RemoteException {
+    if (name != null) {
       return name;
     }
     name = new TextInput(Einstellungen.getEinstellung().getName(), 70);
     name.setMandatory(true);
-    if (withFocus)
-    {
+    if (withFocus) {
       name.focus();
     }
     return name;
   }
 
-  public Input getStrasse() throws RemoteException
-  {
-    if (strasse != null)
-    {
+  public Input getStrasse() throws RemoteException {
+    if (strasse != null) {
       return strasse;
     }
     strasse = new TextInput(Einstellungen.getEinstellung().getStrasse(), 50);
     return strasse;
   }
 
-  public Input getPlz() throws RemoteException
-  {
-    if (plz != null)
-    {
+  public Input getPlz() throws RemoteException {
+    if (plz != null) {
       return plz;
     }
     plz = new TextInput(Einstellungen.getEinstellung().getPlz(), 5);
     return plz;
   }
 
-  public Input getOrt() throws RemoteException
-  {
-    if (ort != null)
-    {
+  public Input getOrt() throws RemoteException {
+    if (ort != null) {
       return ort;
     }
     ort = new TextInput(Einstellungen.getEinstellung().getOrt(), 50);
     return ort;
   }
 
-  public TextInput getFinanzamt() throws RemoteException
-  {
-    if (finanzamt != null)
-    {
+  public TextInput getFinanzamt() throws RemoteException {
+    if (finanzamt != null) {
       return finanzamt;
     }
     finanzamt = new TextInput(Einstellungen.getEinstellung().getFinanzamt(), 30);
     return finanzamt;
   }
 
-  public TextInput getSteuernummer() throws RemoteException
-  {
-    if (steuernummer != null)
-    {
+  public TextInput getSteuernummer() throws RemoteException {
+    if (steuernummer != null) {
       return steuernummer;
     }
-    steuernummer = new TextInput(Einstellungen.getEinstellung()
-        .getSteuernummer(), 30);
+    steuernummer = new TextInput(Einstellungen.getEinstellung().getSteuernummer(), 30);
     return steuernummer;
   }
 
-  public DateInput getBescheiddatum() throws RemoteException
-  {
-    if (bescheiddatum != null)
-    {
+  public DateInput getBescheiddatum() throws RemoteException {
+    if (bescheiddatum != null) {
       return bescheiddatum;
     }
-    bescheiddatum = new DateInput(Einstellungen.getEinstellung()
-        .getBescheiddatum());
+    bescheiddatum = new DateInput(Einstellungen.getEinstellung().getBescheiddatum());
     return bescheiddatum;
   }
 
-  public CheckboxInput getVorlaeufig() throws RemoteException
-  {
-    if (vorlaeufig != null)
-    {
+  public CheckboxInput getVorlaeufig() throws RemoteException {
+    if (vorlaeufig != null) {
       return vorlaeufig;
     }
-    vorlaeufig = new CheckboxInput(Einstellungen.getEinstellung()
-        .getVorlaeufig());
+    vorlaeufig = new CheckboxInput(Einstellungen.getEinstellung().getVorlaeufig());
     return vorlaeufig;
   }
 
-  public DateInput getVorlaeufigab() throws RemoteException
-  {
-    if (vorlaeufigab != null)
-    {
+  public DateInput getVorlaeufigab() throws RemoteException {
+    if (vorlaeufigab != null) {
       return vorlaeufigab;
     }
-    vorlaeufigab = new DateInput(Einstellungen.getEinstellung()
-        .getVorlaeufigab());
+    vorlaeufigab = new DateInput(Einstellungen.getEinstellung().getVorlaeufigab());
     return vorlaeufigab;
   }
 
-  public DateInput getVeranlagungVon() throws RemoteException
-  {
-    if (veranlagungvon != null)
-    {
+  public DateInput getVeranlagungVon() throws RemoteException {
+    if (veranlagungvon != null) {
       return veranlagungvon;
     }
-    veranlagungvon = new DateInput(Einstellungen.getEinstellung()
-        .getVeranlagungVon());
+    veranlagungvon = new DateInput(Einstellungen.getEinstellung().getVeranlagungVon());
     return veranlagungvon;
   }
 
-  public DateInput getVeranlagungBis() throws RemoteException
-  {
-    if (veranlagungbis != null)
-    {
+  public DateInput getVeranlagungBis() throws RemoteException {
+    if (veranlagungbis != null) {
       return veranlagungbis;
     }
-    veranlagungbis = new DateInput(Einstellungen.getEinstellung()
-        .getVeranlagungBis());
+    veranlagungbis = new DateInput(Einstellungen.getEinstellung().getVeranlagungBis());
     return veranlagungbis;
   }
 
-  public TextInput getBeguenstigterzweck() throws RemoteException
-  {
-    if (beguenstigterzweck != null)
-    {
+  public TextInput getBeguenstigterzweck() throws RemoteException {
+    if (beguenstigterzweck != null) {
       return beguenstigterzweck;
     }
-    beguenstigterzweck = new TextInput(Einstellungen.getEinstellung()
-        .getBeguenstigterzweck(), 100);
+    beguenstigterzweck = new TextInput(Einstellungen.getEinstellung().getBeguenstigterzweck(), 100);
     return beguenstigterzweck;
   }
 
-  public CheckboxInput getMitgliedsbetraege() throws RemoteException
-  {
-    if (mitgliedsbetraege != null)
-    {
+  public CheckboxInput getMitgliedsbetraege() throws RemoteException {
+    if (mitgliedsbetraege != null) {
       return mitgliedsbetraege;
     }
-    mitgliedsbetraege = new CheckboxInput(Einstellungen.getEinstellung()
-        .getMitgliedsbetraege());
+    mitgliedsbetraege = new CheckboxInput(Einstellungen.getEinstellung().getMitgliedsbetraege());
     return mitgliedsbetraege;
   }
 
-  public TextInput getBic() throws RemoteException
-  {
-    if (bic != null && !bic.getControl().isDisposed())
-    {
+  public TextInput getBic() throws RemoteException {
+    if (bic != null && !bic.getControl().isDisposed()) {
       return bic;
     }
     bic = new BICInput(Einstellungen.getEinstellung().getBic());
@@ -456,10 +419,8 @@ public class EinstellungControl extends AbstractControl
     return bic;
   }
 
-  public IBANInput getIban() throws RemoteException
-  {
-    if (iban != null)
-    {
+  public IBANInput getIban() throws RemoteException {
+    if (iban != null) {
       return iban;
     }
     iban = new IBANInput(Einstellungen.getEinstellung().getIban(), bic);
@@ -467,26 +428,21 @@ public class EinstellungControl extends AbstractControl
     return iban;
   }
 
-  public TextInput getGlaeubigerID() throws RemoteException
-  {
-    if (glaeubigerid != null)
-    {
+  public TextInput getGlaeubigerID() throws RemoteException {
+    if (glaeubigerid != null) {
       return glaeubigerid;
     }
-    glaeubigerid = new TextInput(Einstellungen.getEinstellung()
-        .getGlaeubigerID(), 35);
+    glaeubigerid = new TextInput(Einstellungen.getEinstellung().getGlaeubigerID(), 35);
     glaeubigerid.setMandatory(true);
     return glaeubigerid;
   }
 
-  public ScaleInput getSEPADatumOffset() throws RemoteException
-  {
-    if (sepadatumoffset != null)
-    {
+  public ScaleInput getSEPADatumOffset() throws RemoteException {
+    if (sepadatumoffset != null) {
       return sepadatumoffset;
     }
-    sepadatumoffset = new ScaleInput(Einstellungen.getEinstellung()
-        .getSEPADatumOffset(), SWT.HORIZONTAL);
+    sepadatumoffset =
+        new ScaleInput(Einstellungen.getEinstellung().getSEPADatumOffset(), SWT.HORIZONTAL);
     sepadatumoffset.setScaling(0, 14, 1, 1);
     sepadatumoffset.setName("Zusätzliche SEPA-Vorlaufzeit");
     SEPADatumOffsetListener listener = new SEPADatumOffsetListener();
@@ -495,145 +451,113 @@ public class EinstellungControl extends AbstractControl
     return sepadatumoffset;
   }
 
-  public CheckboxInput getGeburtsdatumPflicht() throws RemoteException
-  {
-    if (geburtsdatumpflicht != null)
-    {
+  public CheckboxInput getGeburtsdatumPflicht() throws RemoteException {
+    if (geburtsdatumpflicht != null) {
       return geburtsdatumpflicht;
     }
-    geburtsdatumpflicht = new CheckboxInput(Einstellungen.getEinstellung()
-        .getGeburtsdatumPflicht());
+    geburtsdatumpflicht =
+        new CheckboxInput(Einstellungen.getEinstellung().getGeburtsdatumPflicht());
     return geburtsdatumpflicht;
   }
 
-  public CheckboxInput getEintrittsdatumPflicht() throws RemoteException
-  {
-    if (eintrittsdatumpflicht != null)
-    {
+  public CheckboxInput getEintrittsdatumPflicht() throws RemoteException {
+    if (eintrittsdatumpflicht != null) {
       return eintrittsdatumpflicht;
     }
-    eintrittsdatumpflicht = new CheckboxInput(Einstellungen.getEinstellung()
-        .getEintrittsdatumPflicht());
+    eintrittsdatumpflicht =
+        new CheckboxInput(Einstellungen.getEinstellung().getEintrittsdatumPflicht());
     return eintrittsdatumpflicht;
   }
 
-  public CheckboxInput getSterbedatum() throws RemoteException
-  {
-    if (sterbedatum != null)
-    {
+  public CheckboxInput getSterbedatum() throws RemoteException {
+    if (sterbedatum != null) {
       return sterbedatum;
     }
-    sterbedatum = new CheckboxInput(Einstellungen.getEinstellung()
-        .getSterbedatum());
+    sterbedatum = new CheckboxInput(Einstellungen.getEinstellung().getSterbedatum());
     return sterbedatum;
   }
 
-  public CheckboxInput getKommunikationsdaten() throws RemoteException
-  {
-    if (kommunikationsdaten != null)
-    {
+  public CheckboxInput getKommunikationsdaten() throws RemoteException {
+    if (kommunikationsdaten != null) {
       return kommunikationsdaten;
     }
-    kommunikationsdaten = new CheckboxInput(Einstellungen.getEinstellung()
-        .getKommunikationsdaten());
+    kommunikationsdaten =
+        new CheckboxInput(Einstellungen.getEinstellung().getKommunikationsdaten());
     return kommunikationsdaten;
   }
 
-  public CheckboxInput getSekundaereBeitragsgruppen() throws RemoteException
-  {
-    if (sekundaerebeitragsgruppen != null)
-    {
+  public CheckboxInput getSekundaereBeitragsgruppen() throws RemoteException {
+    if (sekundaerebeitragsgruppen != null) {
       return sekundaerebeitragsgruppen;
     }
-    sekundaerebeitragsgruppen = new CheckboxInput(Einstellungen
-        .getEinstellung().getSekundaereBeitragsgruppen());
+    sekundaerebeitragsgruppen =
+        new CheckboxInput(Einstellungen.getEinstellung().getSekundaereBeitragsgruppen());
     return sekundaerebeitragsgruppen;
   }
 
-  public CheckboxInput getZusatzbetrag() throws RemoteException
-  {
-    if (zusatzbetrag != null)
-    {
+  public CheckboxInput getZusatzbetrag() throws RemoteException {
+    if (zusatzbetrag != null) {
       return zusatzbetrag;
     }
-    zusatzbetrag = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZusatzbetrag());
+    zusatzbetrag = new CheckboxInput(Einstellungen.getEinstellung().getZusatzbetrag());
     return zusatzbetrag;
   }
 
-  public CheckboxInput getVermerke() throws RemoteException
-  {
-    if (vermerke != null)
-    {
+  public CheckboxInput getVermerke() throws RemoteException {
+    if (vermerke != null) {
       return vermerke;
     }
     vermerke = new CheckboxInput(Einstellungen.getEinstellung().getVermerke());
     return vermerke;
   }
 
-  public CheckboxInput getWiedervorlage() throws RemoteException
-  {
-    if (wiedervorlage != null)
-    {
+  public CheckboxInput getWiedervorlage() throws RemoteException {
+    if (wiedervorlage != null) {
       return wiedervorlage;
     }
-    wiedervorlage = new CheckboxInput(Einstellungen.getEinstellung()
-        .getWiedervorlage());
+    wiedervorlage = new CheckboxInput(Einstellungen.getEinstellung().getWiedervorlage());
     return wiedervorlage;
   }
 
-  public CheckboxInput getKursteilnehmer() throws RemoteException
-  {
-    if (kursteilnehmer != null)
-    {
+  public CheckboxInput getKursteilnehmer() throws RemoteException {
+    if (kursteilnehmer != null) {
       return kursteilnehmer;
     }
-    kursteilnehmer = new CheckboxInput(Einstellungen.getEinstellung()
-        .getKursteilnehmer());
+    kursteilnehmer = new CheckboxInput(Einstellungen.getEinstellung().getKursteilnehmer());
     return kursteilnehmer;
   }
 
-  public CheckboxInput getLehrgaenge() throws RemoteException
-  {
-    if (lehrgaenge != null)
-    {
+  public CheckboxInput getLehrgaenge() throws RemoteException {
+    if (lehrgaenge != null) {
       return lehrgaenge;
     }
-    lehrgaenge = new CheckboxInput(Einstellungen.getEinstellung()
-        .getLehrgaenge());
+    lehrgaenge = new CheckboxInput(Einstellungen.getEinstellung().getLehrgaenge());
     return lehrgaenge;
   }
 
-  public CheckboxInput getJuristischePersonen() throws RemoteException
-  {
-    if (juristischepersonen != null)
-    {
+  public CheckboxInput getJuristischePersonen() throws RemoteException {
+    if (juristischepersonen != null) {
       return juristischepersonen;
     }
-    juristischepersonen = new CheckboxInput(Einstellungen.getEinstellung()
-        .getJuristischePersonen());
+    juristischepersonen =
+        new CheckboxInput(Einstellungen.getEinstellung().getJuristischePersonen());
     return juristischepersonen;
   }
 
-  public CheckboxInput getMitgliedfoto() throws RemoteException
-  {
-    if (mitgliedfoto != null)
-    {
+  public CheckboxInput getMitgliedfoto() throws RemoteException {
+    if (mitgliedfoto != null) {
       return mitgliedfoto;
     }
-    mitgliedfoto = new CheckboxInput(Einstellungen.getEinstellung()
-        .getMitgliedfoto());
+    mitgliedfoto = new CheckboxInput(Einstellungen.getEinstellung().getMitgliedfoto());
     return mitgliedfoto;
   }
 
-  public CheckboxInput getKursteilnehmerGebGesPflicht() throws RemoteException
-  {
-    if (kursteilnehmergebgespflicht != null)
-    {
+  public CheckboxInput getKursteilnehmerGebGesPflicht() throws RemoteException {
+    if (kursteilnehmergebgespflicht != null) {
       return kursteilnehmergebgespflicht;
     }
-    kursteilnehmergebgespflicht = new CheckboxInput(Einstellungen
-        .getEinstellung().getKursteilnehmerGebGesPflicht());
+    kursteilnehmergebgespflicht =
+        new CheckboxInput(Einstellungen.getEinstellung().getKursteilnehmerGebGesPflicht());
     return kursteilnehmergebgespflicht;
   }
 
@@ -648,369 +572,314 @@ public class EinstellungControl extends AbstractControl
   // return inventar;
   // }
 
-  public CheckboxInput getUseLesefelder() throws RemoteException
-  {
-    if (uselesefelder == null)
-    {
-      uselesefelder = new CheckboxInput(Einstellungen.getEinstellung()
-          .getUseLesefelder());
+  public CheckboxInput getUseLesefelder() throws RemoteException {
+    if (uselesefelder == null) {
+      uselesefelder = new CheckboxInput(Einstellungen.getEinstellung().getUseLesefelder());
     }
     return uselesefelder;
   }
 
-  public CheckboxInput getZusatzadressen() throws RemoteException
-  {
-    if (zusatzadressen != null)
-    {
+  public CheckboxInput getZusatzadressen() throws RemoteException {
+    if (zusatzadressen != null) {
       return zusatzadressen;
     }
-    zusatzadressen = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZusatzadressen());
+    zusatzadressen = new CheckboxInput(Einstellungen.getEinstellung().getZusatzadressen());
     return zusatzadressen;
   }
 
-  public CheckboxInput getAuslandsadressen() throws RemoteException
-  {
-    if (auslandsadressen != null)
-    {
+  public CheckboxInput getAuslandsadressen() throws RemoteException {
+    if (auslandsadressen != null) {
       return auslandsadressen;
     }
-    auslandsadressen = new CheckboxInput(Einstellungen.getEinstellung()
-        .getAuslandsadressen());
+    auslandsadressen = new CheckboxInput(Einstellungen.getEinstellung().getAuslandsadressen());
     return auslandsadressen;
   }
 
-  public CheckboxInput getArbeitseinsatz() throws RemoteException
-  {
-    if (arbeitseinsatz != null)
-    {
+  public CheckboxInput getArbeitseinsatz() throws RemoteException {
+    if (arbeitseinsatz != null) {
       return arbeitseinsatz;
     }
-    arbeitseinsatz = new CheckboxInput(Einstellungen.getEinstellung()
-        .getArbeitseinsatz());
+    arbeitseinsatz = new CheckboxInput(Einstellungen.getEinstellung().getArbeitseinsatz());
     return arbeitseinsatz;
   }
 
-  public CheckboxInput getDokumentenspeicherung() throws RemoteException
-  {
-    if (dokumentenspeicherung != null)
-    {
+  public CheckboxInput getDokumentenspeicherung() throws RemoteException {
+    if (dokumentenspeicherung != null) {
       return dokumentenspeicherung;
     }
-    dokumentenspeicherung = new CheckboxInput(Einstellungen.getEinstellung()
-        .getDokumentenspeicherung());
+    dokumentenspeicherung =
+        new CheckboxInput(Einstellungen.getEinstellung().getDokumentenspeicherung());
     return dokumentenspeicherung;
   }
 
-  public CheckboxInput getIndividuelleBeitraege() throws RemoteException
-  {
-    if (individuellebeitraege != null)
-    {
+  public CheckboxInput getIndividuelleBeitraege() throws RemoteException {
+    if (individuellebeitraege != null) {
       return individuellebeitraege;
     }
-    individuellebeitraege = new CheckboxInput(Einstellungen.getEinstellung()
-        .getIndividuelleBeitraege());
+    individuellebeitraege =
+        new CheckboxInput(Einstellungen.getEinstellung().getIndividuelleBeitraege());
     return individuellebeitraege;
   }
 
-  public TextInput getRechnungTextAbbuchung() throws RemoteException
-  {
-    if (rechnungtextabbuchung != null)
-    {
+  public TextInput getRechnungTextAbbuchung() throws RemoteException {
+    if (rechnungtextabbuchung != null) {
       return rechnungtextabbuchung;
     }
-    rechnungtextabbuchung = new TextInput(Einstellungen.getEinstellung()
-        .getRechnungTextAbbuchung(), 100);
+    rechnungtextabbuchung =
+        new TextInput(Einstellungen.getEinstellung().getRechnungTextAbbuchung(), 100);
     return rechnungtextabbuchung;
   }
 
-  public TextInput getRechnungTextUeberweisung() throws RemoteException
-  {
-    if (rechnungtextueberweisung != null)
-    {
+  public TextInput getRechnungTextUeberweisung() throws RemoteException {
+    if (rechnungtextueberweisung != null) {
       return rechnungtextueberweisung;
     }
-    rechnungtextueberweisung = new TextInput(Einstellungen.getEinstellung()
-        .getRechnungTextUeberweisung(), 100);
+    rechnungtextueberweisung =
+        new TextInput(Einstellungen.getEinstellung().getRechnungTextUeberweisung(), 100);
     return rechnungtextueberweisung;
   }
 
-  public TextInput getRechnungTextBar() throws RemoteException
-  {
-    if (rechnungtextbar != null)
-    {
+  public TextInput getRechnungTextBar() throws RemoteException {
+    if (rechnungtextbar != null) {
       return rechnungtextbar;
     }
-    rechnungtextbar = new TextInput(Einstellungen.getEinstellung()
-        .getRechnungTextBar(), 100);
+    rechnungtextbar = new TextInput(Einstellungen.getEinstellung().getRechnungTextBar(), 100);
     return rechnungtextbar;
   }
 
-  public CheckboxInput getExterneMitgliedsnummer() throws RemoteException
-  {
-    if (externemitgliedsnummer != null)
-    {
+  public CheckboxInput getExterneMitgliedsnummer() throws RemoteException {
+    if (externemitgliedsnummer != null) {
       return externemitgliedsnummer;
     }
-    externemitgliedsnummer = new CheckboxInput(Einstellungen.getEinstellung()
-        .getExterneMitgliedsnummer());
+    externemitgliedsnummer =
+        new CheckboxInput(Einstellungen.getEinstellung().getExterneMitgliedsnummer());
     return externemitgliedsnummer;
   }
 
-  public SelectInput getBeitragsmodel() throws RemoteException
-  {
-    if (beitragsmodel != null)
-    {
+  public SelectInput getBeitragsmodel() throws RemoteException {
+    if (beitragsmodel != null) {
       return beitragsmodel;
     }
-    beitragsmodel = new SelectInput(Beitragsmodel.values(), Einstellungen
-        .getEinstellung().getBeitragsmodel());
+    beitragsmodel =
+        new SelectInput(Beitragsmodel.values(), Einstellungen.getEinstellung().getBeitragsmodel());
     return beitragsmodel;
   }
 
-  public SelectInput getArbeitsstundenmodel() throws RemoteException
-  {
-    if (arbeitsstundenmodel != null)
-    {
+  public SelectInput getArbeitsstundenmodel() throws RemoteException {
+    if (arbeitsstundenmodel != null) {
       return arbeitsstundenmodel;
     }
     arbeitsstundenmodel = new SelectInput(ArbeitsstundenModel.getArray(),
-        new ArbeitsstundenModel(Einstellungen.getEinstellung()
-            .getArbeitsstundenmodel()));
+        new ArbeitsstundenModel(Einstellungen.getEinstellung().getArbeitsstundenmodel()));
     return arbeitsstundenmodel;
   }
 
-  public SelectInput getSepamandatidsourcemodel() throws RemoteException
-  {
-    if (sepamandatidsourcemodel != null)
-    {
+  public SelectInput getSepamandatidsourcemodel() throws RemoteException {
+    if (sepamandatidsourcemodel != null) {
       return sepamandatidsourcemodel;
     }
     sepamandatidsourcemodel = new SelectInput(SepaMandatIdSource.getArray(),
-        new SepaMandatIdSource(Einstellungen.getEinstellung()
-            .getSepaMandatIdSource()));
+        new SepaMandatIdSource(Einstellungen.getEinstellung().getSepaMandatIdSource()));
     return sepamandatidsourcemodel;
   }
 
-  public SelectInput getAltersModel() throws RemoteException
-  {
-    if (null != altersmodel)
-    {
+  public SelectInput getAltersModel() throws RemoteException {
+    if (null != altersmodel) {
       return altersmodel;
     }
 
-    altersmodel = new SelectInput(Altermodel.getArray(), new Altermodel(
-        Einstellungen.getEinstellung().getAltersModel()));
+    altersmodel = new SelectInput(Altermodel.getArray(),
+        new Altermodel(Einstellungen.getEinstellung().getAltersModel()));
 
     return altersmodel;
   }
 
-  public TextInput getDateinamenmuster() throws RemoteException
-  {
-    if (dateinamenmuster != null)
-    {
+  public TextInput getDateinamenmuster() throws RemoteException {
+    if (dateinamenmuster != null) {
       return dateinamenmuster;
     }
-    dateinamenmuster = new TextInput(Einstellungen.getEinstellung()
-        .getDateinamenmuster(), 30);
-    dateinamenmuster
-        .setComment("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit");
+    dateinamenmuster = new TextInput(Einstellungen.getEinstellung().getDateinamenmuster(), 30);
+    dateinamenmuster.setComment("a$ = Aufgabe, d$ = Datum, s$ = Sortierung, z$ = Zeit");
     return dateinamenmuster;
   }
 
-  public TextInput getDateinamenmusterSpende() throws RemoteException
-  {
-    if (dateinamenmusterspende != null)
-    {
+  public TextInput getDateinamenmusterSpende() throws RemoteException {
+    if (dateinamenmusterspende != null) {
       return dateinamenmusterspende;
     }
-    dateinamenmusterspende = new TextInput(Einstellungen.getEinstellung()
-        .getDateinamenmusterSpende(), 30);
-    dateinamenmusterspende
-        .setComment("n$ = Name, v$ = Vorname, d$ = Datum, z$ = Zeit");
+    dateinamenmusterspende =
+        new TextInput(Einstellungen.getEinstellung().getDateinamenmusterSpende(), 30);
+    dateinamenmusterspende.setComment("n$ = Name, v$ = Vorname, d$ = Datum, z$ = Zeit");
     return dateinamenmusterspende;
   }
 
-  public DirectoryInput getVorlagenCsvVerzeichnis() throws RemoteException
-  {
-    if (vorlagenCsvVerzeichnis != null)
-    {
+  public DirectoryInput getVorlagenCsvVerzeichnis() throws RemoteException {
+    if (vorlagenCsvVerzeichnis != null) {
       return vorlagenCsvVerzeichnis;
     }
-    String lastValue = Einstellungen.getEinstellung()
-        .getVorlagenCsvVerzeichnis();
+    String lastValue = Einstellungen.getEinstellung().getVorlagenCsvVerzeichnis();
     vorlagenCsvVerzeichnis = new DirectoryInput(lastValue);
     return vorlagenCsvVerzeichnis;
   }
 
-  public DecimalInput getSpendenbescheinigungminbetrag() throws RemoteException
-  {
-    if (spendenbescheinigungminbetrag != null)
-    {
+  public DecimalInput getSpendenbescheinigungminbetrag() throws RemoteException {
+    if (spendenbescheinigungminbetrag != null) {
       return spendenbescheinigungminbetrag;
     }
-    spendenbescheinigungminbetrag = new DecimalInput(Einstellungen
-        .getEinstellung().getSpendenbescheinigungminbetrag(),
-        new DecimalFormat("###0.00"));
+    spendenbescheinigungminbetrag =
+        new DecimalInput(Einstellungen.getEinstellung().getSpendenbescheinigungminbetrag(),
+            new DecimalFormat("###0.00"));
     return spendenbescheinigungminbetrag;
   }
 
-  public DirectoryInput getSpendenbescheinigungverzeichnis()
-      throws RemoteException
-  {
-    if (spendenbescheinigungverzeichnis != null)
-    {
+  public DirectoryInput getSpendenbescheinigungverzeichnis() throws RemoteException {
+    if (spendenbescheinigungverzeichnis != null) {
       return spendenbescheinigungverzeichnis;
     }
-    spendenbescheinigungverzeichnis = new DirectoryInput(Einstellungen
-        .getEinstellung().getSpendenbescheinigungverzeichnis());
+    spendenbescheinigungverzeichnis =
+        new DirectoryInput(Einstellungen.getEinstellung().getSpendenbescheinigungverzeichnis());
     return spendenbescheinigungverzeichnis;
   }
 
-  public CheckboxInput getSpendenbescheinigungPrintBuchungsart()
-      throws RemoteException
-  {
-    if (spendenbescheinigungprintbuchungsart != null)
-    {
+  public CheckboxInput getSpendenbescheinigungPrintBuchungsart() throws RemoteException {
+    if (spendenbescheinigungprintbuchungsart != null) {
       return spendenbescheinigungprintbuchungsart;
     }
-    spendenbescheinigungprintbuchungsart = new CheckboxInput(Einstellungen
-        .getEinstellung().getSpendenbescheinigungPrintBuchungsart());
+    spendenbescheinigungprintbuchungsart =
+        new CheckboxInput(Einstellungen.getEinstellung().getSpendenbescheinigungPrintBuchungsart());
     return spendenbescheinigungprintbuchungsart;
   }
 
-  public TextInput getBeginnGeschaeftsjahr() throws RemoteException
-  {
-    if (beginngeschaeftsjahr != null)
-    {
+  public TextInput getBeginnGeschaeftsjahr() throws RemoteException {
+    if (beginngeschaeftsjahr != null) {
       return beginngeschaeftsjahr;
     }
-    beginngeschaeftsjahr = new TextInput(Einstellungen.getEinstellung()
-        .getBeginnGeschaeftsjahr(), 6);
+    beginngeschaeftsjahr =
+        new TextInput(Einstellungen.getEinstellung().getBeginnGeschaeftsjahr(), 6);
     return beginngeschaeftsjahr;
   }
 
-  public CheckboxInput getAutoBuchunguebernahme() throws RemoteException
-  {
-    if (autobuchunguebernahme != null)
-    {
+  public CheckboxInput getAutoBuchunguebernahme() throws RemoteException {
+    if (autobuchunguebernahme != null) {
       return autobuchunguebernahme;
     }
-    autobuchunguebernahme = new CheckboxInput(Einstellungen.getEinstellung()
-        .getAutoBuchunguebernahme());
-    autobuchunguebernahme
-        .setName("Automatische Buchungsübernahme aus Hibiscus");
+    autobuchunguebernahme =
+        new CheckboxInput(Einstellungen.getEinstellung().getAutoBuchunguebernahme());
+    autobuchunguebernahme.setName("Automatische Buchungsübernahme aus Hibiscus");
     return autobuchunguebernahme;
   }
 
-  public CheckboxInput getUnterdrueckungOhneBuchung() throws RemoteException
-  {
-    if (unterdrueckungohnebuchung != null)
-    {
+  public CheckboxInput getUnterdrueckungOhneBuchung() throws RemoteException {
+    if (unterdrueckungohnebuchung != null) {
       return unterdrueckungohnebuchung;
     }
-    unterdrueckungohnebuchung = new CheckboxInput(Einstellungen
-        .getEinstellung().getUnterdrueckungOhneBuchung());
-    unterdrueckungohnebuchung
-        .setName("Listen: Buchungsarten ohne Buchung unterdrücken");
+    unterdrueckungohnebuchung =
+        new CheckboxInput(Einstellungen.getEinstellung().getUnterdrueckungOhneBuchung());
+    unterdrueckungohnebuchung.setName("Listen: Buchungsarten ohne Buchung unterdrücken");
     return unterdrueckungohnebuchung;
   }
 
-  public TextInput getSmtpServer() throws RemoteException
-  {
-    if (smtp_server != null)
-    {
+  public CheckboxInput getVerwendeBelegnummer() throws RemoteException {
+    if (verwendebelegnummer != null) {
+      return verwendebelegnummer;
+    }
+    verwendebelegnummer =
+        new CheckboxInput(Einstellungen.getEinstellung().getVerwendeBelegnummer());
+    verwendebelegnummer
+        .setName("manuelle Belegnummer anstatt Buchungsnummer aus Datenbank verwenden");
+    return verwendebelegnummer;
+  }
+
+  public CheckboxInput getBelegnummerProKonto() throws RemoteException {
+    if (belegnummer_pro_konto != null) {
+      return belegnummer_pro_konto;
+    }
+    belegnummer_pro_konto =
+        new CheckboxInput(Einstellungen.getEinstellung().getBelegnummerProKonto());
+    belegnummer_pro_konto.setName("Jedes Konto erhält eine eigene Belegnummer.");
+    return belegnummer_pro_konto;
+  }
+
+  public CheckboxInput getBelegnummerProJahr() throws RemoteException {
+    if (belegnummer_pro_jahr != null) {
+      return belegnummer_pro_jahr;
+    }
+    belegnummer_pro_jahr =
+        new CheckboxInput(Einstellungen.getEinstellung().getBelegnummerProJahr());
+    belegnummer_pro_jahr.setName("Jedes Geschäftsjahr erhält eine eigene Belegnummer.");
+    return belegnummer_pro_jahr;
+  }
+
+  public TextInput getSmtpServer() throws RemoteException {
+    if (smtp_server != null) {
       return smtp_server;
     }
-    smtp_server = new TextInput(Einstellungen.getEinstellung().getSmtpServer(),
-        50);
+    smtp_server = new TextInput(Einstellungen.getEinstellung().getSmtpServer(), 50);
     return smtp_server;
   }
 
-  public IntegerInput getSmtpPort() throws RemoteException
-  {
-    if (smtp_port != null)
-    {
+  public IntegerInput getSmtpPort() throws RemoteException {
+    if (smtp_port != null) {
       return smtp_port;
     }
-    smtp_port = new IntegerInput(new Integer(Einstellungen.getEinstellung()
-        .getSmtpPort()));
+    smtp_port = new IntegerInput(new Integer(Einstellungen.getEinstellung().getSmtpPort()));
     return smtp_port;
   }
 
-  public TextInput getSmtpAuthUser() throws RemoteException
-  {
-    if (smtp_auth_user != null)
-    {
+  public TextInput getSmtpAuthUser() throws RemoteException {
+    if (smtp_auth_user != null) {
       return smtp_auth_user;
     }
-    smtp_auth_user = new TextInput(Einstellungen.getEinstellung()
-        .getSmtpAuthUser(), 50);
+    smtp_auth_user = new TextInput(Einstellungen.getEinstellung().getSmtpAuthUser(), 50);
     return smtp_auth_user;
   }
 
-  public PasswordInput getSmtpAuthPwd() throws RemoteException
-  {
-    if (smtp_auth_pwd != null)
-    {
+  public PasswordInput getSmtpAuthPwd() throws RemoteException {
+    if (smtp_auth_pwd != null) {
       return smtp_auth_pwd;
     }
-    smtp_auth_pwd = new PasswordInput(Einstellungen.getEinstellung()
-        .getSmtpAuthPwd());
+    smtp_auth_pwd = new PasswordInput(Einstellungen.getEinstellung().getSmtpAuthPwd());
     return smtp_auth_pwd;
   }
 
-  public EmailInput getSmtpFromAddress() throws RemoteException
-  {
-    if (smtp_from_address != null)
-    {
+  public EmailInput getSmtpFromAddress() throws RemoteException {
+    if (smtp_from_address != null) {
       return smtp_from_address;
     }
-    smtp_from_address = new EmailInput(Einstellungen.getEinstellung()
-        .getSmtpFromAddress());
+    smtp_from_address = new EmailInput(Einstellungen.getEinstellung().getSmtpFromAddress());
     return smtp_from_address;
   }
 
-  public TextInput getSmtpFromAnzeigename() throws RemoteException
-  {
-    if (smtp_from_anzeigename != null)
-    {
+  public TextInput getSmtpFromAnzeigename() throws RemoteException {
+    if (smtp_from_anzeigename != null) {
       return smtp_from_anzeigename;
     }
-    smtp_from_anzeigename = new TextInput(Einstellungen.getEinstellung()
-        .getSmtpFromAnzeigename(), 50);
+    smtp_from_anzeigename =
+        new TextInput(Einstellungen.getEinstellung().getSmtpFromAnzeigename(), 50);
     return smtp_from_anzeigename;
   }
 
-  public CheckboxInput getSmtpSsl() throws RemoteException
-  {
-    if (smtp_ssl != null)
-    {
+  public CheckboxInput getSmtpSsl() throws RemoteException {
+    if (smtp_ssl != null) {
       return smtp_ssl;
     }
     smtp_ssl = new CheckboxInput(Einstellungen.getEinstellung().getSmtpSsl());
     return smtp_ssl;
   }
 
-  public CheckboxInput getSmtpStarttls() throws RemoteException
-  {
-    if (smtp_starttls != null)
-    {
+  public CheckboxInput getSmtpStarttls() throws RemoteException {
+    if (smtp_starttls != null) {
       return smtp_starttls;
     }
-    smtp_starttls = new CheckboxInput(Einstellungen.getEinstellung()
-        .getSmtpStarttls());
+    smtp_starttls = new CheckboxInput(Einstellungen.getEinstellung().getSmtpStarttls());
     return smtp_starttls;
   }
 
-  public ScaleInput getMailVerzoegerung() throws RemoteException
-  {
-    if (mailverzoegerung != null)
-    {
+  public ScaleInput getMailVerzoegerung() throws RemoteException {
+    if (mailverzoegerung != null) {
       return mailverzoegerung;
     }
-    mailverzoegerung = new ScaleInput(Einstellungen.getEinstellung()
-        .getMailVerzoegerung());
+    mailverzoegerung = new ScaleInput(Einstellungen.getEinstellung().getMailVerzoegerung());
     mailverzoegerung.setScaling(0, 10000, 100, 100);
     mailverzoegerung.setComment("");
     MailVerzoegerungListener listener = new MailVerzoegerungListener();
@@ -1020,467 +889,362 @@ public class EinstellungControl extends AbstractControl
     return mailverzoegerung;
   }
 
-  public TextInput getAlwaysBccTo() throws RemoteException
-  {
-    if (alwaysBccTo != null)
-    {
+  public TextInput getAlwaysBccTo() throws RemoteException {
+    if (alwaysBccTo != null) {
       return alwaysBccTo;
     }
-    alwaysBccTo = new TextInput(Einstellungen.getEinstellung()
-        .getMailAlwaysBcc());
+    alwaysBccTo = new TextInput(Einstellungen.getEinstellung().getMailAlwaysBcc());
     return alwaysBccTo;
   }
 
-  public TextInput getAlwaysCcTo() throws RemoteException
-  {
-    if (alwaysCcTo != null)
-    {
+  public TextInput getAlwaysCcTo() throws RemoteException {
+    if (alwaysCcTo != null) {
       return alwaysCcTo;
     }
     alwaysCcTo = new TextInput(Einstellungen.getEinstellung().getMailAlwaysCc());
     return alwaysCcTo;
   }
 
-  public CheckboxInput getCopyToImapFolder() throws RemoteException
-  {
-    if (copyToImapFolder != null)
-    {
+  public CheckboxInput getCopyToImapFolder() throws RemoteException {
+    if (copyToImapFolder != null) {
       return copyToImapFolder;
     }
-    copyToImapFolder = new CheckboxInput(Einstellungen.getEinstellung()
-        .getCopyToImapFolder());
+    copyToImapFolder = new CheckboxInput(Einstellungen.getEinstellung().getCopyToImapFolder());
     return copyToImapFolder;
   }
 
-  public TextInput getImapAuthUser() throws RemoteException
-  {
-    if (imapAuthUser != null)
-    {
+  public TextInput getImapAuthUser() throws RemoteException {
+    if (imapAuthUser != null) {
       return imapAuthUser;
     }
-    imapAuthUser = new TextInput(Einstellungen.getEinstellung()
-        .getImapAuthUser());
+    imapAuthUser = new TextInput(Einstellungen.getEinstellung().getImapAuthUser());
     return imapAuthUser;
   }
 
-  public TextInput getImapAuthPwd() throws RemoteException
-  {
-    if (imapAuthPwd != null)
-    {
+  public TextInput getImapAuthPwd() throws RemoteException {
+    if (imapAuthPwd != null) {
       return imapAuthPwd;
     }
-    imapAuthPwd = new PasswordInput(Einstellungen.getEinstellung()
-        .getImapAuthPwd());
+    imapAuthPwd = new PasswordInput(Einstellungen.getEinstellung().getImapAuthPwd());
     return imapAuthPwd;
   }
 
-  public TextInput getImapHost() throws RemoteException
-  {
-    if (imapHost != null)
-    {
+  public TextInput getImapHost() throws RemoteException {
+    if (imapHost != null) {
       return imapHost;
     }
     imapHost = new TextInput(Einstellungen.getEinstellung().getImapHost());
     return imapHost;
   }
 
-  public TextInput getImapPort() throws RemoteException
-  {
-    if (imapPort != null)
-    {
+  public TextInput getImapPort() throws RemoteException {
+    if (imapPort != null) {
       return imapPort;
     }
     imapPort = new TextInput(Einstellungen.getEinstellung().getImapPort());
     return imapPort;
   }
 
-  public CheckboxInput getImap_ssl() throws RemoteException
-  {
-    if (imap_ssl != null)
-    {
+  public CheckboxInput getImap_ssl() throws RemoteException {
+    if (imap_ssl != null) {
       return imap_ssl;
     }
     imap_ssl = new CheckboxInput(Einstellungen.getEinstellung().getImapSsl());
     return imap_ssl;
   }
 
-  public CheckboxInput getImap_starttls() throws RemoteException
-  {
-    if (imap_starttls != null)
-    {
+  public CheckboxInput getImap_starttls() throws RemoteException {
+    if (imap_starttls != null) {
       return imap_starttls;
     }
-    imap_starttls = new CheckboxInput(Einstellungen.getEinstellung()
-        .getImapStartTls());
+    imap_starttls = new CheckboxInput(Einstellungen.getEinstellung().getImapStartTls());
     return imap_starttls;
   }
 
-  public TextInput getImapSentFolder() throws RemoteException
-  {
-    if (imapSentFolder != null)
-    {
+  public TextInput getImapSentFolder() throws RemoteException {
+    if (imapSentFolder != null) {
       return imapSentFolder;
     }
-    imapSentFolder = new TextInput(Einstellungen.getEinstellung()
-        .getImapSentFolder());
+    imapSentFolder = new TextInput(Einstellungen.getEinstellung().getImapSentFolder());
     return imapSentFolder;
   }
 
-  public Input getMailSignatur() throws RemoteException
-  {
-    if (mailsignatur != null)
-    {
+  public Input getMailSignatur() throws RemoteException {
+    if (mailsignatur != null) {
       return mailsignatur;
     }
-    mailsignatur = new TextAreaInput(Einstellungen.getEinstellung()
-        .getMailSignatur(false), 1000);
+    mailsignatur = new TextAreaInput(Einstellungen.getEinstellung().getMailSignatur(false), 1000);
     mailsignatur.setHeight(50);
     return mailsignatur;
   }
 
-  public SelectInput getZahlungsweg() throws RemoteException
-  {
-    if (zahlungsweg != null)
-    {
+  public SelectInput getZahlungsweg() throws RemoteException {
+    if (zahlungsweg != null) {
       return zahlungsweg;
     }
-    zahlungsweg = new SelectInput(Zahlungsweg.getArray(), new Zahlungsweg(
-        Einstellungen.getEinstellung().getZahlungsweg()));
+    zahlungsweg = new SelectInput(Zahlungsweg.getArray(),
+        new Zahlungsweg(Einstellungen.getEinstellung().getZahlungsweg()));
     zahlungsweg.setName("Standard-Zahlungsweg f. neue Mitglieder");
     return zahlungsweg;
   }
 
-  public SelectInput getZahlungsrhytmus() throws RemoteException
-  {
-    if (zahlungsrhytmus != null)
-    {
+  public SelectInput getZahlungsrhytmus() throws RemoteException {
+    if (zahlungsrhytmus != null) {
       return zahlungsrhytmus;
     }
     zahlungsrhytmus = new SelectInput(Zahlungsrhythmus.getArray(),
-        new Zahlungsrhythmus(Einstellungen.getEinstellung()
-            .getZahlungsrhytmus()));
+        new Zahlungsrhythmus(Einstellungen.getEinstellung().getZahlungsrhytmus()));
     zahlungsrhytmus.setName("Standard-Zahlungsrhytmus f. neue Mitglieder");
     return zahlungsrhytmus;
   }
 
-  public SelectInput getDefaultSEPALand() throws RemoteException
-  {
-    if (sepaland != null)
-    {
+  public SelectInput getDefaultSEPALand() throws RemoteException {
+    if (sepaland != null) {
       return sepaland;
     }
-    SEPALand sl = SEPALaender.getLand(Einstellungen.getEinstellung()
-        .getDefaultLand());
+    SEPALand sl = SEPALaender.getLand(Einstellungen.getEinstellung().getDefaultLand());
     sepaland = new SEPALandInput(sl);
     return sepaland;
   }
 
-  public Input getAltersgruppen() throws RemoteException
-  {
-    if (altersgruppen != null)
-    {
+  public Input getAltersgruppen() throws RemoteException {
+    if (altersgruppen != null) {
       return altersgruppen;
     }
-    altersgruppen = new TextInput(Einstellungen.getEinstellung()
-        .getAltersgruppen(), 200);
+    altersgruppen = new TextInput(Einstellungen.getEinstellung().getAltersgruppen(), 200);
     return altersgruppen;
   }
 
-  public Input getJubilaeen() throws RemoteException
-  {
-    if (jubilaeen != null)
-    {
+  public Input getJubilaeen() throws RemoteException {
+    if (jubilaeen != null) {
       return jubilaeen;
     }
     jubilaeen = new TextInput(Einstellungen.getEinstellung().getJubilaeen(), 50);
     return jubilaeen;
   }
 
-  public Input getAltersjubilaeen() throws RemoteException
-  {
-    if (altersjubilaeen != null)
-    {
+  public Input getAltersjubilaeen() throws RemoteException {
+    if (altersjubilaeen != null) {
       return altersjubilaeen;
     }
-    altersjubilaeen = new TextInput(Einstellungen.getEinstellung()
-        .getAltersjubilaeen(), 200);
+    altersjubilaeen = new TextInput(Einstellungen.getEinstellung().getAltersjubilaeen(), 200);
     return altersjubilaeen;
   }
 
-  public IntegerInput getJubilarStartAlter() throws RemoteException
-  {
-    if (null == jubilarStartAlter)
-    {
-      jubilarStartAlter = new IntegerInput(Einstellungen.getEinstellung()
-          .getJubilarStartAlter());
+  public IntegerInput getJubilarStartAlter() throws RemoteException {
+    if (null == jubilarStartAlter) {
+      jubilarStartAlter = new IntegerInput(Einstellungen.getEinstellung().getJubilarStartAlter());
     }
     return jubilarStartAlter;
   }
 
-  public TablePart getSpaltendefinitionTable() throws RemoteException
-  {
-    if (spalten == null)
-    {
+  public TablePart getSpaltendefinitionTable() throws RemoteException {
+    if (spalten == null) {
       spalten = new MitgliedSpaltenauswahl();
     }
     return spalten.paintSpaltenpaintSpaltendefinitionTable();
   }
 
-  public void setCheckSpalten()
-  {
+  public void setCheckSpalten() {
     spalten.setCheckSpalten();
   }
 
-  public IntegerInput getAnzahlSpaltenStammdatenInput() throws RemoteException
-  {
+  public IntegerInput getAnzahlSpaltenStammdatenInput() throws RemoteException {
     {
-      if (AnzahlSpaltenStammdatenInput != null)
-      {
+      if (AnzahlSpaltenStammdatenInput != null) {
         return AnzahlSpaltenStammdatenInput;
       }
-      AnzahlSpaltenStammdatenInput = new IntegerInput(Einstellungen
-          .getEinstellung().getAnzahlSpaltenStammdaten());
+      AnzahlSpaltenStammdatenInput =
+          new IntegerInput(Einstellungen.getEinstellung().getAnzahlSpaltenStammdaten());
       return AnzahlSpaltenStammdatenInput;
     }
   }
 
-  public IntegerInput getAnzahlSpaltenLesefelderInput() throws RemoteException
-  {
+  public IntegerInput getAnzahlSpaltenLesefelderInput() throws RemoteException {
     {
-      if (AnzahlSpaltenLesefelderInput != null)
-      {
+      if (AnzahlSpaltenLesefelderInput != null) {
         return AnzahlSpaltenLesefelderInput;
       }
-      AnzahlSpaltenLesefelderInput = new IntegerInput(Einstellungen
-          .getEinstellung().getAnzahlSpaltenLesefelder());
+      AnzahlSpaltenLesefelderInput =
+          new IntegerInput(Einstellungen.getEinstellung().getAnzahlSpaltenLesefelder());
       return AnzahlSpaltenLesefelderInput;
     }
   }
 
-  public IntegerInput getAnzahlSpaltenMitgliedschaftInput()
-      throws RemoteException
-  {
+  public IntegerInput getAnzahlSpaltenMitgliedschaftInput() throws RemoteException {
     {
-      if (AnzahlSpaltenMitgliedschaftInput != null)
-      {
+      if (AnzahlSpaltenMitgliedschaftInput != null) {
         return AnzahlSpaltenMitgliedschaftInput;
       }
-      AnzahlSpaltenMitgliedschaftInput = new IntegerInput(Einstellungen
-          .getEinstellung().getAnzahlSpaltenMitgliedschaft());
+      AnzahlSpaltenMitgliedschaftInput =
+          new IntegerInput(Einstellungen.getEinstellung().getAnzahlSpaltenMitgliedschaft());
       return AnzahlSpaltenMitgliedschaftInput;
     }
   }
 
-  public IntegerInput getAnzahlSpaltenZahlungInput() throws RemoteException
-  {
+  public IntegerInput getAnzahlSpaltenZahlungInput() throws RemoteException {
     {
-      if (AnzahlSpaltenZahlungInput != null)
-      {
+      if (AnzahlSpaltenZahlungInput != null) {
         return AnzahlSpaltenZahlungInput;
       }
-      AnzahlSpaltenZahlungInput = new IntegerInput(Einstellungen
-          .getEinstellung().getAnzahlSpaltenZahlung());
+      AnzahlSpaltenZahlungInput =
+          new IntegerInput(Einstellungen.getEinstellung().getAnzahlSpaltenZahlung());
       return AnzahlSpaltenZahlungInput;
     }
   }
 
-  public IntegerInput getAnzahlSpaltenZusatzfelderInput()
-      throws RemoteException
-  {
+  public IntegerInput getAnzahlSpaltenZusatzfelderInput() throws RemoteException {
     {
-      if (AnzahlSpaltenZusatzfelderInput != null)
-      {
+      if (AnzahlSpaltenZusatzfelderInput != null) {
         return AnzahlSpaltenZusatzfelderInput;
       }
-      AnzahlSpaltenZusatzfelderInput = new IntegerInput(Einstellungen
-          .getEinstellung().getAnzahlSpaltenZusatzfelder());
+      AnzahlSpaltenZusatzfelderInput =
+          new IntegerInput(Einstellungen.getEinstellung().getAnzahlSpaltenZusatzfelder());
       return AnzahlSpaltenZusatzfelderInput;
     }
   }
 
-  public CheckboxInput getZeigeStammdatenInTabCheckbox() throws RemoteException
-  {
-    if (ZeigeStammdatenInTabInput != null)
-    {
+  public CheckboxInput getZeigeStammdatenInTabCheckbox() throws RemoteException {
+    if (ZeigeStammdatenInTabInput != null) {
       return ZeigeStammdatenInTabInput;
     }
-    ZeigeStammdatenInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeStammdatenInTab());
+    ZeigeStammdatenInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeStammdatenInTab());
     return ZeigeStammdatenInTabInput;
   }
 
-  public CheckboxInput getZeigeMitgliedschaftInTabCheckbox()
-      throws RemoteException
-  {
-    if (ZeigeMitgliedschaftInTabInput != null)
-    {
+  public CheckboxInput getZeigeMitgliedschaftInTabCheckbox() throws RemoteException {
+    if (ZeigeMitgliedschaftInTabInput != null) {
       return ZeigeMitgliedschaftInTabInput;
     }
-    ZeigeMitgliedschaftInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeMitgliedschaftInTab());
+    ZeigeMitgliedschaftInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeMitgliedschaftInTab());
     return ZeigeMitgliedschaftInTabInput;
   }
 
-  public CheckboxInput getZeigeZahlungInTabCheckbox() throws RemoteException
-  {
-    if (ZeigeZahlungInTabInput != null)
-    {
+  public CheckboxInput getZeigeZahlungInTabCheckbox() throws RemoteException {
+    if (ZeigeZahlungInTabInput != null) {
       return ZeigeZahlungInTabInput;
     }
-    ZeigeZahlungInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeZahlungInTab());
+    ZeigeZahlungInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeZahlungInTab());
     return ZeigeZahlungInTabInput;
   }
 
-  public CheckboxInput getZeigeZusatzbetrageInTabCheckbox()
-      throws RemoteException
-  {
-    if (ZeigeZusatzbeitraegeInTabInput != null)
-    {
+  public CheckboxInput getZeigeZusatzbetrageInTabCheckbox() throws RemoteException {
+    if (ZeigeZusatzbeitraegeInTabInput != null) {
       return ZeigeZusatzbeitraegeInTabInput;
     }
-    ZeigeZusatzbeitraegeInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeZusatzbetraegeInTab());
+    ZeigeZusatzbeitraegeInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeZusatzbetraegeInTab());
     return ZeigeZusatzbeitraegeInTabInput;
   }
 
-  public CheckboxInput getZeigeMitgliedskontoInTabCheckbox()
-      throws RemoteException
-  {
-    if (ZeigeMitgliedskontoInTabInput != null)
-    {
+  public CheckboxInput getZeigeMitgliedskontoInTabCheckbox() throws RemoteException {
+    if (ZeigeMitgliedskontoInTabInput != null) {
       return ZeigeMitgliedskontoInTabInput;
     }
-    ZeigeMitgliedskontoInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeMitgliedskontoInTab());
+    ZeigeMitgliedskontoInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeMitgliedskontoInTab());
     return ZeigeMitgliedskontoInTabInput;
   }
 
-  public CheckboxInput getZeigeVermerkeInTabCheckbox() throws RemoteException
-  {
-    if (ZeigeVermerkeInTabInput != null)
-    {
+  public CheckboxInput getZeigeVermerkeInTabCheckbox() throws RemoteException {
+    if (ZeigeVermerkeInTabInput != null) {
       return ZeigeVermerkeInTabInput;
     }
-    ZeigeVermerkeInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeVermerkeInTab());
+    ZeigeVermerkeInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeVermerkeInTab());
     return ZeigeVermerkeInTabInput;
   }
 
-  public CheckboxInput getZeigeWiedervorlageInTabCheckbox()
-      throws RemoteException
-  {
-    if (ZeigeWiedervorlageInTabInput != null)
-    {
+  public CheckboxInput getZeigeWiedervorlageInTabCheckbox() throws RemoteException {
+    if (ZeigeWiedervorlageInTabInput != null) {
       return ZeigeWiedervorlageInTabInput;
     }
-    ZeigeWiedervorlageInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeWiedervorlageInTab());
+    ZeigeWiedervorlageInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeWiedervorlageInTab());
     return ZeigeWiedervorlageInTabInput;
   }
 
-  public CheckboxInput getZeigeMailsInTabCheckbox() throws RemoteException
-  {
-    if (ZeigeMailsInTabInput != null)
-    {
+  public CheckboxInput getZeigeMailsInTabCheckbox() throws RemoteException {
+    if (ZeigeMailsInTabInput != null) {
       return ZeigeMailsInTabInput;
     }
-    ZeigeMailsInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeMailsInTab());
+    ZeigeMailsInTabInput = new CheckboxInput(Einstellungen.getEinstellung().getZeigeMailsInTab());
     return ZeigeMailsInTabInput;
   }
 
-  public CheckboxInput getZeigeEigenschaftenInTabCheckbox()
-      throws RemoteException
-  {
-    if (ZeigeEigenschaftenInTabInput != null)
-    {
+  public CheckboxInput getZeigeEigenschaftenInTabCheckbox() throws RemoteException {
+    if (ZeigeEigenschaftenInTabInput != null) {
       return ZeigeEigenschaftenInTabInput;
     }
-    ZeigeEigenschaftenInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeEigenschaftenInTab());
+    ZeigeEigenschaftenInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeEigenschaftenInTab());
     return ZeigeEigenschaftenInTabInput;
   }
 
-  public CheckboxInput getZeigeZusatzfelderInTabCheckbox()
-      throws RemoteException
-  {
-    if (ZeigeZusatzfelderInTabInput != null)
-    {
+  public CheckboxInput getZeigeZusatzfelderInTabCheckbox() throws RemoteException {
+    if (ZeigeZusatzfelderInTabInput != null) {
       return ZeigeZusatzfelderInTabInput;
     }
-    ZeigeZusatzfelderInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeZusatzfelderInTab());
+    ZeigeZusatzfelderInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeZusatzfelderInTab());
     return ZeigeZusatzfelderInTabInput;
   }
 
-  public CheckboxInput getZeigeLehrgaengeInTabCheckbox() throws RemoteException
-  {
-    if (ZeigeLehrgaengeInTabInput != null)
-    {
+  public CheckboxInput getZeigeLehrgaengeInTabCheckbox() throws RemoteException {
+    if (ZeigeLehrgaengeInTabInput != null) {
       return ZeigeLehrgaengeInTabInput;
     }
-    ZeigeLehrgaengeInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeLehrgaengeInTab());
+    ZeigeLehrgaengeInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeLehrgaengeInTab());
     return ZeigeLehrgaengeInTabInput;
   }
 
-  public CheckboxInput getZeigeFotoInTabCheckbox() throws RemoteException
-  {
-    if (ZeigeFotoInTabInput != null)
-    {
+  public CheckboxInput getZeigeFotoInTabCheckbox() throws RemoteException {
+    if (ZeigeFotoInTabInput != null) {
       return ZeigeFotoInTabInput;
     }
-    ZeigeFotoInTabInput = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZeigeFotoInTab());
+    ZeigeFotoInTabInput = new CheckboxInput(Einstellungen.getEinstellung().getZeigeFotoInTab());
     return ZeigeFotoInTabInput;
   }
 
-  public CheckboxInput getZeigeLesefelderInTabCheckbox() throws RemoteException
-  {
-    if (ZeigeLesefelderInTabInput != null)
-    {
+  public CheckboxInput getZeigeLesefelderInTabCheckbox() throws RemoteException {
+    if (ZeigeLesefelderInTabInput != null) {
       return ZeigeLesefelderInTabInput;
     }
-    ZeigeLesefelderInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeLesefelderInTab());
+    ZeigeLesefelderInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeLesefelderInTab());
     return ZeigeLesefelderInTabInput;
   }
 
-  public CheckboxInput getZeigeArbeitseinsatzInTabCheckbox()
-      throws RemoteException
-  {
-    if (ZeigeArbeitseinsatzInTabInput != null)
-    {
+  public CheckboxInput getZeigeArbeitseinsatzInTabCheckbox() throws RemoteException {
+    if (ZeigeArbeitseinsatzInTabInput != null) {
       return ZeigeArbeitseinsatzInTabInput;
     }
-    ZeigeArbeitseinsatzInTabInput = new CheckboxInput(Einstellungen
-        .getEinstellung().getZeigeArbeitseinsatzInTab());
+    ZeigeArbeitseinsatzInTabInput =
+        new CheckboxInput(Einstellungen.getEinstellung().getZeigeArbeitseinsatzInTab());
     return ZeigeArbeitseinsatzInTabInput;
   }
 
-  public SelectInput getBuchungBuchungsartAuswahl() throws RemoteException
-  {
-    if (null != buchungBuchungsartAuswahl)
-    {
+  public SelectInput getBuchungBuchungsartAuswahl() throws RemoteException {
+    if (null != buchungBuchungsartAuswahl) {
       return buchungBuchungsartAuswahl;
     }
 
-    buchungBuchungsartAuswahl = new SelectInput(
-        BuchungBuchungsartAuswahl.getArray(), new BuchungBuchungsartAuswahl(
+    buchungBuchungsartAuswahl =
+        new SelectInput(BuchungBuchungsartAuswahl.getArray(), new BuchungBuchungsartAuswahl(
             Einstellungen.getEinstellung().getBuchungBuchungsartAuswahl()));
 
     return buchungBuchungsartAuswahl;
   }
 
-  public SelectInput getBuchungsartSort() throws RemoteException
-  {
-    if (buchungsartsort != null)
-    {
+  public SelectInput getBuchungsartSort() throws RemoteException {
+    if (buchungsartsort != null) {
       return buchungsartsort;
     }
-    buchungsartsort = new SelectInput(
-        BuchungsartSort.getArray(),
+    buchungsartsort = new SelectInput(BuchungsartSort.getArray(),
         new BuchungsartSort(Einstellungen.getEinstellung().getBuchungsartSort()));
     return buchungsartsort;
   }
@@ -1649,33 +1413,26 @@ public class EinstellungControl extends AbstractControl
   // }
   // }
 
-  public CheckboxInput getZusatzbetragAusgetretene() throws RemoteException
-  {
-    if (zusatzbetragAusgetretene != null)
-    {
+  public CheckboxInput getZusatzbetragAusgetretene() throws RemoteException {
+    if (zusatzbetragAusgetretene != null) {
       return zusatzbetragAusgetretene;
     }
-    zusatzbetragAusgetretene = new CheckboxInput(Einstellungen.getEinstellung()
-        .getZusatzbetragAusgetretene());
+    zusatzbetragAusgetretene =
+        new CheckboxInput(Einstellungen.getEinstellung().getZusatzbetragAusgetretene());
     return zusatzbetragAusgetretene;
   }
 
-  public CheckboxInput getAbrlAbschliessen() throws RemoteException
-  {
-    if (abrlabschliessen != null)
-    {
+  public CheckboxInput getAbrlAbschliessen() throws RemoteException {
+    if (abrlabschliessen != null) {
       return abrlabschliessen;
     }
-    abrlabschliessen = new CheckboxInput(Einstellungen.getEinstellung()
-        .getAbrlAbschliessen());
+    abrlabschliessen = new CheckboxInput(Einstellungen.getEinstellung().getAbrlAbschliessen());
     abrlabschliessen.setName("Funktion einschalten");
     return abrlabschliessen;
   }
 
-  public void handleStoreAllgemein()
-  {
-    try
-    {
+  public void handleStoreAllgemein() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setName((String) getName(false).getValue());
@@ -1689,37 +1446,28 @@ public class EinstellungControl extends AbstractControl
       Einstellungen.setEinstellung(e);
 
       GUI.getStatusBar().setSuccessText("Einstellungen Allgemein gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreAnzeige()
-  {
-    try
-    {
+  public void handleStoreAnzeige() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setGeburtsdatumPflicht((Boolean) geburtsdatumpflicht.getValue());
       e.setEintrittsdatumPflicht((Boolean) eintrittsdatumpflicht.getValue());
       e.setSterbedatum((Boolean) sterbedatum.getValue());
       e.setKommunikationsdaten((Boolean) kommunikationsdaten.getValue());
-      e.setSekundaereBeitragsgruppen((Boolean) sekundaerebeitragsgruppen
-          .getValue());
+      e.setSekundaereBeitragsgruppen((Boolean) sekundaerebeitragsgruppen.getValue());
       e.setZusatzbetrag((Boolean) zusatzbetrag.getValue());
-      e.setZusatzbetragAusgetretene((Boolean) zusatzbetragAusgetretene
-          .getValue());
+      e.setZusatzbetragAusgetretene((Boolean) zusatzbetragAusgetretene.getValue());
       e.setVermerke((Boolean) vermerke.getValue());
       e.setWiedervorlage((Boolean) wiedervorlage.getValue());
       e.setKursteilnehmer((Boolean) kursteilnehmer.getValue());
-      e.setKursteilnehmerGebGesPflicht((Boolean) kursteilnehmergebgespflicht
-          .getValue());
+      e.setKursteilnehmerGebGesPflicht((Boolean) kursteilnehmergebgespflicht.getValue());
       e.setLehrgaenge((Boolean) lehrgaenge.getValue());
       e.setJuristischePersonen((Boolean) juristischepersonen.getValue());
       e.setMitgliedfoto((Boolean) mitgliedfoto.getValue());
@@ -1734,40 +1482,31 @@ public class EinstellungControl extends AbstractControl
       e.setExterneMitgliedsnummer((Boolean) externemitgliedsnummer.getValue());
       Altermodel amValue = (Altermodel) altersmodel.getValue();
       e.setAltersModel(amValue.getKey());
-      BuchungBuchungsartAuswahl bbaAuswahl = (BuchungBuchungsartAuswahl) buchungBuchungsartAuswahl
-          .getValue();
+      BuchungBuchungsartAuswahl bbaAuswahl =
+          (BuchungBuchungsartAuswahl) buchungBuchungsartAuswahl.getValue();
       e.setBuchungBuchungsartAuswahl(bbaAuswahl.getKey());
-      e.setBuchungsartSort(((BuchungsartSort) buchungsartsort.getValue())
-          .getKey());
+      e.setBuchungsartSort(((BuchungsartSort) buchungsartsort.getValue()).getKey());
 
       e.store();
       Einstellungen.setEinstellung(e);
 
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreAbrechnung()
-  {
-    try
-    {
+  public void handleStoreAbrechnung() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       Beitragsmodel bm = (Beitragsmodel) beitragsmodel.getValue();
       e.setBeitragsmodel(bm.getKey());
-      ArbeitsstundenModel am = (ArbeitsstundenModel) arbeitsstundenmodel
-          .getValue();
+      ArbeitsstundenModel am = (ArbeitsstundenModel) arbeitsstundenmodel.getValue();
       e.setArbeitsstundenmodel(am.getKey());
-      SepaMandatIdSource sepaSource = (SepaMandatIdSource) sepamandatidsourcemodel
-          .getValue();
+      SepaMandatIdSource sepaSource = (SepaMandatIdSource) sepamandatidsourcemodel.getValue();
       e.setSepaMandatIdSource(sepaSource.getKey());
       Zahlungsrhythmus zr = (Zahlungsrhythmus) zahlungsrhytmus.getValue();
       e.setZahlungsrhytmus(zr.getKey());
@@ -1781,21 +1520,15 @@ public class EinstellungControl extends AbstractControl
       Einstellungen.setEinstellung(e);
 
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreDateinamen()
-  {
-    try
-    {
+  public void handleStoreDateinamen() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setDateinamenmuster((String) dateinamenmuster.getValue());
@@ -1804,21 +1537,15 @@ public class EinstellungControl extends AbstractControl
       e.store();
       Einstellungen.setEinstellung(e);
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreSpendenbescheinigungen()
-  {
-    try
-    {
+  public void handleStoreSpendenbescheinigungen() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setFinanzamt((String) getFinanzamt().getValue());
@@ -1830,93 +1557,70 @@ public class EinstellungControl extends AbstractControl
       e.setVeranlagungBis((Date) getVeranlagungBis().getValue());
       e.setBeguenstigterzweck((String) getBeguenstigterzweck().getValue());
       e.setMitgliedsbeitraege((Boolean) getMitgliedsbetraege().getValue());
-      e.setSpendenbescheinigungminbetrag((Double) spendenbescheinigungminbetrag
-          .getValue());
-      e.setSpendenbescheinigungverzeichnis((String) spendenbescheinigungverzeichnis
-          .getValue());
-      e.setSpendenbescheinigungPrintBuchungsart((Boolean) spendenbescheinigungprintbuchungsart
-          .getValue());
+      e.setSpendenbescheinigungminbetrag((Double) spendenbescheinigungminbetrag.getValue());
+      e.setSpendenbescheinigungverzeichnis((String) spendenbescheinigungverzeichnis.getValue());
+      e.setSpendenbescheinigungPrintBuchungsart(
+          (Boolean) spendenbescheinigungprintbuchungsart.getValue());
       e.store();
       Einstellungen.setEinstellung(e);
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreBuchfuehrung()
-  {
-    try
-    {
+  public void handleStoreBuchfuehrung() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setBeginnGeschaeftsjahr((String) beginngeschaeftsjahr.getValue());
       e.setAutoBuchunguebernahme((Boolean) autobuchunguebernahme.getValue());
-      e.setUnterdrueckungOhneBuchung((Boolean) unterdrueckungohnebuchung
-          .getValue());
+      e.setUnterdrueckungOhneBuchung((Boolean) unterdrueckungohnebuchung.getValue());
+      e.setVerwendeBelegnummer((Boolean) verwendebelegnummer.getValue());
+      e.setBelegnummerProKonto((Boolean) belegnummer_pro_konto.getValue());
+      e.setBelegnummerProJahr((Boolean) belegnummer_pro_jahr.getValue());
       e.store();
       Einstellungen.setEinstellung(e);
 
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreRechnungen()
-  {
-    try
-    {
+  public void handleStoreRechnungen() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setRechnungTextAbbuchung((String) rechnungtextabbuchung.getValue());
-      e.setRechnungTextUeberweisung((String) rechnungtextueberweisung
-          .getValue());
+      e.setRechnungTextUeberweisung((String) rechnungtextueberweisung.getValue());
       e.setRechnungTextBar((String) rechnungtextbar.getValue());
       e.store();
       Einstellungen.setEinstellung(e);
 
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreMitgliederSpalten()
-  {
-    try
-    {
+  public void handleStoreMitgliederSpalten() {
+    try {
       spalten.save();
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreMail()
-  {
-    try
-    {
+  public void handleStoreMail() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setSmtpServer((String) smtp_server.getValue());
@@ -1949,17 +1653,13 @@ public class EinstellungControl extends AbstractControl
       Einstellungen.setEinstellung(e);
 
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreStatistik()
-  {
-    try
-    {
+  public void handleStoreStatistik() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
       e.setAltersgruppen((String) getAltersgruppen().getValue());
@@ -1971,70 +1671,43 @@ public class EinstellungControl extends AbstractControl
       Einstellungen.setEinstellung(e);
 
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
 
-  public void handleStoreMitgliedAnsicht()
-  {
-    try
-    {
+  public void handleStoreMitgliedAnsicht() {
+    try {
       Einstellung e = Einstellungen.getEinstellung();
       e.setID();
 
-      e.setAnzahlSpaltenStammdaten((Integer) getAnzahlSpaltenStammdatenInput()
-          .getValue());
-      e.setAnzahlSpaltenLesefelder((Integer) getAnzahlSpaltenLesefelderInput()
-          .getValue());
-      e.setAnzahlSpaltenZusatzfelder((Integer) getAnzahlSpaltenZusatzfelderInput()
-          .getValue());
-      e.setAnzahlSpaltenMitgliedschaft((Integer) getAnzahlSpaltenMitgliedschaftInput()
-          .getValue());
-      e.setAnzahlSpaltenZahlung((Integer) getAnzahlSpaltenZahlungInput()
-          .getValue());
-      e.setZeigeStammdatenInTab((Boolean) getZeigeStammdatenInTabCheckbox()
-          .getValue());
-      e.setZeigeMitgliedschaftInTab((Boolean) getZeigeMitgliedschaftInTabCheckbox()
-          .getValue());
-      e.setZeigeZahlungInTab((Boolean) getZeigeZahlungInTabCheckbox()
-          .getValue());
-      e.setZeigeZusatzbetrageInTab((Boolean) getZeigeZusatzbetrageInTabCheckbox()
-          .getValue());
-      e.setZeigeMitgliedskontoInTab((Boolean) getZeigeMitgliedskontoInTabCheckbox()
-          .getValue());
-      e.setZeigeVermerkeInTab((Boolean) getZeigeVermerkeInTabCheckbox()
-          .getValue());
-      e.setZeigeWiedervorlageInTab((Boolean) getZeigeWiedervorlageInTabCheckbox()
-          .getValue());
+      e.setAnzahlSpaltenStammdaten((Integer) getAnzahlSpaltenStammdatenInput().getValue());
+      e.setAnzahlSpaltenLesefelder((Integer) getAnzahlSpaltenLesefelderInput().getValue());
+      e.setAnzahlSpaltenZusatzfelder((Integer) getAnzahlSpaltenZusatzfelderInput().getValue());
+      e.setAnzahlSpaltenMitgliedschaft((Integer) getAnzahlSpaltenMitgliedschaftInput().getValue());
+      e.setAnzahlSpaltenZahlung((Integer) getAnzahlSpaltenZahlungInput().getValue());
+      e.setZeigeStammdatenInTab((Boolean) getZeigeStammdatenInTabCheckbox().getValue());
+      e.setZeigeMitgliedschaftInTab((Boolean) getZeigeMitgliedschaftInTabCheckbox().getValue());
+      e.setZeigeZahlungInTab((Boolean) getZeigeZahlungInTabCheckbox().getValue());
+      e.setZeigeZusatzbetrageInTab((Boolean) getZeigeZusatzbetrageInTabCheckbox().getValue());
+      e.setZeigeMitgliedskontoInTab((Boolean) getZeigeMitgliedskontoInTabCheckbox().getValue());
+      e.setZeigeVermerkeInTab((Boolean) getZeigeVermerkeInTabCheckbox().getValue());
+      e.setZeigeWiedervorlageInTab((Boolean) getZeigeWiedervorlageInTabCheckbox().getValue());
       e.setZeigeMailsInTab((Boolean) getZeigeMailsInTabCheckbox().getValue());
-      e.setZeigeEigentschaftenInTab((Boolean) getZeigeEigenschaftenInTabCheckbox()
-          .getValue());
-      e.setZeigeZusatzfelderInTab((Boolean) getZeigeZusatzfelderInTabCheckbox()
-          .getValue());
-      e.setZeigeLehrgaengeInTab((Boolean) getZeigeLehrgaengeInTabCheckbox()
-          .getValue());
+      e.setZeigeEigentschaftenInTab((Boolean) getZeigeEigenschaftenInTabCheckbox().getValue());
+      e.setZeigeZusatzfelderInTab((Boolean) getZeigeZusatzfelderInTabCheckbox().getValue());
+      e.setZeigeLehrgaengeInTab((Boolean) getZeigeLehrgaengeInTabCheckbox().getValue());
       e.setZeigeFotoInTab((Boolean) getZeigeFotoInTabCheckbox().getValue());
-      e.setZeigeLesefelderInTab((Boolean) getZeigeLesefelderInTabCheckbox()
-          .getValue());
-      e.setZeigeArbeitseinsatzInTab((Boolean) getZeigeArbeitseinsatzInTabCheckbox()
-          .getValue());
+      e.setZeigeLesefelderInTab((Boolean) getZeigeLesefelderInTabCheckbox().getValue());
+      e.setZeigeArbeitseinsatzInTab((Boolean) getZeigeArbeitseinsatzInTabCheckbox().getValue());
       e.store();
       Einstellungen.setEinstellung(e);
       GUI.getStatusBar().setSuccessText("Einstellungen gespeichert");
-    }
-    catch (RemoteException e)
-    {
+    } catch (RemoteException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
-    }
-    catch (ApplicationException e)
-    {
+    } catch (ApplicationException e) {
       GUI.getStatusBar().setErrorText(e.getMessage());
     }
   }
@@ -2042,25 +1715,17 @@ public class EinstellungControl extends AbstractControl
   /**
    * Hilfsklasse zum Aktualisieren des Kommentars hinter SEPADatumOffset
    */
-  private class SEPADatumOffsetListener implements Listener
-  {
+  private class SEPADatumOffsetListener implements Listener {
     @Override
-    public void handleEvent(Event event)
-    {
-      try
-      {
+    public void handleEvent(Event event) {
+      try {
         int start = ((Integer) getSEPADatumOffset().getValue()).intValue();
-        if (start == 1)
-        {
+        if (start == 1) {
           getSEPADatumOffset().setComment("1 Tage");
-        }
-        else
-        {
+        } else {
           getSEPADatumOffset().setComment(start + " Tage");
         }
-      }
-      catch (Exception e)
-      {
+      } catch (Exception e) {
         Logger.error("unable to update comment", e);
       }
     }
@@ -2069,25 +1734,17 @@ public class EinstellungControl extends AbstractControl
   /**
    * Hilfsklasse zum Aktualisieren des Kommentars von MailVerzoegerung.
    */
-  private class MailVerzoegerungListener implements Listener
-  {
+  private class MailVerzoegerungListener implements Listener {
     @Override
-    public void handleEvent(Event event)
-    {
-      try
-      {
+    public void handleEvent(Event event) {
+      try {
         int pause = ((Integer) getMailVerzoegerung().getValue()).intValue();
-        if (pause == 0)
-        {
+        if (pause == 0) {
           getMailVerzoegerung().setComment("keine Pause");
-        }
-        else
-        {
+        } else {
           getMailVerzoegerung().setComment(pause + " Millisekunden");
         }
-      }
-      catch (Exception e)
-      {
+      } catch (Exception e) {
         Logger.error("unable to update comment", e);
       }
     }
