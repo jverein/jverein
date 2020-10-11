@@ -29,13 +29,16 @@ import de.willuhn.util.ApplicationException;
 
 public class SplitbuchungsContainer
 {
-
   private static ArrayList<Buchung> splitbuchungen = null;
+
+  private static int dependencyid = 0;
 
   public static void init(Buchung b)
       throws RemoteException, ApplicationException
   {
     splitbuchungen = new ArrayList<>();
+    dependencyid = 0;
+
     // Wenn eine gesplittete Buchung aufgerufen wird, wird die Hauptbuchung
     // gelesen
     if (b.getSplitId() != null)
@@ -76,7 +79,9 @@ public class SplitbuchungsContainer
     }
     while (it.hasNext())
     {
-      SplitbuchungsContainer.add((Buchung) it.next());
+      Buchung buchung = (Buchung) it.next();
+      SplitbuchungsContainer.add(buchung);
+      dependencyid = Math.max(dependencyid, buchung.getDependencyId());
     }
   }
 
@@ -202,5 +207,9 @@ public class SplitbuchungsContainer
         b.store();
       }
     }
+  }
+
+  public static int getNewDependencyId() {
+    return ++dependencyid;
   }
 }

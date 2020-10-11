@@ -26,6 +26,7 @@ import de.jost_net.JVerein.gui.action.BuchungKontoauszugZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungMitgliedskontoZuordnungAction;
 import de.jost_net.JVerein.gui.action.BuchungProjektZuordnungAction;
 import de.jost_net.JVerein.gui.control.BuchungsControl;
+import de.jost_net.JVerein.io.SplitbuchungsContainer;
 import de.jost_net.JVerein.keys.SplitbuchungTyp;
 import de.jost_net.JVerein.rmi.Buchung;
 import de.willuhn.jameica.gui.Action;
@@ -127,9 +128,18 @@ public class SplitBuchungMenu extends ContextMenu
           try
           {
             Buchung bu = (Buchung) context;
-            bu.setDelete(false);
-            Application.getMessagingFactory()
-                .sendMessage(new BuchungMessage(bu));
+            if (bu.getDependencyId() == -1) {            
+              bu.setDelete(false);
+              Application.getMessagingFactory().sendMessage(new BuchungMessage(bu));
+            }
+            else {
+              for (Buchung buchung_tmp : SplitbuchungsContainer.get()) {
+                if (buchung_tmp.getDependencyId() == bu.getDependencyId()) {
+                  buchung_tmp.setDelete(false);
+                  Application.getMessagingFactory().sendMessage(new BuchungMessage(buchung_tmp));
+                }
+              }
+            }
           }
           catch (RemoteException e)
           {

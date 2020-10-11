@@ -447,6 +447,24 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   {
     setAttribute("spendenbescheinigung", spendenbescheinigung);
   }
+  
+  @Override
+  public int getDependencyId() throws RemoteException
+  {
+    Integer dependencyid = (Integer) getAttribute("dependencyid");
+    if (dependencyid == null) {
+      return -1;
+    }
+    else {
+      return dependencyid.intValue();
+    }
+  }
+
+  @Override
+  public void setDependencyId(int dependencyid) throws RemoteException
+  {
+    setAttribute("dependencyid", dependencyid);
+  }
 
   @Override
   public Map<String, Object> getMap(Map<String, Object> inma)

@@ -113,6 +113,10 @@ public interface Buchung extends DBObject
 
   public void setSpendenbescheinigungId(Long spendenbescheinigung)
       throws RemoteException;
+        
+  public int getDependencyId() throws RemoteException;
+
+  public void setDependencyId(int dependencyid) throws RemoteException;
 
   public Map<String, Object> getMap(Map<String, Object> map)
       throws RemoteException;

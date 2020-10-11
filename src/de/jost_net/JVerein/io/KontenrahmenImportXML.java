@@ -88,6 +88,8 @@ public class KontenrahmenImportXML implements Importer
         {
           buchungsart.setSpende(true);
         }
+        buchungsart.setSteuersatz(buaelement.getAttribute("steuersatz", 0));        
+        buchungsart.setSteuerBuchungsart(buaelement.getAttribute("steuer_buchungsart", null));
         buchungsart.store();
       }
 

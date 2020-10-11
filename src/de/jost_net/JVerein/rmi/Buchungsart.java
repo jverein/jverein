@@ -43,5 +43,12 @@ public interface Buchungsart extends DBObject
   public Boolean getSpende() throws RemoteException;
 
   public void setSpende(Boolean spende) throws RemoteException;
+  
+  public double getSteuersatz() throws RemoteException;
 
+  public void setSteuersatz(double steuersatz) throws RemoteException;
+
+  public Buchungsart getSteuerBuchungsart() throws RemoteException;
+
+  public void setSteuerBuchungsart(String steuer_buchungsart) throws RemoteException;
 }
