@@ -20,6 +20,8 @@ package de.jost_net.JVerein.gui.dialogs;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,6 +41,7 @@ import de.jost_net.JVerein.rmi.Mitgliedskonto;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.GenericObject;
 import de.willuhn.datasource.rmi.DBIterator;
+import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.dialogs.AbstractDialog;
@@ -320,10 +323,15 @@ public class BuchungenMitgliedskontenZuordnungDialog extends AbstractDialog<Obje
   private String getBookingPurpose(Buchung buchung) throws RemoteException {
     String zweck = buchung.getZweck();
     if(zweck == null) return null;
-    return zweck.replaceAll("\r\n", " ").replaceAll("\r", " ").replaceAll("\n", " ");
+    zweck = zweck.replaceAll("\r\n", " ").replaceAll("\r", " ").replaceAll("\n", " ").toUpperCase();
+    // manche Banken haengen hier noch zusaetzliche Felder ran: diese versuchen wir Abzuschneiden
+    if(zweck.contains(" IBAN:")) {
+      zweck = zweck.substring(0, zweck.indexOf(" IBAN:"));
+    }
+    return zweck;
   }
 
-  private boolean assginMemberAccountToBooking(List<BookingMemberAccountEntry> assignedBooking, Set<String> usedMemberAccount, Date dateFromInput, Date dateUntilInput, Buchung buchung, String mitgliedsId, String zuordnungsart)
+  private boolean assginMemberAccountToBooking(final List<BookingMemberAccountEntry> assignedBooking, final Set<String> usedMemberAccount, Date dateFromInput, Date dateUntilInput, final Buchung buchung, String mitgliedsId, final String zuordnungsart)
       throws RemoteException 
   {
     boolean processed = false;
@@ -333,29 +341,48 @@ public class BuchungenMitgliedskontenZuordnungDialog extends AbstractDialog<Obje
       //wir wollen das nicht nochmal mit der Buchung probieren, da dies das gleiche Ergebnis wäre
       processed = true;
 
-      DBIterator<Mitgliedskonto> mitgliedskonten = Einstellungen.getDBService().createList(Mitgliedskonto.class);
-      mitgliedskonten.addFilter("mitglied = ?", mitgliedsId);
-      mitgliedskonten.addFilter("zahlungsweg = ?", Zahlungsweg.ÜBERWEISUNG);
-      mitgliedskonten.addFilter("datum >= ?", dateFromInput);
-      mitgliedskonten.addFilter("datum <= ?", dateUntilInput);
-      mitgliedskonten.setOrder("ORDER BY datum");
-
-      while(mitgliedskonten.hasNext()) 
+      ResultSetExtractor rs = new ResultSetExtractor()
       {
-        Mitgliedskonto mitgliedskonto = mitgliedskonten.next();
-
-        if(!usedMemberAccount.contains(mitgliedskonto.getID())) 
+        @Override
+        public Object extract(ResultSet rs) throws SQLException, RemoteException
         {
-          BigDecimal ist = convertDoubleToBigDecimal(mitgliedskonto.getIstSumme());
-          BigDecimal soll = convertDoubleToBigDecimal(mitgliedskonto.getBetrag());
+          while (rs.next())
+          {
+            long mitgliedskontoId = rs.getLong(1);
 
-          if(soll.subtract(ist).equals(convertDoubleToBigDecimal(buchung.getBetrag()))) {
-            assignedBooking.add(new BookingMemberAccountEntry(buchung, mitgliedskonto, zuordnungsart));
-            usedMemberAccount.add(mitgliedskonto.getID());
-            break;
+            DBIterator<Mitgliedskonto> mitgliedskonten = Einstellungen.getDBService().createList(Mitgliedskonto.class);
+            mitgliedskonten.addFilter("id = ?", mitgliedskontoId);
+
+            while(mitgliedskonten.hasNext()) 
+            {
+              Mitgliedskonto mitgliedskonto = mitgliedskonten.next();
+
+              if(!usedMemberAccount.contains(mitgliedskonto.getID())) 
+              {
+                BigDecimal ist = convertDoubleToBigDecimal(mitgliedskonto.getIstSumme());
+                BigDecimal soll = convertDoubleToBigDecimal(mitgliedskonto.getBetrag());
+
+                if(soll.subtract(ist).equals(convertDoubleToBigDecimal(buchung.getBetrag()))) {
+                  assignedBooking.add(new BookingMemberAccountEntry(buchung, mitgliedskonto, zuordnungsart));
+                  usedMemberAccount.add(mitgliedskonto.getID());
+                  return new Object();
+                }
+              }
+            }
           }
+          return new Object();
         }
-      }
+      };
+
+      String sql = "SELECT m.id FROM mitgliedskonto as m"
+          + " inner join abrechnungslauf as a on a.id = m.abrechnungslauf"
+          + " WHERE a.stichtag >= ?"
+          + "   AND a.stichtag <= ?"
+          + "   AND m.mitglied = ?"
+          + "   AND m.zahlungsweg = ?"
+          + " GROUP BY m.id"
+          + " ORDER BY a.stichtag, m.id";
+      Einstellungen.getDBService().execute(sql, new Object[] { dateFromInput, dateUntilInput, mitgliedsId, Zahlungsweg.ÜBERWEISUNG}, rs);
     }
 
     return processed;
@@ -367,20 +394,21 @@ public class BuchungenMitgliedskontenZuordnungDialog extends AbstractDialog<Obje
     return value.setScale(2, RoundingMode.HALF_UP);
   }
 
-  private String concatName(Mitglied mitglied) throws RemoteException 
+  private String concatName(Mitglied mitglied) throws RemoteException
   {
     if(mitglied.getVorname() == null || mitglied.getVorname().length() == 0) 
     {
-      return mitglied.getName();
-    } 
-    else 
+      return mitglied.getName() == null ? "" : mitglied.getName().toUpperCase();
+    }
+    else
     {
-      if(mitglied.getName() == null || mitglied.getName().length() == 0) {
-        return mitglied.getVorname();
-      } 
-      else 
+      if(mitglied.getName() == null || mitglied.getName().length() == 0) 
       {
-        return mitglied.getVorname() + " " + mitglied.getName();
+        return mitglied.getVorname() == null ? "" : mitglied.getVorname().toUpperCase();
+      }
+      else
+      {
+        return mitglied.getVorname().toUpperCase() + " " + mitglied.getName().toUpperCase();
       }
     }
   }
