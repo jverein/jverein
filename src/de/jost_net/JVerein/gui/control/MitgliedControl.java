@@ -1224,9 +1224,10 @@ public class MitgliedControl extends AbstractControl
           else if (bg != null
               && bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
           {
-            getFamilienverband().setVisible(true);
+            boolean ist_neu = getMitglied().getID() == null;
+            getFamilienverband().setVisible(!ist_neu);
             // Zukünftige Beiträge nur bei bereits gespeicherten Mitgliedern
-            if (getMitglied().getID() != null)
+            if (!ist_neu)
             {
               getZukuenftigeBeitraegeView().setVisible(true);
             }

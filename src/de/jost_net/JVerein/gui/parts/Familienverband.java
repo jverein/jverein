@@ -44,8 +44,6 @@ public class Familienverband implements Part
 
   private Container cont;
 
-  private Container contPlatzhalter;
-
   private boolean visible;
 
   private Composite parent;
@@ -73,19 +71,8 @@ public class Familienverband implements Part
     }
 
     // Familienverband soll nicht angezeigt werden...
-    if (visible == false)
+    if (!visible)
     {
-      if (contPlatzhalter == null)
-      {
-        contPlatzhalter = new SimpleContainer(parent);
-        // Mache Platzhalter so klein wie möglich:
-        final GridData grid = new GridData(GridData.FILL_HORIZONTAL);
-        grid.heightHint = 1;
-        contPlatzhalter.getComposite().setLayoutData(grid);
-        // Alternativ kann Textfeld angezeigt werden:
-        // contPlatzhalter.addText(JVereinPlugin.getI18n().tr("Ohne Familienzugehörigkeit"),
-        // false);
-      }
       return;
     }
 
@@ -159,8 +146,7 @@ public class Familienverband implements Part
   }
 
   /**
-   * Zeige GUI-Komponente für Familienverband an oder blendet diese aus. Ist
-   * showFamilienverband == false, wird ein Platzhalter angezeigt.
+   * Zeige GUI-Komponente für Familienverband an oder blendet diese aus.
    * 
    * @param showFamilienverband
    */
@@ -170,24 +156,10 @@ public class Familienverband implements Part
       return;
     this.visible = showFamilienverband;
 
-    if (showFamilienverband == false)
+    if (cont != null && !showFamilienverband)
     {
-      // lösche cont, damit in paint() contPlatzhalter gemalt werden kann..
-      if (cont != null)
-      {
-        cont.getComposite().dispose();
-        cont = null;
-      }
-    }
-    else if (showFamilienverband)
-    {
-      // lösche Platzhalter contPlatzhalter, damit in paint() Familienverband
-      // gemalt werden kann.
-      if (contPlatzhalter != null)
-      {
-        contPlatzhalter.getComposite().dispose();
-        contPlatzhalter = null;
-      }
+      cont.getComposite().dispose();
+      cont = null;
     }
 
     if (parent != null)

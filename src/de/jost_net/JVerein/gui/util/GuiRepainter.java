@@ -18,6 +18,7 @@
 package de.jost_net.JVerein.gui.util;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.widgets.TabFolder;
 
 /**
@@ -34,24 +35,12 @@ public class GuiRepainter
    */
   public static void repaint(Composite composite)
   {
-    composite = findLayoutComposite(composite);
-    if (null != composite)
-    {
-      composite.layout();
-    }
-  }
-
-  private static Composite findLayoutComposite(Composite composite)
-  {
-    Composite layoutComposite = composite;
-    while (true)
+    while (composite != null)
     {
       if (composite.getLayout() != null)
-        layoutComposite = composite;
-      if (composite instanceof TabFolder)
-        return layoutComposite;
-      if (composite.getParent() == null)
-        return layoutComposite;
+        composite.layout();
+      if (composite instanceof TabFolder || composite instanceof ScrolledComposite)
+        return;
       composite = composite.getParent();
     }
   }

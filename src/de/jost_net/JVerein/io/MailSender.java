@@ -68,9 +68,6 @@ public class MailSender
 
     private final String imap_sent_folder;
 
-    /**
-     * All data relevant to IMAP copy to folder
-     */
     public IMAPCopyData(boolean copy_to_imap_folder, String imap_auth_user,
         String imap_auth_pwd, String imap_host, String imap_port,
         boolean imap_ssl, boolean imap_starttls, String imap_sent_folder)
@@ -142,7 +139,7 @@ public class MailSender
 
   private final int verzoegerung;
 
-  private IMAPCopyData imapCopyData;
+  private final IMAPCopyData imapCopyData;
 
   private final Session session;
 
@@ -157,7 +154,6 @@ public class MailSender
     this.bcc_address = bcc_address;
     this.cc_address = cc_address;
     this.verzoegerung = verzoegerung;
-    this.imapCopyData = imapCopyData;
 
     Properties props = new Properties();
     if (smtp_auth_user != null && smtp_auth_user.length() != 0
@@ -179,7 +175,10 @@ public class MailSender
     {
       props.put("mail.debug", "true");
     }
-    props.put("mail.smtp.port", smtp_port);
+    if (smtp_port != null)
+    {
+      props.put("mail.smtp.port", smtp_port);
+    }
     props.put("mail.mime.charset", UTF_8);
     System.setProperty("mail.mime.charset", UTF_8);
     if (smtp_ssl)
@@ -191,15 +190,12 @@ public class MailSender
       props.put("mail.smtp.starttls.enable", "true");
       props.put("mail.smtp.tls", "true");
     }
-    if (imapCopyData != null && imapCopyData.copy_to_imap_folder)
+    if (imapCopyData != null && imapCopyData.isCopy_to_imap_folder())
     {
-      props.put("mail.imap.host", imapCopyData.getImap_host());
-      props.put("mail.imap.port", imapCopyData.getImap_port());
       String protocol = "imap";
       if (imapCopyData.isImap_ssl())
       {
         protocol = "imaps";
-        props.put("mail.imap.ssl.enable", "true");
       }
       else if (imapCopyData.isImap_starttls())
       {
@@ -207,6 +203,16 @@ public class MailSender
         props.put("mail.imap.tls", "true");
       }
       props.put("mail.store.protocol", protocol);
+      props.put("mail."+protocol+".host", imapCopyData.getImap_host());
+      if (imapCopyData.getImap_port() != null)
+      {
+        props.put("mail."+protocol+".port", imapCopyData.getImap_port());
+      }
+      this.imapCopyData = imapCopyData;
+    }
+    else
+    {
+      this.imapCopyData = null;
     }
 
     this.session = Session.getInstance(props);
@@ -315,27 +321,21 @@ public class MailSender
     Transport.send(msg, smtp_auth_user, smtp_auth_pwd);
 
     // Copy to IMAP sent folder
-    if (imapCopyData != null && imapCopyData.copy_to_imap_folder)
+    if (imapCopyData != null)
     {
-      copyMessageToImapFolder(msg);
+      Store store = session.getStore();
+      store.connect(imapCopyData.getImap_auth_user(), imapCopyData.getImap_auth_pwd());
+      Folder folder = store.getFolder(imapCopyData.getImap_sent_folder());
+      folder.appendMessages(new Message[] { msg });
+      store.close();
     }
     Thread.sleep(verzoegerung);
-  }
-
-  private void copyMessageToImapFolder(Message message) throws Exception
-  {
-    Store store = session.getStore();
-    store.connect(imapCopyData.getImap_host(),
-        imapCopyData.getImap_auth_user(), imapCopyData.getImap_auth_pwd());
-    Folder folder = store.getFolder(imapCopyData.getImap_sent_folder());
-    folder.appendMessages(new Message[] { message });
-    store.close();
   }
 
   private static class ByteArrayDataSource implements DataSource
   {
 
-    private MailAnhang ma;
+    private final MailAnhang ma;
 
     public ByteArrayDataSource(MailAnhang ma)
     {
