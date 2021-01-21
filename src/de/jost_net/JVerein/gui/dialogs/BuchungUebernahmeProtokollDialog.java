@@ -92,6 +92,7 @@ public class BuchungUebernahmeProtokollDialog extends AbstractDialog<Buchung>
     bu.addColumn("Datum", "datum",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
     bu.addColumn("Name", "name");
+    bu.addColumn("IBAN oder Kontonummer", "iban");
     bu.addColumn("Verwendungszweck", "zweck", new Formatter()
     {
 

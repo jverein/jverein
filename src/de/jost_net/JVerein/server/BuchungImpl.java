@@ -255,6 +255,18 @@ public class BuchungImpl extends AbstractDBObject implements Buchung
   }
 
   @Override
+  public void setIban(String iban) throws RemoteException
+  {
+    setAttribute("iban", iban);
+  }
+
+  @Override
+  public String getIban() throws RemoteException
+  {
+    return (String) getAttribute("iban");
+  }
+
+  @Override
   public double getBetrag() throws RemoteException
   {
     Double d = (Double) getAttribute("betrag");

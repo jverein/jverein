@@ -37,6 +37,7 @@ import de.jost_net.JVerein.DBTools.DBTransaction;
 import de.jost_net.JVerein.Messaging.BuchungMessage;
 import de.jost_net.JVerein.Queries.BuchungQuery;
 import de.jost_net.JVerein.gui.action.BuchungAction;
+import de.jost_net.JVerein.gui.action.BuchungMitgliedskontoZuordnungAutomatischAction;
 import de.jost_net.JVerein.gui.dialogs.BuchungsjournalSortDialog;
 import de.jost_net.JVerein.gui.dialogs.SammelueberweisungAuswahlDialog;
 import de.jost_net.JVerein.gui.formatter.BuchungsartFormatter;
@@ -726,6 +727,13 @@ public class BuchungsControl extends AbstractControl
     return b;
   }
 
+  public Button getStarteBuchungMitgliedskontoZuordnungAutomatischButton()
+  {
+    Button b = new Button("Zuordnung", new BuchungMitgliedskontoZuordnungAutomatischAction(getVondatum(), getBisdatum()), null, false,
+            "user-friends.png");
+    return b;
+  }
+
   public Button getStartAuswertungBuchungsjournalButton()
   {
     Button b = new Button("PDF Buchungsjournal", new Action()
@@ -1007,6 +1015,7 @@ public class BuchungsControl extends AbstractControl
       buchungsList.addColumn("Blatt", "blattnummer");
 
       buchungsList.addColumn("Name", "name");
+      buchungsList.addColumn("IBAN oder Kontonummer", "iban");
       buchungsList.addColumn("Verwendungszweck", "zweck", new Formatter()
       {
         @Override
