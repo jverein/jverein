@@ -89,7 +89,7 @@ public class MitgliedskontoAuswahlDialog extends AbstractDialog<Object>
     suNa.setValue(buchung.getName());
     grNurIst.addLabelPair("Name", suNa);
     grNurIst.addLabelPair("Differenz",
-        control.getDifferenz(DIFFERENZ.FEHLBETRAG));
+        control.getDifferenz(DIFFERENZ.EGAL));
     Action action = new Action()
     {
 
