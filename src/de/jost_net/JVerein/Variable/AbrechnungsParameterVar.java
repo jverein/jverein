@@ -21,8 +21,7 @@ public enum AbrechnungsParameterVar
 
   ABBUCHUNGSMODUS("abrechnungsparameter_abrechnungsmodus"), //
   ABRECHNUNGSMONAT("abrechnungsparameter_abrechnungsmonat"), //
-  FAELLIGKEIT1("abrechnungsparameter_faelligkeit1"), //
-  FAELLIGKEIT2("abrechnungsparameter_faelligkeit2"), //
+  FAELLIGKEIT("abrechnungsparameter_faelligkeit"), //
   STICHTAG("abrechnungsparameter_stichtag"), //
   VONDATUM("abrechnungsparameter_vondatum"), //
   BISDATUM("abrechnungsparameter_bisdatum"), //

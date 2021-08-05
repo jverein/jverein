@@ -111,7 +111,6 @@ public class SEPABugsControl extends AbstractControl
     return bugs;
   }
 
-  @SuppressWarnings("unused")
   private void plausi(List<Bug> bugs, ILastschrift ls) throws RemoteException
   {
     if (ls.getMandatDatum().equals(Einstellungen.NODATE))
@@ -153,8 +152,9 @@ public class SEPABugsControl extends AbstractControl
     // + ls.getIban(), Bug.ERROR));
     // }
     // }
-    if (ls.getLetzteLastschrift() != null
-        && ls.getLetzteLastschrift().before(sepagueltigkeit))
+    Date letzte_lastschrift = ls.getLetzteLastschrift();
+    if (letzte_lastschrift != null
+        && letzte_lastschrift.before(sepagueltigkeit))
     {
       bugs.add(new Bug(ls,
           "Letzte Lastschrift ist älter als 36 Monate. Neues Mandat anfordern und eingeben.",

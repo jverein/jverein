@@ -78,6 +78,8 @@ public class LastschriftMap
 
     map.put(LastschriftVar.ABRECHNUNGSLAUF_NR.getName(), abrl.getID());
     map.put(LastschriftVar.ABRECHUNGSLAUF_DATUM.getName(), abrl.getDatum());
+    // Damit Pre-Notifications für mit Versionen bis 2.8.18 erstellte Abrechnungsläufe
+    // korrekt erstellt werden, werden beide Felder verwendet.
     if (ls.getMandatSequence().equals("FRST"))
     {
       map.put(LastschriftVar.ABRECHNUNGSLAUF_FAELLIGKEIT.getName(),
@@ -85,8 +87,12 @@ public class LastschriftMap
     }
     else
     {
-      map.put(LastschriftVar.ABRECHNUNGSLAUF_FAELLIGKEIT.getName(),
-          abrl.getFaelligkeit2());
+      Date d = (Date) abrl.getAttribute("faelligkeit2");
+      if (d == null)
+      {
+        d = Einstellungen.NODATE;
+      }
+      map.put(LastschriftVar.ABRECHNUNGSLAUF_FAELLIGKEIT.getName(), d);
     }
     map.put(LastschriftVar.PERSONENART.getName(), ls.getPersonenart());
     map.put(LastschriftVar.GESCHLECHT.getName(), ls.getGeschlecht());
