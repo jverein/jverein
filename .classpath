@@ -25,6 +25,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/jackson-core-2.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsoup-1.8.3.jar"/>
 	<classpathentry kind="lib" path="lib/vinnie-2.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/ez-vcard-0.9.5.jar"/>
+	<classpathentry kind="lib" path="lib/ez-vcard-0.10.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
