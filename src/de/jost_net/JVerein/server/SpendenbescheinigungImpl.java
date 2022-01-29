@@ -679,6 +679,10 @@ public class SpendenbescheinigungImpl extends AbstractDBObject
       map.put(SpendenbescheinigungVar.SPENDENZEITRAUM.getName(),
           String.format("%s bis %s", spendedatum, zeitraumende));
       StringBuilder bl = new StringBuilder();
+      StringBuilder bl_daten = new StringBuilder();
+      StringBuilder bl_art = new StringBuilder();
+      StringBuilder bl_verzicht = new StringBuilder();
+      StringBuilder bl_betrag = new StringBuilder();
       if (gc.get(GregorianCalendar.YEAR) <= 2012)
       {
         bl.append(StringTool.rpad("Datum", 10));
@@ -782,11 +786,15 @@ public class SpendenbescheinigungImpl extends AbstractDBObject
         {
           bl.append(StringTool.rpad(
               new JVDateFormatTTMMJJJJ().format(b.getDatum()), colDatumLen));
+          bl_daten.append(new JVDateFormatTTMMJJJJ().format(b.getDatum()));
+          bl_daten.append(newLineStr);
           bl.append("  ");
           if (printBuchungsart)
           {
             bl.append(StringTool.rpad(b.getBuchungsart().getBezeichnung(),
                 colArtLen));
+            bl_art.append(b.getBuchungsart().getBezeichnung());
+            bl_art.append(newLineStr);
           }
           else
           {
@@ -797,16 +805,21 @@ public class SpendenbescheinigungImpl extends AbstractDBObject
           {
             bl.append(StringTool.rpad(
                 StringTool.lpad("ja", colVerzichtLen / 2 - 2), colVerzichtLen));
+            bl_verzicht.append("ja");
           }
           else
           {
             bl.append(
                 StringTool.rpad(StringTool.lpad("nein", colVerzichtLen / 2 - 2),
                     colVerzichtLen));
+            bl_verzicht.append("nein");
           }
+          bl_verzicht.append(newLineStr);
           bl.append("  ");
           String str = Einstellungen.DECIMALFORMAT.format(b.getBetrag());
           bl.append(StringTool.lpad(str, colBetragLen));
+          bl_betrag.append(StringTool.lpad(str, colBetragLen));
+          bl_betrag.append(newLineStr);
           bl.append(newLineStr);
         }
 
@@ -832,6 +845,10 @@ public class SpendenbescheinigungImpl extends AbstractDBObject
         bl.append(newLineStr);
       }
       map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), bl.toString());
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE_DATEN.getName(), bl_daten.toString());
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE_ART.getName(), bl_art.toString());
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE_VERZICHT.getName(), bl_verzicht.toString());
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE_BETRAG.getName(), bl_betrag.toString());
     }
     else
     {

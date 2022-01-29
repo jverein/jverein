@@ -208,6 +208,33 @@ public class FormularAnzeigeAction implements Action
       bl.append(StringTool.lpad(str, colBetragLen));
       bl.append(newLineStr);
       map.put(SpendenbescheinigungVar.BUCHUNGSLISTE.getName(), bl.toString());
+
+      StringBuilder bl_daten = new StringBuilder();
+      bl_daten.append("13.02.2008");
+      bl_daten.append(newLineStr);
+      bl_daten.append("12.11.2008");
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE_DATEN.getName(), bl_daten.toString());
+
+      StringBuilder bl_art = new StringBuilder();
+      bl_art.append("Beitrag");
+      bl_art.append(newLineStr);
+      bl_art.append("Spende");
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE_ART.getName(), bl_art.toString());
+
+      StringBuilder bl_verzicht = new StringBuilder();
+      bl_verzicht.append("nein");
+      bl_verzicht.append(newLineStr);
+      bl_verzicht.append("ja");
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE_VERZICHT.getName(), bl_verzicht.toString());
+
+      StringBuilder bl_betrag = new StringBuilder();
+      str = Einstellungen.DECIMALFORMAT.format(15.0);
+      bl_betrag.append(StringTool.lpad(str, colBetragLen));
+      bl_betrag.append(newLineStr);
+      str = Einstellungen.DECIMALFORMAT.format(1234.96);
+      bl_betrag.append(StringTool.lpad(str, colBetragLen));
+      map.put(SpendenbescheinigungVar.BUCHUNGSLISTE_BETRAG.getName(), bl_betrag.toString());
+
       map.put(SpendenbescheinigungVar.BEZEICHNUNGSACHZUWENDUNG.getName(),
           "gebrauchter Tisch");
       map.put(SpendenbescheinigungVar.HERKUNFTSACHZUWENDUNG.getName(),
