@@ -42,7 +42,7 @@ JVerein steht unter der GPL, https://www.gnu.org/copyleft/gpl.html
 Kontakt
 -------
 
-- Web: https://www.jverein.de
+- Web: https://openjverein.github.io/
 - eMail:
     - Heiner Jostkleigrewe heiner(at)jost-net.de
     - Philipp Schönberger mail(at)phschoen.de
