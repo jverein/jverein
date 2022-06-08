@@ -10,6 +10,11 @@
 		<tstamp>
 			<format property="build.timestamp" pattern="yyyyMMdd" />
 		</tstamp>
+		<loadfile property="plugin_version" srcFile="${build.dir}/RELEASE">
+			<filterchain>
+				<striplinebreaks/>
+			</filterchain>
+		</loadfile>
 		<buildnumber file="${build.dir}/BUILD" />
 
 		<loadproperties srcfile="${build.dir}/build.properties" />
@@ -62,7 +67,7 @@
 				<attribute name="Built-By" value="${user.name}" />
 				<attribute name="Built-Date" value="${DSTAMP}" />
 				<attribute name="Implementation-Title" value="${plugin.name}" />
-				<attribute name="Implementation-Version" value="${plugin.version}" />
+				<attribute name="Implementation-Version" value="${plugin_version}" />
 				<attribute name="Implementation-Buildnumber" value="${build.number}" />
 				<attribute name="Class-Path" value="lang help lib" />
 			</manifest>
@@ -76,6 +81,10 @@
 			<fileset dir="${lib.dir}" />
 		</copy>
 		<copy todir="${project.zipdir}" file="plugin.xml" />
+		<replace file="${project.zipdir}/plugin.xml">
+			<replacefilter token="[VERSION]" value="${plugin_version}"/>
+			<replacefilter token="[PLUGIN_ZIP]" value="${project.zipfilename}"/>
+		</replace>
 		<!-- Jetzt muessen wir noch das ZIP-File erzeugen -->
 		<zip destfile="${project.release}/${project.zipfilename}">
 			<fileset dir="${project.release}">
