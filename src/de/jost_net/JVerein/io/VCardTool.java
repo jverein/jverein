@@ -18,8 +18,9 @@ package de.jost_net.JVerein.io;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import ezvcard.VCard;
@@ -48,12 +49,10 @@ public class VCardTool
 
       vcard.setKind(Kind.individual());
 
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(m.getGeburtsdatum());
-      if (cal.get(Calendar.YEAR) != 1900
-          && cal.get(Calendar.MONTH) != Calendar.JANUARY)
+      Date geburtsdatum = m.getGeburtsdatum();
+      if (!geburtsdatum.equals(Einstellungen.NODATE))
       {
-        Birthday bd = new Birthday(m.getGeburtsdatum());
+        Birthday bd = new Birthday(geburtsdatum);
         vcard.setBirthday(bd);
       }
 
