@@ -270,7 +270,7 @@ public class MitgliedControl extends AbstractControl
 
   private TreePart eigenschaftenAuswahlTree;
 
-  // Elemente f¸r die Auswertung
+  // Elemente f√ºr die Auswertung
   private TextInput auswertungUeberschrift = null;
 
   private SelectInput suchadresstyp = null;
@@ -323,7 +323,7 @@ public class MitgliedControl extends AbstractControl
 
   private FamilienbeitragMessageConsumer fbc = null;
 
-  // Liste aller Zusatzbetr‰ge
+  // Liste aller Zusatzbetr√§ge
   private TablePart zusatzbetraegeList;
 
   // Liste der Wiedervorlagen
@@ -332,10 +332,10 @@ public class MitgliedControl extends AbstractControl
   // Liste der Mails
   private TablePart mailList;
 
-  // Liste der Arbeitseins‰tze
+  // Liste der Arbeitseins√§tze
   private TablePart arbeitseinsatzList;
 
-  // Liste der Lehrg‰nge
+  // Liste der Lehrg√§nge
   private TablePart lehrgaengeList;
 
   private TablePart familienangehoerige;
@@ -352,7 +352,7 @@ public class MitgliedControl extends AbstractControl
 
   private ArrayList<SekundaereBeitragsgruppe> listeSeB;
 
-  // Zeitstempel merken, wann der Letzte refresh ausgef¸hrt wurde.
+  // Zeitstempel merken, wann der Letzte refresh ausgef√ºhrt wurde.
   private long lastrefresh = 0;
 
   public MitgliedControl(AbstractView view)
@@ -584,7 +584,7 @@ public class MitgliedControl extends AbstractControl
     }
     strasse = new TextInput(getMitglied().getStrasse(), 40);
 
-    strasse.setName("Straﬂe");
+    strasse.setName("Stra√üe");
     return strasse;
   }
 
@@ -666,7 +666,7 @@ public class MitgliedControl extends AbstractControl
     this.geburtsdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.geburtsdatum.setName("Geburtsdatum");
     this.geburtsdatum.setTitle("Geburtsdatum");
-    this.geburtsdatum.setText("Bitte Geburtsdatum w‰hlen");
+    this.geburtsdatum.setText("Bitte Geburtsdatum w√§hlen");
     zeigeAlter(d);
     this.geburtsdatum
         .setMandatory(Einstellungen.getEinstellung().getGeburtsdatumPflicht());
@@ -690,7 +690,7 @@ public class MitgliedControl extends AbstractControl
     }
     geschlecht = new GeschlechtInput(getMitglied().getGeschlecht());
     geschlecht.setName("Geschlecht");
-    geschlecht.setPleaseChoose("Bitte ausw‰hlen");
+    geschlecht.setPleaseChoose("Bitte ausw√§hlen");
     geschlecht.setMandatory(true);
     geschlecht.setName("Geschlecht");
     return geschlecht;
@@ -725,7 +725,7 @@ public class MitgliedControl extends AbstractControl
           boolean isLastschrift = zahlungswegValue
               .getKey() == Zahlungsweg.BASISLASTSCHRIFT;
 
-          // Optimalerweise mit Pr¸fung auf zahlungsweg.hasChanged() und
+          // Optimalerweise mit Pr√ºfung auf zahlungsweg.hasChanged() und
           // zahlungsweg.getOldValue == BASISLASTSCHRIFT
           // Allerdings funktioniert hasChanged erst beim zweiten Aufruf, und
           // getOldValue gibt es in Jameica nicht.
@@ -734,8 +734,8 @@ public class MitgliedControl extends AbstractControl
             YesNoDialog dialog = new YesNoDialog(YesNoDialog.POSITION_CENTER);
             dialog.setTitle("Bankverbindungsdaten");
             dialog.setText(
-                "Die Bankverbindung wird beim gew‰hlten Zahlungsweg nicht benˆtigt.\n"
-                    + "Sollen eventuell vorhandene Werte gelˆscht werden?");
+                "Die Bankverbindung wird beim gew√§hlten Zahlungsweg nicht ben√∂tigt.\n"
+                    + "Sollen eventuell vorhandene Werte gel√∂scht werden?");
             boolean delete = false;
             try
             {
@@ -743,7 +743,7 @@ public class MitgliedControl extends AbstractControl
             }
             catch (Exception e)
             {
-              Logger.error("Fehler beim Bankverbindung-Lˆschen-Dialog.", e);
+              Logger.error("Fehler beim Bankverbindung-L√∂schen-Dialog.", e);
             }
             if (delete)
             {
@@ -761,7 +761,7 @@ public class MitgliedControl extends AbstractControl
     return zahlungsweg;
   }
 
-  // Lˆsche alle Daten aus der Bankverbindungsmaske
+  // L√∂sche alle Daten aus der Bankverbindungsmaske
   private void deleteBankverbindung()
   {
     try
@@ -874,7 +874,7 @@ public class MitgliedControl extends AbstractControl
     this.mandatdatum = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.mandatdatum.setTitle("Datum des Mandats");
     this.mandatdatum.setName("Datum des Mandats");
-    this.mandatdatum.setText("Bitte Datum des Mandats w‰hlen");
+    this.mandatdatum.setText("Bitte Datum des Mandats w√§hlen");
     return mandatdatum;
   }
 
@@ -1029,7 +1029,7 @@ public class MitgliedControl extends AbstractControl
       return ktoistrasse;
     }
     ktoistrasse = new TextInput(getMitglied().getKtoiStrasse(), 40);
-    ktoistrasse.setName("Straﬂe");
+    ktoistrasse.setName("Stra√üe");
     return ktoistrasse;
   }
 
@@ -1096,7 +1096,7 @@ public class MitgliedControl extends AbstractControl
     }
     ktoigeschlecht = new GeschlechtInput(getMitglied().getKtoiGeschlecht());
     ktoigeschlecht.setName("Geschlecht");
-    ktoigeschlecht.setPleaseChoose("Bitte ausw‰hlen");
+    ktoigeschlecht.setPleaseChoose("Bitte ausw√§hlen");
     ktoigeschlecht.setMandatory(true);
     ktoigeschlecht.setName("Geschlecht");
     ktoigeschlecht.setMandatory(false);
@@ -1161,7 +1161,7 @@ public class MitgliedControl extends AbstractControl
     this.eintritt = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.eintritt.setTitle("Eintrittsdatum");
     this.eintritt.setName("Eintrittsdatum");
-    this.eintritt.setText("Bitte Eintrittsdatum w‰hlen");
+    this.eintritt.setText("Bitte Eintrittsdatum w√§hlen");
     this.eintritt.setMandatory(
         Einstellungen.getEinstellung().getEintrittsdatumPflicht());
     return eintritt;
@@ -1181,7 +1181,7 @@ public class MitgliedControl extends AbstractControl
     {
       // alte Beitragsgruppen hatten das Feld Beitragsarten noch nicht gesetzt
       // (NULL)
-      // diese Beitragsgruppen m¸ssen hier auch erlaubt sein.
+      // diese Beitragsgruppen m√ºssen hier auch erlaubt sein.
       list.addFilter("beitragsart <> ? or beitragsart IS NULL",
           new Object[] { ArtBeitragsart.FAMILIE_ANGEHOERIGER.getKey() });
     }
@@ -1190,7 +1190,7 @@ public class MitgliedControl extends AbstractControl
     beitragsgruppe.setValue(getMitglied().getBeitragsgruppe());
     beitragsgruppe.setMandatory(true);
     beitragsgruppe.setAttribute("bezeichnung");
-    beitragsgruppe.setPleaseChoose("Bitte ausw‰hlen");
+    beitragsgruppe.setPleaseChoose("Bitte ausw√§hlen");
     beitragsgruppe.addListener(new Listener()
     {
 
@@ -1224,9 +1224,10 @@ public class MitgliedControl extends AbstractControl
           else if (bg != null
               && bg.getBeitragsArt() == ArtBeitragsart.FAMILIE_ZAHLER)
           {
-            getFamilienverband().setVisible(true);
-            // Zuk¸nftige Beitr‰ge nur bei bereits gespeicherten Mitgliedern
-            if (getMitglied().getID() != null)
+            boolean ist_neu = getMitglied().getID() == null;
+            getFamilienverband().setVisible(!ist_neu);
+            // Zuk√ºnftige Beitr√§ge nur bei bereits gespeicherten Mitgliedern
+            if (!ist_neu)
             {
               getZukuenftigeBeitraegeView().setVisible(true);
             }
@@ -1247,7 +1248,7 @@ public class MitgliedControl extends AbstractControl
               zahler.setEnabled(false);
             }
             getFamilienverband().setVisible(false);
-            // Zuk¸nftige Beitr‰ge nur bei bereits gespeicherten Mitgliedern
+            // Zuk√ºnftige Beitr√§ge nur bei bereits gespeicherten Mitgliedern
             if (getMitglied().getID() != null)
             {
               getZukuenftigeBeitraegeView().setVisible(true);
@@ -1354,7 +1355,7 @@ public class MitgliedControl extends AbstractControl
     }
     auswertungUeberschrift = new TextInput(
         settings.getString("auswertung.ueberschrift", ""));
-    auswertungUeberschrift.setName("‹berschrift");
+    auswertungUeberschrift.setName("√úberschrift");
     return auswertungUeberschrift;
   }
 
@@ -1385,14 +1386,14 @@ public class MitgliedControl extends AbstractControl
     beitragsgruppeausw = new SelectInput(list, bg);
     beitragsgruppeausw.setName("Beitragsgruppe");
     beitragsgruppeausw.setAttribute("bezeichnung");
-    beitragsgruppeausw.setPleaseChoose("Bitte ausw‰hlen");
+    beitragsgruppeausw.setPleaseChoose("Bitte ausw√§hlen");
     beitragsgruppeausw.setName("Beitragsgruppe");
     return beitragsgruppeausw;
   }
 
   /**
-   * Liefert ein Part zur¸ck, das den Familienverband anzeigt. Da Container
-   * jedoch nur das Hinzuf¸gen von Parts zulassen, ist das Part Familienverband
+   * Liefert ein Part zur√ºck, das den Familienverband anzeigt. Da Container
+   * jedoch nur das Hinzuf√ºgen von Parts zulassen, ist das Part Familienverband
    * dynamisch: Entweder wird der Familienverband angezeigt (setShow(true)),
    * oder ein leeres Composite (setShow(false))
    * 
@@ -1425,17 +1426,17 @@ public class MitgliedControl extends AbstractControl
   {
     if (zahler != null)
     {
-      // wenn force nicht gesetzt, gib aktuellen zahler zur¸ck.
+      // wenn force nicht gesetzt, gib aktuellen zahler zur√ºck.
       if (force != true)
         return zahler;
       // ansonsten: erzeuge neuen...
-      // Dies ist nˆtig, wenn Zahler ausgeblendet wurde und daher der
+      // Dies ist n√∂tig, wenn Zahler ausgeblendet wurde und daher der
       // Parent vom GC disposed wurde.
     }
 
     StringBuffer cond = new StringBuffer();
 
-    // Beitragsgruppen ermitteln, die Zahler f¸r andere Mitglieder sind
+    // Beitragsgruppen ermitteln, die Zahler f√ºr andere Mitglieder sind
     DBIterator<Beitragsgruppe> bg = Einstellungen.getDBService()
         .createList(Beitragsgruppe.class);
     bg.addFilter("beitragsart = ?", ArtBeitragsart.FAMILIE_ZAHLER.getKey());
@@ -1466,7 +1467,7 @@ public class MitgliedControl extends AbstractControl
 
     zahler = new SelectInput(zhl, zahlmitglied);
     zahler.setAttribute("namevorname");
-    zahler.setPleaseChoose("Bitte ausw‰hlen");
+    zahler.setPleaseChoose("Bitte ausw√§hlen");
     zahler.addListener(new Listener()
     {
 
@@ -1525,7 +1526,7 @@ public class MitgliedControl extends AbstractControl
     this.austritt = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.austritt.setTitle("Austrittsdatum");
     this.austritt.setName("Austrittsdatum");
-    this.austritt.setText("Bitte Austrittsdatum w‰hlen");
+    this.austritt.setText("Bitte Austrittsdatum w√§hlen");
     this.austritt.addListener(new Listener()
     {
 
@@ -1551,9 +1552,9 @@ public class MitgliedControl extends AbstractControl
     Date d = getMitglied().getKuendigung();
 
     this.kuendigung = new DateInput(d, new JVDateFormatTTMMJJJJ());
-    this.kuendigung.setName("K¸ndigungsdatum");
-    this.kuendigung.setTitle("K¸ndigungsdatum");
-    this.kuendigung.setText("Bitte K¸ndigungsdatum w‰hlen");
+    this.kuendigung.setName("K√ºndigungsdatum");
+    this.kuendigung.setTitle("K√ºndigungsdatum");
+    this.kuendigung.setText("Bitte K√ºndigungsdatum w√§hlen");
     this.kuendigung.addListener(new Listener()
     {
 
@@ -1581,7 +1582,7 @@ public class MitgliedControl extends AbstractControl
     this.sterbetag = new DateInput(d, new JVDateFormatTTMMJJJJ());
     this.sterbetag.setName("Sterbetag");
     this.sterbetag.setTitle("Sterbetag");
-    this.sterbetag.setText("Bitte Sterbetag w‰hlen");
+    this.sterbetag.setText("Bitte Sterbetag w√§hlen");
     this.sterbetag.addListener(new Listener()
     {
 
@@ -1689,7 +1690,7 @@ public class MitgliedControl extends AbstractControl
           DateInput di = new DateInput(d, new JVDateFormatTTMMJJJJ());
           di.setName(fd.getLabel());
           di.setTitle(fd.getLabel());
-          di.setText(String.format("Bitte %s w‰hlen", fd.getLabel()));
+          di.setText(String.format("Bitte %s w√§hlen", fd.getLabel()));
           zusatzfelder[i] = di;
           break;
         case Datentyp.GANZZAHL:
@@ -1728,7 +1729,7 @@ public class MitgliedControl extends AbstractControl
     }
 
     // erstelle lesefeldAuswerter, der alle Daten und Methoden
-    // zum Evaluieren von Skripten enth‰lt.
+    // zum Evaluieren von Skripten enth√§lt.
     if (lesefeldAuswerter == null)
     {
       lesefeldAuswerter = new LesefeldAuswerter();
@@ -1739,11 +1740,11 @@ public class MitgliedControl extends AbstractControl
     if (lesefeldAuswerter.countLesefelder() == 0)
       return null;
 
-    // Ist noch keine ID verf¸gbar, wird das Mitglied gerade angelegt.
+    // Ist noch keine ID verf√ºgbar, wird das Mitglied gerade angelegt.
     // Dann darf getMap() nicht aufgerufen werden, da sonst Standard-Werte
-    // f¸r Mitglied gesetzt werden (z.B. das Sterbedatum auf heute!)
+    // f√ºr Mitglied gesetzt werden (z.B. das Sterbedatum auf heute!)
     // Da lesefeldAuswerter aber einen kompletten Datensatz eines Mitglieds
-    // benˆtigt um alle Skripte fehlerfrei zu parsen, d¸rfen die Lesefelder
+    // ben√∂tigt um alle Skripte fehlerfrei zu parsen, d√ºrfen die Lesefelder
     // noch nicht ausgewertet werden. Die GUI-Elemente werden daher beim
     // ersten Erstellen eines neuen Mitglieds noch nicht angezeigt.
     if (getMitglied().getID() == null)
@@ -1759,7 +1760,7 @@ public class MitgliedControl extends AbstractControl
         .entrySet().iterator();
     while (it.hasNext())
     {
-      // Evaluiere Skripte und erzeuge f¸r jedes ein TextAreaInput mit
+      // Evaluiere Skripte und erzeuge f√ºr jedes ein TextAreaInput mit
       // dem ausgewerteten Inhalt sowie dem Skriptnamen davor.
       Entry<String, Object> pairs = it.next();
       TextAreaInput t = new TextAreaInput(pairs.getValue().toString());
@@ -1786,9 +1787,9 @@ public class MitgliedControl extends AbstractControl
     {
       Mitglied m = famiter.next();
       // Wenn der Iterator auf das aktuelle Mitglied zeigt,
-      // nutze stattdessen getMitglied() damit nicht das alte, unver‰nderte
+      // nutze stattdessen getMitglied() damit nicht das alte, unver√§nderte
       // Mitglied
-      // aus der DB verwendet wird, sondern das vom Nutzer ver‰nderte Mitglied.
+      // aus der DB verwendet wird, sondern das vom Nutzer ver√§nderte Mitglied.
       if (m.getID().equalsIgnoreCase(getMitglied().getID()))
         m = getMitglied();
       familienangehoerige.addItem(m);
@@ -1845,9 +1846,9 @@ public class MitgliedControl extends AbstractControl
 
     zusatzbetraegeList.addColumn("Startdatum", "startdatum",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    zusatzbetraegeList.addColumn("n‰chste F‰lligkeit", "faelligkeit",
+    zusatzbetraegeList.addColumn("n√§chste F√§lligkeit", "faelligkeit",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
-    zusatzbetraegeList.addColumn("letzte Ausf¸hrung", "ausfuehrung",
+    zusatzbetraegeList.addColumn("letzte Ausf√ºhrung", "ausfuehrung",
         new DateFormatter(new JVDateFormatTTMMJJJJ()));
     zusatzbetraegeList.addColumn("Intervall", "intervalltext");
     zusatzbetraegeList.addColumn("Endedatum", "endedatum",
@@ -2779,7 +2780,7 @@ public class MitgliedControl extends AbstractControl
   }
 
   /**
-   * Default-Werte f¸r die MitgliederSuchView speichern.
+   * Default-Werte f√ºr die MitgliederSuchView speichern.
    * 
    * @throws RemoteException
    */
@@ -3167,7 +3168,7 @@ public class MitgliedControl extends AbstractControl
         m.setGeburtsdatum((Date) getGeburtsdatum().getValue());
         if (getGeschlecht().getSelectedValue() == null)
         {
-          throw new ApplicationException("Bitte Geschlecht ausw‰hlen!");
+          throw new ApplicationException("Bitte Geschlecht ausw√§hlen!");
         }
 
         m.setGeschlecht((String) getGeschlecht().getValue());
@@ -3275,7 +3276,7 @@ public class MitgliedControl extends AbstractControl
               .createList(Felddefinition.class);
           it0.addFilter("label = ?", new Object[] { ti.getName() });
           Felddefinition fd = it0.next();
-          // Ist bereits ein Datensatz f¸r diese Definiton vorhanden ?
+          // Ist bereits ein Datensatz f√ºr diese Definiton vorhanden ?
           DBIterator<Zusatzfelder> it = Einstellungen.getDBService()
               .createList(Zusatzfelder.class);
           it.addFilter("mitglied =?", new Object[] { m.getID() });
@@ -3326,7 +3327,7 @@ public class MitgliedControl extends AbstractControl
       if (Einstellungen.getEinstellung().getSekundaereBeitragsgruppen()
           && ist_mitglied)
       {
-        // Schritt 1: Die selektierten sekund‰ren Beitragsgruppe pr¸fen, ob sie
+        // Schritt 1: Die selektierten sekund√§ren Beitragsgruppe pr√ºfen, ob sie
         // bereits gespeichert sind. Ggfls. speichern.
         @SuppressWarnings("rawtypes")
         List items = sekundaerebeitragsgruppe.getItems();
@@ -3338,8 +3339,8 @@ public class MitgliedControl extends AbstractControl
             sb.store();
           }
         }
-        // Schritt 2: Die sekund‰ren Beitragsgruppe in der Liste, die nicht mehr
-        // selektiert sind, m¸ssen gelˆscht werden.
+        // Schritt 2: Die sekund√§ren Beitragsgruppe in der Liste, die nicht mehr
+        // selektiert sind, m√ºssen gel√∂scht werden.
         for (SekundaereBeitragsgruppe sb : listeSeB)
         {
           if (!sb.isNewObject() && !items.contains(sb))
@@ -3424,7 +3425,7 @@ public class MitgliedControl extends AbstractControl
       }
 
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText("Ausgabedatei w‰hlen.");
+      fd.setText("Ausgabedatei w√§hlen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -3510,7 +3511,7 @@ public class MitgliedControl extends AbstractControl
     try
     {
       FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-      fd.setText("Ausgabedatei w‰hlen.");
+      fd.setText("Ausgabedatei w√§hlen.");
 
       String path = settings.getString("lastdir",
           System.getProperty("user.home"));
@@ -3587,7 +3588,7 @@ public class MitgliedControl extends AbstractControl
   private void starteStatistik() throws RemoteException
   {
     FileDialog fd = new FileDialog(GUI.getShell(), SWT.SAVE);
-    fd.setText("Ausgabedatei w‰hlen.");
+    fd.setText("Ausgabedatei w√§hlen.");
     fd.setFilterExtensions(new String[] { "*.PDF" });
     String path = settings.getString("lastdir",
         System.getProperty("user.home"));
@@ -3644,16 +3645,16 @@ public class MitgliedControl extends AbstractControl
     int selected = settings.getInt("zusatzfelder.selected", 0);
     if (selected == 0)
     {
-      zusatzfelderabfrage.setText("kein Feld ausgew‰hlt");
+      zusatzfelderabfrage.setText("kein Feld ausgew√§hlt");
     }
     else if (selected == 1)
     {
-      zusatzfelderabfrage.setText("1 Feld ausgew‰hlt");
+      zusatzfelderabfrage.setText("1 Feld ausgew√§hlt");
     }
     else
     {
       zusatzfelderabfrage
-          .setText(String.format("%d Felder ausgew‰hlt", selected));
+          .setText(String.format("%d Felder ausgew√§hlt", selected));
     }
   }
 
