@@ -135,7 +135,7 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     Double ret = (Double) getAttribute("x");
     if (ret == null)
     {
-      ret = new Double(0);
+      ret =  Double.valueOf(0);
     }
     return ret;
   }
@@ -152,7 +152,7 @@ public class FormularfeldImpl extends AbstractDBObject implements Formularfeld
     Double ret = (Double) getAttribute("y");
     if (ret == null)
     {
-      ret = new Double(0);
+      ret =  Double.valueOf(0);
     }
 
     return ret;

@@ -44,7 +44,7 @@ public class DBSupportH2Impl extends AbstractDBSupportImpl
 
   static
   {
-    DBMAPPING.put("Bw0vbcBX5SInOkfnSb+DHA==", new Double(0.9));
+    DBMAPPING.put("Bw0vbcBX5SInOkfnSb+DHA==", Double.valueOf(0.9));
   }
 
   @SuppressWarnings("unchecked")

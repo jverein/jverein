@@ -28,88 +28,88 @@ import de.jost_net.JVerein.rmi.Mitgliedskonto;
 public class MitgliedskontoMap
 {
 
-  public MitgliedskontoMap()
-  {
-    //
-  }
+	public MitgliedskontoMap()
+	{
+		//
+	}
 
-  public Map<String, Object> getMap(ArrayList<Mitgliedskonto> mk,
-      Map<String, Object> inma) throws RemoteException
-  {
-    Map<String, Object> map = null;
-    if (inma == null)
-    {
-      map = new HashMap<>();
-    }
-    else
-    {
-      map = inma;
-    }
+	public Map<String, Object> getMap(ArrayList<Mitgliedskonto> mk,
+			Map<String, Object> inma) throws RemoteException
+	{
+		Map<String, Object> map = null;
+		if (inma == null)
+		{
+			map = new HashMap<>();
+		}
+		else
+		{
+			map = inma;
+		}
 
-    ArrayList<Date> buda = new ArrayList<>();
-    ArrayList<String> zg = new ArrayList<>();
-    ArrayList<String> zg1 = new ArrayList<>();
-    ArrayList<Double> betrag = new ArrayList<>();
-    ArrayList<Double> ist = new ArrayList<>();
-    ArrayList<Double> differenz = new ArrayList<>();
-    double summe = 0;
-    double saldo = 0;
-    double suist = 0;
-    for (Mitgliedskonto mkto : mk)
-    {
-      buda.add(mkto.getDatum());
-      zg.add(mkto.getZweck1());
-      zg1.add(mkto.getZweck1());
-      betrag.add(new Double(mkto.getBetrag()));
-      ist.add(mkto.getIstSumme());
-      suist += mkto.getIstSumme();
-      differenz.add(mkto.getBetrag() - mkto.getIstSumme());
-      summe += mkto.getBetrag();
-      saldo += mkto.getBetrag() - mkto.getIstSumme();
-    }
-    if (buda.size() > 1)
-    {
-      zg1.add("Summe");
-      zg.add("Summe");
-      betrag.add(summe);
-      differenz.add(saldo);
-      ist.add(suist);
-    }
-    map.put(FormularfeldControl.BUCHUNGSDATUM, buda.toArray());
-    map.put(FormularfeldControl.ZAHLUNGSGRUND, zg.toArray());
-    map.put(FormularfeldControl.ZAHLUNGSGRUND1, zg1.toArray());
-    map.put(FormularfeldControl.BETRAG, betrag.toArray());
-    map.put(MitgliedskontoVar.BUCHUNGSDATUM.getName(), buda.toArray());
-    map.put(MitgliedskontoVar.ZAHLUNGSGRUND.getName(), zg.toArray());
-    map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), zg1.toArray());
-    map.put(MitgliedskontoVar.BETRAG.getName(), betrag.toArray());
-    map.put(MitgliedskontoVar.IST.getName(), ist.toArray());
-    map.put(MitgliedskontoVar.DIFFERENZ.getName(), differenz.toArray());
-    map.put(MitgliedskontoVar.STAND.getName(), new Double(-1 * saldo));
-    map.put(MitgliedskontoVar.SUMME_OFFEN.getName(), new Double(saldo));
-    return map;
-  }
+		ArrayList<Date> buda = new ArrayList<>();
+		ArrayList<String> zg = new ArrayList<>();
+		ArrayList<String> zg1 = new ArrayList<>();
+		ArrayList<Double> betrag = new ArrayList<>();
+		ArrayList<Double> ist = new ArrayList<>();
+		ArrayList<Double> differenz = new ArrayList<>();
+		double summe = 0;
+		double saldo = 0;
+		double suist = 0;
+		for (Mitgliedskonto mkto : mk)
+		{
+			buda.add(mkto.getDatum());
+			zg.add(mkto.getZweck1());
+			zg1.add(mkto.getZweck1());
+			betrag.add( Double.valueOf(mkto.getBetrag()));
+			ist.add(mkto.getIstSumme());
+			suist += mkto.getIstSumme();
+			differenz.add(mkto.getBetrag() - mkto.getIstSumme());
+			summe += mkto.getBetrag();
+			saldo += mkto.getBetrag() - mkto.getIstSumme();
+		}
+		if (buda.size() > 1)
+		{
+			zg1.add("Summe");
+			zg.add("Summe");
+			betrag.add(summe);
+			differenz.add(saldo);
+			ist.add(suist);
+		}
+		map.put(FormularfeldControl.BUCHUNGSDATUM, buda.toArray());
+		map.put(FormularfeldControl.ZAHLUNGSGRUND, zg.toArray());
+		map.put(FormularfeldControl.ZAHLUNGSGRUND1, zg1.toArray());
+		map.put(FormularfeldControl.BETRAG, betrag.toArray());
+		map.put(MitgliedskontoVar.BUCHUNGSDATUM.getName(), buda.toArray());
+		map.put(MitgliedskontoVar.ZAHLUNGSGRUND.getName(), zg.toArray());
+		map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), zg1.toArray());
+		map.put(MitgliedskontoVar.BETRAG.getName(), betrag.toArray());
+		map.put(MitgliedskontoVar.IST.getName(), ist.toArray());
+		map.put(MitgliedskontoVar.DIFFERENZ.getName(), differenz.toArray());
+		map.put(MitgliedskontoVar.STAND.getName(), Double.valueOf(-1 * saldo));
+		map.put(MitgliedskontoVar.SUMME_OFFEN.getName(), Double.valueOf(saldo));
+		return map;
+	}
 
-  public Map<String, Object> getMap(Mitgliedskonto mk, Map<String, Object> inma)
-      throws RemoteException
-  {
-    Map<String, Object> map = null;
-    if (inma == null)
-    {
-      map = new HashMap<>();
-    }
-    else
-    {
-      map = inma;
-    }
+	public Map<String, Object> getMap(Mitgliedskonto mk, Map<String, Object> inma)
+			throws RemoteException
+	{
+		Map<String, Object> map = null;
+		if (inma == null)
+		{
+			map = new HashMap<>();
+		}
+		else
+		{
+			map = inma;
+		}
 
-    map.put(MitgliedskontoVar.BUCHUNGSDATUM.getName(), mk.getDatum());
-    map.put(MitgliedskontoVar.ZAHLUNGSGRUND.getName(), mk.getZweck1());
-    map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), mk.getZweck1());
-    map.put(MitgliedskontoVar.BETRAG.getName(), mk.getBetrag());
-    map.put(MitgliedskontoVar.IST.getName(), mk.getIstSumme());
-    map.put(MitgliedskontoVar.DIFFERENZ.getName(),
-        mk.getBetrag() - mk.getIstSumme());
-    return map;
-  }
+		map.put(MitgliedskontoVar.BUCHUNGSDATUM.getName(), mk.getDatum());
+		map.put(MitgliedskontoVar.ZAHLUNGSGRUND.getName(), mk.getZweck1());
+		map.put(MitgliedskontoVar.ZAHLUNGSGRUND1.getName(), mk.getZweck1());
+		map.put(MitgliedskontoVar.BETRAG.getName(), mk.getBetrag());
+		map.put(MitgliedskontoVar.IST.getName(), mk.getIstSumme());
+		map.put(MitgliedskontoVar.DIFFERENZ.getName(),
+				mk.getBetrag() - mk.getIstSumme());
+		return map;
+	}
 }

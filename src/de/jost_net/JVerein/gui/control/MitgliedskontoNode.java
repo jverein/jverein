@@ -76,8 +76,8 @@ public class MitgliedskontoNode implements GenericObjectNode
     this.mitglied = m;
     this.zahlungsweg = m.getZahlungsweg();
     this.name = Adressaufbereitung.getNameVorname(m);
-    this.soll = new Double(0);
-    this.ist = new Double(0);
+    this.soll = Double.valueOf(0);
+    this.ist = Double.valueOf(0);
     this.children = new ArrayList<>();
     this.id = m.getID();
     DBIterator<Mitgliedskonto> it = Einstellungen.getDBService()
@@ -212,7 +212,7 @@ public class MitgliedskontoNode implements GenericObjectNode
     {
       if (ist == null)
       {
-        ist = new Double(0);
+        ist = Double.valueOf(0);
       }
       if (type == MITGLIED || type == SOLL)
       {

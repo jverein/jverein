@@ -275,7 +275,7 @@ public class MitgliedskontoControl extends AbstractControl
     {
       return betrag;
     }
-    Double b = new Double(0);
+    Double b = Double.valueOf(0);
     if (getMitgliedskonto() != null)
     {
       b = getMitgliedskonto().getBetrag();

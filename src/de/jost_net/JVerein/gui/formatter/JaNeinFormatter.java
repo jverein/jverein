@@ -30,7 +30,7 @@ public class JaNeinFormatter implements Formatter
     if (o instanceof Byte)
     {
       Byte b = (Byte) o;
-      if (b.equals(new Byte("1")))
+      if (b.equals(Byte.valueOf("1")))
       {
         return "Ja";
       }

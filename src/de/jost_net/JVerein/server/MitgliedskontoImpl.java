@@ -32,216 +32,218 @@ import de.willuhn.datasource.rmi.ResultSetExtractor;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
-public class MitgliedskontoImpl extends AbstractDBObject implements
-    Mitgliedskonto
+public class MitgliedskontoImpl extends AbstractDBObject
+		implements Mitgliedskonto
 {
 
-  private static final long serialVersionUID = -1234L;
+	private static final long serialVersionUID = -1234L;
 
-  private Double ist = null;
+	private Double ist = null;
 
-  public MitgliedskontoImpl() throws RemoteException
-  {
-    super();
-  }
+	public MitgliedskontoImpl()
+			throws RemoteException
+	{
+		super();
+	}
 
-  @Override
-  protected String getTableName()
-  {
-    return "mitgliedskonto";
-  }
+	@Override
+	protected String getTableName()
+	{
+		return "mitgliedskonto";
+	}
 
-  @Override
-  public String getPrimaryAttribute()
-  {
-    return "mitglied";
-  }
+	@Override
+	public String getPrimaryAttribute()
+	{
+		return "mitglied";
+	}
 
-  @Override
-  protected void deleteCheck()
-  {
-    //
-  }
+	@Override
+	protected void deleteCheck()
+	{
+		//
+	}
 
-  @Override
-  protected void insertCheck() throws ApplicationException
-  {
-    try
-    {
-      if (getDatum() == null)
-      {
-        throw new ApplicationException("Datum fehlt");
-      }
-      if (getZweck1().length() == 0)
-      {
-        throw new ApplicationException("Verwendungszweck fehlt");
-      }
-      if (getBetrag() == null)
-      {
-        String fehler = "Betrag fehlt";
-        Logger.error(fehler);
-        throw new ApplicationException(fehler);
-      }
+	@Override
+	protected void insertCheck() throws ApplicationException
+	{
+		try
+		{
+			if (getDatum() == null)
+			{
+				throw new ApplicationException("Datum fehlt");
+			}
+			if (getZweck1().length() == 0)
+			{
+				throw new ApplicationException("Verwendungszweck fehlt");
+			}
+			if (getBetrag() == null)
+			{
+				String fehler = "Betrag fehlt";
+				Logger.error(fehler);
+				throw new ApplicationException(fehler);
+			}
 
-    }
-    catch (RemoteException e)
-    {
-      String fehler = "Mitgliedskonto kann nicht gespeichert werden. Siehe system log";
-      Logger.error(fehler, e);
-      throw new ApplicationException(fehler);
-    }
-  }
+		}
+		catch (RemoteException e)
+		{
+			String fehler = "Mitgliedskonto kann nicht gespeichert werden. Siehe system log";
+			Logger.error(fehler, e);
+			throw new ApplicationException(fehler);
+		}
+	}
 
-  @Override
-  protected void updateCheck() throws ApplicationException
-  {
-    insertCheck();
-  }
+	@Override
+	protected void updateCheck() throws ApplicationException
+	{
+		insertCheck();
+	}
 
-  @Override
-  protected Class<?> getForeignObject(String arg0)
-  {
-    if ("mitglied".equals(arg0))
-    {
-      return Mitglied.class;
-    }
-    if ("abrechnungslauf".equals(arg0))
-    {
-      return Abrechnungslauf.class;
-    }
-    if ("buchungsart".equals(arg0))
-    {
-      return Buchungsart.class;
-    }
-    return null;
-  }
+	@Override
+	protected Class<?> getForeignObject(String arg0)
+	{
+		if ("mitglied".equals(arg0))
+		{
+			return Mitglied.class;
+		}
+		if ("abrechnungslauf".equals(arg0))
+		{
+			return Abrechnungslauf.class;
+		}
+		if ("buchungsart".equals(arg0))
+		{
+			return Buchungsart.class;
+		}
+		return null;
+	}
 
-  @Override
-  public Abrechnungslauf getAbrechnungslauf() throws RemoteException
-  {
-    return (Abrechnungslauf) getAttribute("abrechnungslauf");
-  }
+	@Override
+	public Abrechnungslauf getAbrechnungslauf() throws RemoteException
+	{
+		return (Abrechnungslauf) getAttribute("abrechnungslauf");
+	}
 
-  @Override
-  public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
-      throws RemoteException
-  {
-    setAttribute("abrechnungslauf", new Integer(abrechnungslauf.getID()));
-  }
+	@Override
+	public void setAbrechnungslauf(Abrechnungslauf abrechnungslauf)
+			throws RemoteException
+	{
+		setAttribute("abrechnungslauf", new Integer(abrechnungslauf.getID()));
+	}
 
-  @Override
-  public Buchungsart getBuchungsart() throws RemoteException
-  {
-    return (Buchungsart) getAttribute("buchungsart");
-  }
+	@Override
+	public Buchungsart getBuchungsart() throws RemoteException
+	{
+		return (Buchungsart) getAttribute("buchungsart");
+	}
 
-  @Override
-  public void setBuchungsart(Buchungsart buchungsart) throws RemoteException
-  {
-    setAttribute("buchungsart", new Long(buchungsart.getID()));
-  }
+	@Override
+	public void setBuchungsart(Buchungsart buchungsart) throws RemoteException
+	{
+		setAttribute("buchungsart", new Long(buchungsart.getID()));
+	}
 
-  @Override
-  public Mitglied getMitglied() throws RemoteException
-  {
-    return (Mitglied) getAttribute("mitglied");
-  }
+	@Override
+	public Mitglied getMitglied() throws RemoteException
+	{
+		return (Mitglied) getAttribute("mitglied");
+	}
 
-  @Override
-  public void setMitglied(Mitglied mitglied) throws RemoteException
-  {
-    setAttribute("mitglied", new Integer(mitglied.getID()));
-  }
+	@Override
+	public void setMitglied(Mitglied mitglied) throws RemoteException
+	{
+		setAttribute("mitglied", new Integer(mitglied.getID()));
+	}
 
-  @Override
-  public Date getDatum() throws RemoteException
-  {
-    return (Date) getAttribute("datum");
-  }
+	@Override
+	public Date getDatum() throws RemoteException
+	{
+		return (Date) getAttribute("datum");
+	}
 
-  @Override
-  public void setDatum(Date datum) throws RemoteException
-  {
-    setAttribute("datum", datum);
-  }
+	@Override
+	public void setDatum(Date datum) throws RemoteException
+	{
+		setAttribute("datum", datum);
+	}
 
-  @Override
-  public String getZweck1() throws RemoteException
-  {
-    return (String) getAttribute("zweck1");
-  }
+	@Override
+	public String getZweck1() throws RemoteException
+	{
+		return (String) getAttribute("zweck1");
+	}
 
-  @Override
-  public void setZweck1(String zweck1) throws RemoteException
-  {
-    setAttribute("zweck1", zweck1);
-  }
+	@Override
+	public void setZweck1(String zweck1) throws RemoteException
+	{
+		setAttribute("zweck1", zweck1);
+	}
 
-  @Override
-  public Integer getZahlungsweg() throws RemoteException
-  {
-    return (Integer) getAttribute("zahlungsweg");
-  }
+	@Override
+	public Integer getZahlungsweg() throws RemoteException
+	{
+		return (Integer) getAttribute("zahlungsweg");
+	}
 
-  @Override
-  public void setZahlungsweg(Integer zahlungsweg) throws RemoteException
-  {
-    setAttribute("zahlungsweg", zahlungsweg);
-  }
+	@Override
+	public void setZahlungsweg(Integer zahlungsweg) throws RemoteException
+	{
+		setAttribute("zahlungsweg", zahlungsweg);
+	}
 
-  @Override
-  public Double getBetrag() throws RemoteException
-  {
-    Double d = (Double) getAttribute("betrag");
-    if (d == null)
-    {
-      return 0.0d;
-    }
-    return d;
-  }
+	@Override
+	public Double getBetrag() throws RemoteException
+	{
+		Double d = (Double) getAttribute("betrag");
+		if (d == null)
+		{
+			return 0.0d;
+		}
+		return d;
+	}
 
-  @Override
-  public void setBetrag(Double d) throws RemoteException
-  {
-    setAttribute("betrag", d);
-  }
+	@Override
+	public void setBetrag(Double d) throws RemoteException
+	{
+		setAttribute("betrag", d);
+	}
 
-  @Override
-  public Double getIstSumme() throws RemoteException
-  {
-    if (ist != null)
-    {
-      return ist;
-    }
+	@Override
+	public Double getIstSumme() throws RemoteException
+	{
+		if (ist != null)
+		{
+			return ist;
+		}
 
-    DBService service = Einstellungen.getDBService();
-    String sql = "select sum(betrag) from buchung where mitgliedskonto = "
-        + this.getID();
+		DBService service = Einstellungen.getDBService();
+		String sql = "select sum(betrag) from buchung where mitgliedskonto = "
+				+ this.getID();
 
-    ResultSetExtractor rs = new ResultSetExtractor()
-    {
+		ResultSetExtractor rs = new ResultSetExtractor()
+		{
 
-      @Override
-      public Object extract(ResultSet rs) throws SQLException
-      {
-        if (!rs.next())
-        {
-          return new Double(0.0d);
-        }
-        return Double.valueOf(rs.getDouble(1));
-      }
-    };
-    ist = new Double((Double) service.execute(sql, new Object[] {}, rs));
-    return ist;
-  }
+			@Override
+			public Object extract(ResultSet rs) throws SQLException
+			{
+				if (!rs.next())
+				{
+					return Double.valueOf(0.0d);
+				}
+				return Double.valueOf(rs.getDouble(1));
+			}
+		};
+		ist = Double.valueOf((Double) service.execute(sql, new Object[]
+		{}, rs));
+		return ist;
+	}
 
-  @Override
-  public Object getAttribute(String fieldName) throws RemoteException
-  {
-    if (fieldName.equals("istsumme"))
-    {
-      return getIstSumme();
-    }
-    return super.getAttribute(fieldName);
-  }
+	@Override
+	public Object getAttribute(String fieldName) throws RemoteException
+	{
+		if (fieldName.equals("istsumme"))
+		{
+			return getIstSumme();
+		}
+		return super.getAttribute(fieldName);
+	}
 }

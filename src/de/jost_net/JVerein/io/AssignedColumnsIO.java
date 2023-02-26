@@ -113,7 +113,7 @@ public class AssignedColumnsIO
   {
 
     List<String> conColAssign = new ArrayList<>();
-    Boolean n = new Boolean(nNec);
+    Boolean n =  Boolean.valueOf(nNec);
 
     for (String key : columns.keySet())
     {

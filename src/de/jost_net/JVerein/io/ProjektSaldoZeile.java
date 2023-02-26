@@ -76,9 +76,9 @@ public class ProjektSaldoZeile implements GenericObject
     this.projekt = null;
     this.buchungsart = buchungsart;
     this.text = null;
-    this.umbuchungen = new Double(umbuchungen);
-    this.einnahmen = new Double(einnahmen);
-    this.ausgaben = new Double(ausgaben);
+    this.umbuchungen = Double.valueOf(umbuchungen);
+    this.einnahmen = Double.valueOf(einnahmen);
+    this.ausgaben =Double.valueOf(ausgaben);
   }
 
   public ProjektSaldoZeile(int status, String text, Double einnahmen,
@@ -88,9 +88,9 @@ public class ProjektSaldoZeile implements GenericObject
     this.projekt = null;
     this.buchungsart = null;
     this.text = text;
-    this.umbuchungen = new Double(umbuchungen);
-    this.einnahmen = new Double(einnahmen);
-    this.ausgaben = new Double(ausgaben);
+    this.umbuchungen = Double.valueOf(umbuchungen);
+    this.einnahmen = Double.valueOf(einnahmen);
+    this.ausgaben = Double.valueOf(ausgaben);
   }
 
   public ProjektSaldoZeile(int status, String text, Double gewinnverlust)
@@ -100,7 +100,7 @@ public class ProjektSaldoZeile implements GenericObject
     this.buchungsart = null;
     this.text = text;
     this.umbuchungen = null;
-    this.einnahmen = new Double(gewinnverlust);
+    this.einnahmen = Double.valueOf(gewinnverlust);
     this.ausgaben = null;
   }
 
