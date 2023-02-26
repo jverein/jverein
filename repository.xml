@@ -5,7 +5,6 @@
   name="JVerein Repository">
 
   <plugins name="JVerein"> 
-     <plugin url="http://www.jverein.de/updates/2.8/"/>
+     <plugin url="https://www.jverein.de/updates/"/>
   </plugins>
 </repository>
-
