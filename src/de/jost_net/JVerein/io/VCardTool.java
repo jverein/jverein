@@ -18,8 +18,9 @@ package de.jost_net.JVerein.io;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 
+import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Adressbuch.Adressaufbereitung;
 import de.jost_net.JVerein.rmi.Mitglied;
 import ezvcard.VCard;
@@ -37,85 +38,83 @@ import ezvcard.property.Uid;
 public class VCardTool
 {
 
-  public static VCard[] getVCards(ArrayList<Mitglied> mitglieder)
-      throws RemoteException
-  {
-    ArrayList<VCard> ret = new ArrayList<>();
+	public static VCard[] getVCards(ArrayList<Mitglied> mitglieder)
+			throws RemoteException
+	{
+		ArrayList<VCard> ret = new ArrayList<>();
 
-    for (Mitglied m : mitglieder)
-    {
-      VCard vcard = new VCard();
+		for (Mitglied m : mitglieder)
+		{
+			VCard vcard = new VCard();
 
-      vcard.setKind(Kind.individual());
+			vcard.setKind(Kind.individual());
 
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(m.getGeburtsdatum());
-      if (cal.get(Calendar.YEAR) != 1900
-          && cal.get(Calendar.MONTH) != Calendar.JANUARY)
-      {
-        Birthday bd = new Birthday(m.getGeburtsdatum());
-        vcard.setBirthday(bd);
-      }
+			Date geburtsdatum = m.getGeburtsdatum();
+			if (!geburtsdatum.equals(Einstellungen.NODATE))
+			{
+				Birthday bd = new Birthday(geburtsdatum);
+				vcard.setBirthday(bd);
+			}
 
-      if (m.getGeschlecht().equalsIgnoreCase("M"))
-      {
-        vcard.setGender(Gender.male());
-      }
-      if (m.getGeschlecht().equalsIgnoreCase("W"))
-      {
-        vcard.setGender(Gender.female());
-      }
-      if (m.getGeschlecht().equalsIgnoreCase("o"))
-      {
-        vcard.setGender(Gender.other());
-      }
-      if (m.getPersonenart().equals("n"))
-      {
-        StructuredName n = new StructuredName();
-        n.setFamily(m.getName());
-        n.setGiven(m.getVorname());
-        // n.addPrefix("Mr");
-        vcard.setStructuredName(n);
-      }
+			if (m.getGeschlecht().equalsIgnoreCase("M"))
+			{
+				vcard.setGender(Gender.male());
+			}
+			if (m.getGeschlecht().equalsIgnoreCase("W"))
+			{
+				vcard.setGender(Gender.female());
+			}
+			if (m.getGeschlecht().equalsIgnoreCase("o"))
+			{
+				vcard.setGender(Gender.other());
+			}
+			if (m.getPersonenart().equals("n"))
+			{
+				StructuredName n = new StructuredName();
+				n.setFamily(m.getName());
+				n.setGiven(m.getVorname());
+				// n.addPrefix("Mr");
+				vcard.setStructuredName(n);
+			}
 
-      vcard.setFormattedName(Adressaufbereitung.getVornameName(m));
+			vcard.setFormattedName(Adressaufbereitung.getVornameName(m));
 
-      Address adr = new Address();
-      adr.setStreetAddress(m.getStrasse());
-      adr.setLocality(m.getOrt());
-      adr.setPostalCode(m.getPlz());
-      adr.setCountry(m.getStaat());
-      adr.setLabel(Adressaufbereitung.getAdressfeld(m));
-      adr.getTypes().add(AddressType.HOME);
-      vcard.addAddress(adr);
+			Address adr = new Address();
+			adr.setStreetAddress(m.getStrasse());
+			adr.setLocality(m.getOrt());
+			adr.setPostalCode(m.getPlz());
+			adr.setCountry(m.getStaat());
+			adr.setLabel(Adressaufbereitung.getAdressfeld(m));
+			adr.getTypes().add(AddressType.HOME);
+			vcard.addAddress(adr);
 
-      if (m.getTelefondienstlich().length() > 0)
-      {
-        vcard.addTelephoneNumber(m.getTelefondienstlich(), TelephoneType.WORK);
-      }
-      if (m.getTelefonprivat().length() > 0)
-      {
-        vcard.addTelephoneNumber(m.getTelefonprivat(), TelephoneType.HOME);
-      }
-      if (m.getHandy().length() > 0)
-      {
-        vcard.addTelephoneNumber(m.getHandy(), TelephoneType.CELL);
-      }
+			if (m.getTelefondienstlich().length() > 0)
+			{
+				vcard.addTelephoneNumber(m.getTelefondienstlich(), TelephoneType.WORK);
+			}
+			if (m.getTelefonprivat().length() > 0)
+			{
+				vcard.addTelephoneNumber(m.getTelefonprivat(), TelephoneType.HOME);
+			}
+			if (m.getHandy().length() > 0)
+			{
+				vcard.addTelephoneNumber(m.getHandy(), TelephoneType.CELL);
+			}
 
-      if (m.getEmail().length() > 0)
-      {
-        vcard.addEmail(m.getEmail(), EmailType.HOME);
-      }
-      // vcard.setCategories("widgetphile", "biker", "vCard expert");
+			if (m.getEmail().length() > 0)
+			{
+				vcard.addEmail(m.getEmail(), EmailType.HOME);
+			}
+			// vcard.setCategories("widgetphile", "biker", "vCard expert");
 
-      Uid uid = new Uid(m.getID());
-      vcard.setUid(uid);
-      vcard.setRevision(Revision.now());
+			Uid uid = new Uid(m.getID());
+			vcard.setUid(uid);
+			vcard.setRevision(Revision.now());
 
-      ret.add(vcard);
-    }
-    VCard list2[] = new VCard[ret.size()];
-    list2 = ret.toArray(list2);
-    return list2;
-  }
+			ret.add(vcard);
+		}
+		VCard list2[] = new VCard[ret.size()];
+		list2 = ret.toArray(list2);
+		return list2;
+	}
 }
