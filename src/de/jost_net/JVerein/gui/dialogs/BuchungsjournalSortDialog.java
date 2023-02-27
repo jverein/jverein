@@ -35,72 +35,97 @@ import de.willuhn.jameica.system.OperationCanceledException;
 public class BuchungsjournalSortDialog extends AbstractDialog<String>
 {
 
-  public final static String DATUM = "Datum";
+	public final static String ID = "Id";
 
-  public final static String DATUM_NAME = "Datum, Name, Buchungsnummer";
+	public final static String DATUM = "Datum";
 
-  public final static String BUCHUNGSNUMMER = "Buchungsnummer";
+	public final static String DATUM_NAME = "Datum, Name";
 
-  private String selected = DATUM;
+	public final static String DATUM_ID = "Datum, Id";
 
-  private SelectInput sortierung = null;
+	public final static String DATUM_ID_NAME = "Datum, Id, Name";
 
-  public BuchungsjournalSortDialog(int position)
-  {
-    super(position);
+	public final static String DATUM_AUSZUGSNUMMER = "Datum, Auszugsnummer";
 
-    setTitle("Buchungsjournal-Sortierung");
-    setSize(300, 200);
-  }
+	public final static String DATUM_AUSZUGSNUMMER_NAME = "Datum, Auszugsnummer, Name";
 
-  @Override
-  protected void paint(Composite parent) throws Exception
-  {
-    LabelGroup options = new LabelGroup(parent, "Buchungsjournal-Sortierung");
-    options.addInput(this.getSortierung());
-    ButtonArea b = new ButtonArea();
-    b.addButton("weiter", new Action()
-    {
-      @Override
-      public void handleAction(Object context)
-      {
-        close();
-      }
-    });
-    b.addButton("abbrechen", new Action()
-    {
-      @Override
-      public void handleAction(Object context)
-      {
-        throw new OperationCanceledException();
-      }
-    });
-    b.paint(parent);
-  }
+	public final static String DATUM_BLATTNUMMER = "Datum, Blattnummer";
 
-  @Override
-  protected String getData() throws Exception
-  {
-    return this.selected;
-  }
+	public final static String DATUM_BLATTNUMMER_NAME = "Datum, Blattnummer, Name";
 
-  private SelectInput getSortierung()
-  {
-    if (this.sortierung != null)
-    {
-      return this.sortierung;
-    }
-    this.sortierung = new SelectInput(new Object[] { DATUM, DATUM_NAME,
-        BUCHUNGSNUMMER }, DATUM);
-    this.sortierung.setName("Sortierung");
-    this.sortierung.addListener(new Listener()
-    {
-      @Override
-      public void handleEvent(Event event)
-      {
-        selected = (String) sortierung.getValue();
-      }
-    });
-    return this.sortierung;
-  }
+	public final static String DATUM_AUSGZUGSNUMMER_ID = "Datum, Auszugsnummer, Id";
+
+	public final static String DATUM_BLATTNUMMER_ID = "Datum, Blattnummer, Id";
+
+	public final static String DATUM_AUSGZUGSNUMMER_BLATTNUMMER_ID = "Datum, Auszugsnumme, Blattnummer, Id";
+
+	private String selected = DATUM;
+
+	private SelectInput sortierung = null;
+
+	public String selectedValue = DATUM;
+
+	public BuchungsjournalSortDialog(int position)
+	{
+		super(position);
+
+		setTitle("Buchungsjournal-Sortierung");
+		setSize(300, 200);
+	}
+
+	@Override
+	protected void paint(Composite parent) throws Exception
+	{
+		LabelGroup options = new LabelGroup(parent, "Buchungsjournal-Sortierung");
+		options.addInput(this.getSortierung());
+		ButtonArea b = new ButtonArea();
+		b.addButton("weiter", new Action()
+		{
+			@Override
+			public void handleAction(Object context)
+			{
+				close();
+			}
+		});
+		b.addButton("abbrechen", new Action()
+		{
+			@Override
+			public void handleAction(Object context)
+			{
+				throw new OperationCanceledException();
+			}
+		});
+		b.paint(parent);
+	}
+
+	@Override
+	protected String getData() throws Exception
+	{
+		return this.selected;
+	}
+
+	private SelectInput getSortierung()
+	{
+		if (this.sortierung != null)
+		{
+			return this.sortierung;
+		}
+		this.sortierung = new SelectInput(new Object[]
+		{
+				ID, DATUM, DATUM_NAME, DATUM_ID, DATUM_ID_NAME, DATUM_AUSZUGSNUMMER,
+				DATUM_AUSZUGSNUMMER_NAME, DATUM_BLATTNUMMER, DATUM_BLATTNUMMER_NAME,
+				DATUM_AUSGZUGSNUMMER_ID, DATUM_BLATTNUMMER_ID,
+				DATUM_AUSGZUGSNUMMER_BLATTNUMMER_ID
+		}, DATUM_AUSGZUGSNUMMER_BLATTNUMMER_ID);
+		this.sortierung.setName("Sortierung");
+		this.sortierung.addListener(new Listener()
+		{
+			@Override
+			public void handleEvent(Event event)
+			{
+				selected = (String) sortierung.getValue();
+			}
+		});
+		return this.sortierung;
+	}
 }

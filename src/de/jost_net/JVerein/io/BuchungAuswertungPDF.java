@@ -78,7 +78,7 @@ public class BuchungAuswertungPDF
       {
         if (einzel)
         {
-          query.setOrderDatumID();
+          query.getOrder("ORDER_DATUM_ID");
         }
         List<Buchung> liste = getBuchungenEinerBuchungsart(query.get(), bua);
         createTableContent(reporter, bua, liste, einzel);

@@ -19,6 +19,7 @@ package de.jost_net.JVerein.Queries;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
+import java.util.HashMap;
 
 import de.jost_net.JVerein.Einstellungen;
 import de.jost_net.JVerein.io.Suchbetrag;
@@ -50,20 +51,26 @@ public class BuchungQuery
   private List<Buchung> ergebnis;
 
   private Boolean hasMitglied;
+  
+  private HashMap<String, String> sortValues = new HashMap<String, String>();
 
-  private static final int ORDER_UMSATZID = 0;
-
-  private static final int ORDER_DATUM = 1;
-
-  private static final int ORDER_DATUM_AUSZUGSNUMMER_BLATTNUMMER = 2;
-
-  private static final int ORDER_DATUM_NAME = 3;
-
-  private static final int ORDER_ID = 4;
-
-  private static final int ORDER_DATUM_ID = 5;
-
-  private int order = ORDER_UMSATZID;
+  private void SortHashMap() {
+	  sortValues.put("ORDER_ID","order by id");
+	  sortValues.put("ORDER_DATUM","order by datum");
+	  sortValues.put("ORDER_DATUM_NAME","order by datum, name");
+	  sortValues.put("ORDER_DATUM_ID","order by datum, id");
+	  sortValues.put("ORDER_DATUM_ID_NAME","order by datum, id, name");
+	  sortValues.put("ORDER_DATUM_AUSZUGSNUMMER","order by datum, auszugsnummer");
+	  sortValues.put("ORDER_DATUM_AUSZUGSNUMMER_NAME","order by datum, auszugsnummer, name");
+	  sortValues.put("ORDER_DATUM_BLATTNUMMER","order by datum, blattnummer");
+	  sortValues.put("ORDER_DATUM_BLATTNUMMER_NAME","order by datum, blattnummer, name");
+	  sortValues.put("ORDER_DATUM_AUSZUGSNUMMER_ID","order by datum, auszugsnummer, id");
+	  sortValues.put("ORDER_DATUM_BLATTNUMMER_ID","order by datum, blattnummer, id");
+	  sortValues.put("ORDER_DATUM_AUSZUGSNUMMER_BLATTNUMMER_ID","order by datum, auszugsnummer, blattnummer, id");
+	  sortValues.put("DEFAULT","order by datum, auszugsnummer, blattnummer, id");
+  }
+  
+  public String ordername = null;
 
   public BuchungQuery(Date datumvon, Date datumbis, Konto konto,
       Buchungsart buchungsart, Projekt projekt, String text, String betrag,
@@ -79,9 +86,24 @@ public class BuchungQuery
     this.hasMitglied = hasMitglied;
   }
 
-  public void setOrderID()
+  public String getOrder(String value) {
+	  SortHashMap();
+	  String newvalue = null;
+	  if ( ordername != null ) {
+		  newvalue = value.replaceAll(", ", "_");
+		  newvalue = newvalue.toUpperCase();
+		  newvalue = "ORDER_" + newvalue;
+          return sortValues.get(newvalue);
+	  } else {
+		  return sortValues.get("DEFAULT");
+	  }
+  }
+  
+  public void setOrdername(String value)
   {
-    order = ORDER_ID;
+    if ( value != null ) {
+    	ordername = value;
+    }
   }
 
   public Boolean getHasMitglied()
@@ -92,26 +114,6 @@ public class BuchungQuery
   public void setHasMitglied(Boolean hasMitglied)
   {
     this.hasMitglied = hasMitglied;
-  }
-
-  public void setOrderDatum()
-  {
-    order = ORDER_DATUM;
-  }
-
-  public void setOrderDatumID()
-  {
-    order = ORDER_DATUM_ID;
-  }
-
-  public void setOrderDatumAuszugsnummerBlattnummer()
-  {
-    order = ORDER_DATUM_AUSZUGSNUMMER_BLATTNUMMER;
-  }
-
-  public void setOrderDatumName()
-  {
-    order = ORDER_DATUM_NAME;
   }
 
   public Date getDatumvon()
@@ -245,41 +247,12 @@ public class BuchungQuery
           "(upper(name) like ? or upper(zweck) like ? or upper(kommentar) like ?) ",
           ttext, ttext, ttext);
     }
-    switch (order)
-    {
-      case ORDER_UMSATZID:
-      {
-        it.setOrder("ORDER BY umsatzid DESC");
-        break;
-      }
-      case ORDER_DATUM:
-      {
-        it.setOrder("ORDER BY datum");
-        break;
-      }
-      case ORDER_DATUM_AUSZUGSNUMMER_BLATTNUMMER:
-      {
-        it.setOrder("ORDER BY datum, auszugsnummer, blattnummer, id");
-        break;
-      }
-      case ORDER_DATUM_NAME:
-      {
-        it.setOrder("ORDER BY datum, name, id");
-        break;
-      }
-      case ORDER_ID:
-      {
-        it.setOrder("ORDER BY id");
-        break;
-      }
-      case ORDER_DATUM_ID:
-      {
-        it.setOrder("ORDER BY datum, id");
-        break;
-      }
- 
-    }
-
+         
+    // 20220808: sbuer: Neue Sortierfelder
+    String orderString = getOrder(ordername);
+    System.out.println("ordername : " + ordername + " ,orderString : " + orderString);
+    it.setOrder(orderString);
+    
     this.ergebnis = PseudoIterator.asList(it);
     return ergebnis;
   }
