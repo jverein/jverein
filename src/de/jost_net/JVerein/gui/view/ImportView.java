@@ -613,7 +613,7 @@ public class ImportView extends AbstractView
         .createList(Felddefinition.class);
     for (int i = 0; i < it.size(); i++)
     {
-      String addColumn = ((Felddefinition) it.next()).getName();
+      String addColumn = ( it.next()).getName();
       addColumnTableItemWithOrder(table, addColumn, true);
       columns.addColumn(addColumn, true);
     }

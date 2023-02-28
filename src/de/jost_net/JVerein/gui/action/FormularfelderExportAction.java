@@ -68,7 +68,7 @@ public class FormularfelderExportAction implements Action
         fflist.add(ff);
       }
 
-      ExportDialog d = new ExportDialog((Object[]) fflist.toArray(),
+      ExportDialog d = new ExportDialog( fflist.toArray(),
           Formularfeld.class, DokumentationUtil.FORMULARE);
       d.open();
     }

@@ -48,7 +48,7 @@ public class JVereinAdressbuch implements Addressbook
     ArrayList<MitgliedAddress> list = new ArrayList<>();
     while (it.hasNext())
     {
-      Mitglied m = (Mitglied) it.next();
+      Mitglied m = it.next();
       String kategorie = m.getAdresstyp().getBezeichnung();
       if (m.getAdresstyp().getID().equals("1"))
       {

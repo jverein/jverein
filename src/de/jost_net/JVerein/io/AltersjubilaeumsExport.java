@@ -38,76 +38,80 @@ import de.willuhn.util.ProgressMonitor;
 public abstract class AltersjubilaeumsExport implements Exporter
 {
 
-  @Override
-  public abstract String getName();
+	@Override
+	public abstract String getName();
 
-  @Override
-  public abstract IOFormat[] getIOFormats(Class<?> objectType);
+	@Override
+	public abstract IOFormat[] getIOFormats(Class<?> objectType);
 
-  protected File file;
+	protected File file;
 
-  protected Integer jahr;
+	protected Integer jahr;
 
-  @Override
-  public void doExport(Object[] objects, IOFormat format, File file,
-      ProgressMonitor monitor)
-      throws ApplicationException, DocumentException, IOException
-  {
-    this.file = file;
-    MitgliedControl control = (MitgliedControl) objects[0];
-    jahr = control.getJJahr();
-    Logger.debug(String.format("Altersjubiläumexport, Jahr=%d", jahr));
-    open();
-    JubilaeenParser jp = new JubilaeenParser(
-        Einstellungen.getEinstellung().getAltersjubilaeen());
-    while (jp.hasNext())
-    {
-      int jubi = jp.getNext();
-      startJahrgang(jubi);
+	@Override
+	public void doExport(Object[] objects, IOFormat format, File file,
+			ProgressMonitor monitor)
+			throws ApplicationException, DocumentException, IOException
+	{
+		this.file = file;
+		MitgliedControl control = (MitgliedControl) objects[0];
+		jahr = control.getJJahr();
+		Logger.debug(String.format("Altersjubiläumexport, Jahr=%d", jahr));
+		open();
+		JubilaeenParser jp = new JubilaeenParser(
+				Einstellungen.getEinstellung().getAltersjubilaeen());
+		while (jp.hasNext())
+		{
+			int jubi = jp.getNext();
+			startJahrgang(jubi);
 
-      DBIterator<Mitglied> mitgl = Einstellungen.getDBService()
-          .createList(Mitglied.class);
-      MitgliedUtils.setNurAktive(mitgl);
-      MitgliedUtils.setMitglied(mitgl);
-      Calendar cal = Calendar.getInstance();
-      cal.set(Calendar.YEAR, jahr);
-      cal.add(Calendar.YEAR, jubi * -1);
-      cal.set(Calendar.MONTH, Calendar.JANUARY);
-      cal.set(Calendar.DAY_OF_MONTH, 1);
-      Date von = cal.getTime();
-      mitgl.addFilter("geburtsdatum >= ?",
-          new Object[] { new java.sql.Date(von.getTime()) });
+			DBIterator<Mitglied> mitgl = Einstellungen.getDBService()
+					.createList(Mitglied.class);
+			MitgliedUtils.setNurAktive(mitgl);
+			MitgliedUtils.setMitglied(mitgl);
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.YEAR, jahr);
+			cal.add(Calendar.YEAR, jubi * -1);
+			cal.set(Calendar.MONTH, Calendar.JANUARY);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			Date von = cal.getTime();
+			mitgl.addFilter("geburtsdatum >= ?", new Object[]
+			{
+					new java.sql.Date(von.getTime())
+			});
 
-      cal.set(Calendar.MONTH, Calendar.DECEMBER);
-      cal.set(Calendar.DAY_OF_MONTH, 31);
-      Date bis = cal.getTime();
-      mitgl.addFilter("geburtsdatum <= ?",
-          new Object[] { new java.sql.Date(bis.getTime()) });
-      mitgl.setOrder("order by geburtsdatum");
-      while (mitgl.hasNext())
-      {
-        add((Mitglied) mitgl.next());
-      }
-      endeJahrgang();
-    }
-    close();
-  }
+			cal.set(Calendar.MONTH, Calendar.DECEMBER);
+			cal.set(Calendar.DAY_OF_MONTH, 31);
+			Date bis = cal.getTime();
+			mitgl.addFilter("geburtsdatum <= ?", new Object[]
+			{
+					new java.sql.Date(bis.getTime())
+			});
+			mitgl.setOrder("order by geburtsdatum");
+			while (mitgl.hasNext())
+			{
+				add(mitgl.next());
+			}
+			endeJahrgang();
+		}
+		close();
+	}
 
-  @Override
-  public String getDateiname()
-  {
-    return "altersjubilare";
-  }
+	@Override
+	public String getDateiname()
+	{
+		return "altersjubilare";
+	}
 
-  protected abstract void startJahrgang(int jahr) throws DocumentException;
+	protected abstract void startJahrgang(int jahr) throws DocumentException;
 
-  protected abstract void endeJahrgang() throws DocumentException;
+	protected abstract void endeJahrgang() throws DocumentException;
 
-  protected abstract void open()
-      throws DocumentException, FileNotFoundException;
+	protected abstract void open()
+			throws DocumentException, FileNotFoundException;
 
-  protected abstract void add(Mitglied m) throws RemoteException;
+	protected abstract void add(Mitglied m) throws RemoteException;
 
-  protected abstract void close()
-      throws IOException, DocumentException, ApplicationException;
+	protected abstract void close()
+			throws IOException, DocumentException, ApplicationException;
 }

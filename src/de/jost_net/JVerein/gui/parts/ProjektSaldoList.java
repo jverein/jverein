@@ -129,7 +129,7 @@ public class ProjektSaldoList extends TablePart implements Part
 			{
 				if (!rs.next())
 				{
-					return  Double.valueOf(0);
+					return Double.valueOf(0);
 				}
 				return Double.valueOf(rs.getDouble(1));
 			}
@@ -152,7 +152,7 @@ public class ProjektSaldoList extends TablePart implements Part
 		projekteIt.setOrder("ORDER BY bezeichnung");
 		while (projekteIt.hasNext())
 		{
-			projekt = (Projekt) projekteIt.next();
+			projekt = projekteIt.next();
 			String sql = "select count(*) from buchung "
 					+ "where datum >= ? and datum <= ?  " + "and projekt = ?";
 			int anz = (Integer) service.execute(sql, new Object[]
@@ -171,7 +171,7 @@ public class ProjektSaldoList extends TablePart implements Part
 
 				while (buchungsartenIt.hasNext())
 				{
-					buchungsart = (Buchungsart) buchungsartenIt.next();
+					buchungsart = buchungsartenIt.next();
 					sql = "select count(*) from buchung, buchungsart "
 							+ "where datum >= ? and datum <= ?  "
 							+ "and buchung.buchungsart = buchungsart.id "

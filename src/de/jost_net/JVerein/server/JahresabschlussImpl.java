@@ -32,170 +32,185 @@ import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 
 public class JahresabschlussImpl extends AbstractDBObject
-    implements Jahresabschluss
+		implements Jahresabschluss
 {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  public JahresabschlussImpl() throws RemoteException
-  {
-    super();
-  }
+	public JahresabschlussImpl()
+			throws RemoteException
+	{
+		super();
+	}
 
-  @Override
-  protected String getTableName()
-  {
-    return "jahresabschluss";
-  }
+	@Override
+	protected String getTableName()
+	{
+		return "jahresabschluss";
+	}
 
-  @Override
-  public String getPrimaryAttribute()
-  {
-    return "id";
-  }
+	@Override
+	public String getPrimaryAttribute()
+	{
+		return "id";
+	}
 
-  @Override
-  protected void deleteCheck() throws ApplicationException
-  {
-    try
-    {
-      DBIterator<Jahresabschluss> it = Einstellungen.getDBService()
-          .createList(Jahresabschluss.class);
-      it.addFilter("von > ?", new Object[] { getVon() });
-      if (it.hasNext())
-      {
-        throw new ApplicationException(
-            "Jahresabschluss kann nicht gelöscht werden. Es existieren neuere Abschlüsse!");
-      }
-    }
-    catch (RemoteException e)
-    {
-      String msg = "Jahresabschluss kann nicht gelöscht werden. Siehe system log";
-      throw new ApplicationException(msg);
-    }
+	@Override
+	protected void deleteCheck() throws ApplicationException
+	{
+		try
+		{
+			DBIterator<Jahresabschluss> it = Einstellungen.getDBService()
+					.createList(Jahresabschluss.class);
+			it.addFilter("von > ?", new Object[]
+			{
+					getVon()
+			});
+			if (it.hasNext())
+			{
+				throw new ApplicationException(
+						"Jahresabschluss kann nicht gelöscht werden. Es existieren neuere Abschlüsse!");
+			}
+		}
+		catch (RemoteException e)
+		{
+			String msg = "Jahresabschluss kann nicht gelöscht werden. Siehe system log";
+			throw new ApplicationException(msg);
+		}
 
-  }
+	}
 
-  @Override
-  protected void insertCheck() throws ApplicationException
-  {
-    try
-    {
-      if (hasBuchungenOhneBuchungsart())
-      {
-        throw new ApplicationException(
-            "Achtung! Es existieren noch Buchungen ohne Buchungsart. Kein Abschluss möglich!");
-      }
-      if (getName() == null || getName().length() == 0)
-      {
-        throw new ApplicationException(
-            "Name des Verantwortlichen für den Abschluss fehlt");
-      }
-      Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
-          null);
-      Geschaeftsjahr gj = new Geschaeftsjahr(getVon());
-      DBIterator<Konto> it = k.getKontenEinesJahres(gj);
-      while (it.hasNext())
-      {
-        Konto k1 = (Konto) it.next();
-        DBIterator<Anfangsbestand> anfangsbestaende = Einstellungen
-            .getDBService().createList(Anfangsbestand.class);
-        anfangsbestaende.addFilter("konto = ?", new Object[] { k1.getID() });
-        anfangsbestaende.addFilter("datum >= ?",
-            new Object[] { gj.getBeginnGeschaeftsjahr() });
-        if (!anfangsbestaende.hasNext())
-        {
-          throw new ApplicationException(
-              String.format("Für Konto %s %s fehlt der Anfangsbestand.",
-                  k1.getNummer(), k1.getBezeichnung()));
-        }
-      }
-    }
-    catch (ParseException e)
-    {
-      throw new ApplicationException("Ungültiges von-Datum");
-    }
-    catch (RemoteException e)
-    {
-      Logger.error("Fehler", e);
-      String msg = "Jahresabschluss kann nicht gespeichert werden. Siehe system log";
-      throw new ApplicationException(msg);
-    }
-  }
+	@Override
+	protected void insertCheck() throws ApplicationException
+	{
+		try
+		{
+			if (hasBuchungenOhneBuchungsart())
+			{
+				throw new ApplicationException(
+						"Achtung! Es existieren noch Buchungen ohne Buchungsart. Kein Abschluss möglich!");
+			}
+			if (getName() == null || getName().length() == 0)
+			{
+				throw new ApplicationException(
+						"Name des Verantwortlichen für den Abschluss fehlt");
+			}
+			Konto k = (Konto) Einstellungen.getDBService().createObject(Konto.class,
+					null);
+			Geschaeftsjahr gj = new Geschaeftsjahr(getVon());
+			DBIterator<Konto> it = k.getKontenEinesJahres(gj);
+			while (it.hasNext())
+			{
+				Konto k1 = it.next();
+				DBIterator<Anfangsbestand> anfangsbestaende = Einstellungen
+						.getDBService().createList(Anfangsbestand.class);
+				anfangsbestaende.addFilter("konto = ?", new Object[]
+				{
+						k1.getID()
+				});
+				anfangsbestaende.addFilter("datum >= ?", new Object[]
+				{
+						gj.getBeginnGeschaeftsjahr()
+				});
+				if (!anfangsbestaende.hasNext())
+				{
+					throw new ApplicationException(
+							String.format("Für Konto %s %s fehlt der Anfangsbestand.",
+									k1.getNummer(), k1.getBezeichnung()));
+				}
+			}
+		}
+		catch (ParseException e)
+		{
+			throw new ApplicationException("Ungültiges von-Datum");
+		}
+		catch (RemoteException e)
+		{
+			Logger.error("Fehler", e);
+			String msg = "Jahresabschluss kann nicht gespeichert werden. Siehe system log";
+			throw new ApplicationException(msg);
+		}
+	}
 
-  @Override
-  protected void updateCheck() throws ApplicationException
-  {
-    insertCheck();
-  }
+	@Override
+	protected void updateCheck() throws ApplicationException
+	{
+		insertCheck();
+	}
 
-  private boolean hasBuchungenOhneBuchungsart() throws RemoteException
-  {
-    DBIterator<Buchung> it = Einstellungen.getDBService()
-        .createList(Buchung.class);
-    it.addFilter("datum >= ?", new Object[] { getVon() });
-    it.addFilter("datum <= ?", new Object[] { getBis() });
-    it.addFilter("buchungsart is null");
-    return it.hasNext();
-  }
+	private boolean hasBuchungenOhneBuchungsart() throws RemoteException
+	{
+		DBIterator<
+				Buchung> it = Einstellungen.getDBService().createList(Buchung.class);
+		it.addFilter("datum >= ?", new Object[]
+		{
+				getVon()
+		});
+		it.addFilter("datum <= ?", new Object[]
+		{
+				getBis()
+		});
+		it.addFilter("buchungsart is null");
+		return it.hasNext();
+	}
 
-  @Override
-  protected Class<?> getForeignObject(String field)
-  {
-    return null;
-  }
+	@Override
+	protected Class<?> getForeignObject(String field)
+	{
+		return null;
+	}
 
-  @Override
-  public Date getVon() throws RemoteException
-  {
-    return (Date) getAttribute("von");
-  }
+	@Override
+	public Date getVon() throws RemoteException
+	{
+		return (Date) getAttribute("von");
+	}
 
-  @Override
-  public void setVon(Date von) throws RemoteException
-  {
-    setAttribute("von", von);
-  }
+	@Override
+	public void setVon(Date von) throws RemoteException
+	{
+		setAttribute("von", von);
+	}
 
-  @Override
-  public Date getBis() throws RemoteException
-  {
-    return (Date) getAttribute("bis");
-  }
+	@Override
+	public Date getBis() throws RemoteException
+	{
+		return (Date) getAttribute("bis");
+	}
 
-  @Override
-  public void setBis(Date bis) throws RemoteException
-  {
-    setAttribute("bis", bis);
-  }
+	@Override
+	public void setBis(Date bis) throws RemoteException
+	{
+		setAttribute("bis", bis);
+	}
 
-  @Override
-  public Date getDatum() throws RemoteException
-  {
-    return (Date) getAttribute("datum");
-  }
+	@Override
+	public Date getDatum() throws RemoteException
+	{
+		return (Date) getAttribute("datum");
+	}
 
-  @Override
-  public void setDatum(Date datum) throws RemoteException
-  {
-    setAttribute("datum", datum);
-  }
+	@Override
+	public void setDatum(Date datum) throws RemoteException
+	{
+		setAttribute("datum", datum);
+	}
 
-  @Override
-  public String getName() throws RemoteException
-  {
-    return (String) getAttribute("name");
-  }
+	@Override
+	public String getName() throws RemoteException
+	{
+		return (String) getAttribute("name");
+	}
 
-  @Override
-  public void setName(String name) throws RemoteException
-  {
-    setAttribute("name", name);
-  }
+	@Override
+	public void setName(String name) throws RemoteException
+	{
+		setAttribute("name", name);
+	}
 
-  @Override
-  public Object getAttribute(String fieldName) throws RemoteException
-  {
-    return super.getAttribute(fieldName);
-  }
+	@Override
+	public Object getAttribute(String fieldName) throws RemoteException
+	{
+		return super.getAttribute(fieldName);
+	}
 }

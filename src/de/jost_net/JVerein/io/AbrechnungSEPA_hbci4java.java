@@ -532,7 +532,7 @@ public class AbrechnungSEPA_hbci4java
 			while (list.hasNext())
 			{
 				monitor.setStatus((int) ((double) count / (double) list.size() * 100d));
-				Mitglied m = (Mitglied) list.next();
+				Mitglied m = list.next();
 
 				JVereinZahler z = abrechnungMitgliederSub(param, lastschrift, monitor,
 						abrl, konto, m, m.getBeitragsgruppe(), true);
@@ -542,8 +542,7 @@ public class AbrechnungSEPA_hbci4java
 				sekundaer.addFilter("mitglied=?", m.getID());
 				while (sekundaer.hasNext())
 				{
-					SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) sekundaer
-							.next();
+					SekundaereBeitragsgruppe sb = sekundaer.next();
 					JVereinZahler z2 = abrechnungMitgliederSub(param, lastschrift,
 							monitor, abrl, konto, m, sb.getBeitragsgruppe(), false);
 					if (z2 != null)
@@ -670,7 +669,7 @@ public class AbrechnungSEPA_hbci4java
 					int i = 0;
 					while (angeh.hasNext())
 					{
-						Mitglied a = (Mitglied) angeh.next();
+						Mitglied a = angeh.next();
 						if (i > 0)
 						{
 							an += ", ";
@@ -700,7 +699,7 @@ public class AbrechnungSEPA_hbci4java
 				.createList(Zusatzbetrag.class);
 		while (list.hasNext())
 		{
-			Zusatzbetrag z = (Zusatzbetrag) list.next();
+			Zusatzbetrag z = list.next();
 			if (z.isAktiv(param.stichtag))
 			{
 				Mitglied m = z.getMitglied();
@@ -812,7 +811,7 @@ public class AbrechnungSEPA_hbci4java
 		while (list.hasNext())
 		{
 			counter++;
-			Kursteilnehmer kt = (Kursteilnehmer) list.next();
+			Kursteilnehmer kt =  list.next();
 			try
 			{
 				JVereinZahler zahler = new JVereinZahler();
@@ -1041,7 +1040,7 @@ public class AbrechnungSEPA_hbci4java
 		it.addFilter("nummer = ?", Einstellungen.getEinstellung().getIban());
 		if (it.size() == 1)
 		{
-			return (Konto) it.next();
+			return it.next();
 		}
 		// Variante 2: Kontonummer aus IBAN
 		it = Einstellungen.getDBService().createList(Konto.class);
@@ -1049,7 +1048,7 @@ public class AbrechnungSEPA_hbci4java
 		it.addFilter("nummer = ?", iban.getKonto());
 		if (it.size() == 1)
 		{
-			return (Konto) it.next();
+			return  it.next();
 		}
 		throw new ApplicationException(String.format(
 				"Weder Konto %s noch Konto %s ist in der Buchführung eingerichtet. Menu: Buchführung | Konten",

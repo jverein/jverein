@@ -1297,12 +1297,12 @@ public class MitgliedControl extends AbstractControl
         sebei.addFilter("beitragsgruppe=?", b.getID());
         if (sebei.hasNext())
         {
-          SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) sebei.next();
+          SekundaereBeitragsgruppe sb =  sebei.next();
           listeSeB.add(sb);
         }
         else
         {
-          SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) Einstellungen
+          SekundaereBeitragsgruppe sb =  Einstellungen
               .getDBService()
               .createObject(SekundaereBeitragsgruppe.class, null);
           sb.setMitglied(Integer.parseInt(getMitglied().getID()));
@@ -1321,7 +1321,7 @@ public class MitgliedControl extends AbstractControl
       @Override
       public void format(TreeItem item)
       {
-        SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) item.getData();
+				SekundaereBeitragsgruppe sb = (SekundaereBeitragsgruppe) item.getData();
         try
         {
           item.setChecked(!sb.isNewObject());
@@ -1633,7 +1633,7 @@ public class MitgliedControl extends AbstractControl
     Mitgliedfoto fo = null;
     if (it.size() > 0)
     {
-      fo = (Mitgliedfoto) it.next();
+      fo =it.next();
     }
     byte[] f = null;
     if (fo != null)

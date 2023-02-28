@@ -35,68 +35,68 @@ import de.willuhn.util.ApplicationException;
 public class MailVorlageSearchProvider implements SearchProvider
 {
 
-  @Override
-  public String getName()
-  {
-    return "MailVorlagen";
-  }
+	@Override
+	public String getName()
+	{
+		return "MailVorlagen";
+	}
 
-  @Override
-  public List<MyResult> search(String search) throws RemoteException
-  {
-    if (search == null || search.length() == 0)
-    {
-      return null;
-    }
+	@Override
+	public List<MyResult> search(String search) throws RemoteException
+	{
+		if (search == null || search.length() == 0)
+		{
+			return null;
+		}
 
-    String text = "%" + search.toLowerCase() + "%";
-    DBIterator<MailVorlage> list = Einstellungen.getDBService()
-        .createList(MailVorlage.class);
-    list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", text, text);
+		String text = "%" + search.toLowerCase() + "%";
+		DBIterator<MailVorlage> list = Einstellungen.getDBService()
+				.createList(MailVorlage.class);
+		list.addFilter("LOWER(betreff) LIKE ? OR LOWER(txt) LIKE ?", text, text);
 
-    ArrayList<MyResult> results = new ArrayList<>();
-    while (list.hasNext())
-    {
-      results.add(new MyResult((MailVorlage) list.next()));
-    }
-    return results;
-  }
+		ArrayList<MyResult> results = new ArrayList<>();
+		while (list.hasNext())
+		{
+			results.add(new MyResult(list.next()));
+		}
+		return results;
+	}
 
-  /**
-   * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
-   */
-  private static class MyResult implements Result
-  {
+	/**
+	 * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
+	 */
+	private static class MyResult implements Result
+	{
 
-    private static final long serialVersionUID = -1685817053590491168L;
+		private static final long serialVersionUID = -1685817053590491168L;
 
-    private MailVorlage m = null;
+		private MailVorlage m = null;
 
-    private MyResult(MailVorlage m)
-    {
-      this.m = m;
-    }
+		private MyResult(MailVorlage m)
+		{
+			this.m = m;
+		}
 
-    @Override
-    public void execute() throws ApplicationException
-    {
-      new MailVorlageDetailAction().handleAction(this.m);
-    }
+		@Override
+		public void execute() throws ApplicationException
+		{
+			new MailVorlageDetailAction().handleAction(this.m);
+		}
 
-    @Override
-    public String getName()
-    {
-      try
-      {
-        return m.getBetreff() + ", " + m.getTxt();
-      }
-      catch (RemoteException re)
-      {
-        Logger.error("unable to determin result name", re);
-        return null;
-      }
-    }
+		@Override
+		public String getName()
+		{
+			try
+			{
+				return m.getBetreff() + ", " + m.getTxt();
+			}
+			catch (RemoteException re)
+			{
+				Logger.error("unable to determin result name", re);
+				return null;
+			}
+		}
 
-  }
+	}
 
 }

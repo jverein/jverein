@@ -118,7 +118,7 @@ class Cache
         DBIterator<?> list = Einstellungen.getDBService().createList(type);
         while (list.hasNext())
         {
-          DBObject o = (DBObject) list.next();
+          DBObject o =  list.next();
           cache.data.put(o.getID(), o);
         }
       }

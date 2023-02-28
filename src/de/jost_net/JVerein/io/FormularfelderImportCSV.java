@@ -64,7 +64,7 @@ public class FormularfelderImportCSV implements Importer
       list.addFilter("formular = ?", f.getID());
       while (list.hasNext())
       {
-        Formularfeld ff = (Formularfeld) list.next();
+        Formularfeld ff =  list.next();
         ff.delete();
       }
     }

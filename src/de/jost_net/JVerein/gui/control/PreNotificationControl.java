@@ -368,7 +368,7 @@ public class PreNotificationControl extends AbstractControl
 
     while (it.hasNext())
     {
-      Lastschrift ls = (Lastschrift) it.next();
+      Lastschrift ls = it.next();
 
       if (einzelnePdfs)
       {
@@ -502,7 +502,7 @@ public class PreNotificationControl extends AbstractControl
           int sentCount = 0;
           while (it.hasNext())
           {
-            Lastschrift ls = (Lastschrift) it.next();
+            Lastschrift ls =it.next();
             VelocityContext context = new VelocityContext();
             context.put("dateformat", new JVDateFormatTTMMJJJJ());
             context.put("decimalformat", Einstellungen.DECIMALFORMAT);

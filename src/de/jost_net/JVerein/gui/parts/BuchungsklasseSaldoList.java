@@ -155,7 +155,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
 		buchungsklassenIt.setOrder("ORDER BY nummer");
 		while (buchungsklassenIt.hasNext())
 		{
-			buchungsklasse = (Buchungsklasse) buchungsklassenIt.next();
+			buchungsklasse = buchungsklassenIt.next();
 			zeile.add(new BuchungsklasseSaldoZeile(BuchungsklasseSaldoZeile.HEADER,
 					buchungsklasse));
 			DBIterator<
@@ -172,7 +172,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
 
 			while (buchungsartenIt.hasNext())
 			{
-				buchungsart = (Buchungsart) buchungsartenIt.next();
+				buchungsart = buchungsartenIt.next();
 				String sqlc = "select count(*) from buchung, buchungsart "
 						+ "where datum >= ? and datum <= ?  "
 						+ "and buchung.buchungsart = buchungsart.id "

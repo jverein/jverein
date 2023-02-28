@@ -101,7 +101,7 @@ public class MitgliedSuchProfilControl extends AbstractControl
     DBIterator<Suchprofil> it = getIterator();
     while (it.hasNext())
     {
-      Suchprofil sp = (Suchprofil) it.next();
+      Suchprofil sp = it.next();
       profillist.addItem(sp);
     }
   }

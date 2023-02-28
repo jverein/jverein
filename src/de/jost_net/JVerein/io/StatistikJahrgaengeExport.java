@@ -39,156 +39,156 @@ import de.willuhn.util.ProgressMonitor;
 public abstract class StatistikJahrgaengeExport implements Exporter
 {
 
-  @Override
-  public abstract String getName();
+	@Override
+	public abstract String getName();
 
-  @Override
-  public abstract IOFormat[] getIOFormats(Class<?> objectType);
+	@Override
+	public abstract IOFormat[] getIOFormats(Class<?> objectType);
 
-  protected File file;
+	protected File file;
 
-  protected Date stichtag;
+	protected Date stichtag;
 
-  protected TreeMap<String, StatistikJahrgang> statistik;
+	protected TreeMap<String, StatistikJahrgang> statistik;
 
-  @Override
-  public void doExport(final Object[] objects, IOFormat format, File file,
-      ProgressMonitor monitor) throws DocumentException, IOException
-  {
-    this.file = file;
-    statistik = new TreeMap<>();
-    Integer jahr = (Integer) objects[0];
-    try
-    {
-      stichtag = Datum.toDate("31.12." + jahr);
-    }
-    catch (ParseException e)
-    {
-      Logger.error("Datum kann nicht geparsed werden: ", e);
-    }
-    /*
-     * Teil 1: natürliche Personen
-     */
-    DBIterator<Mitglied> mitgl = Einstellungen.getDBService()
-        .createList(Mitglied.class);
-    MitgliedUtils.setNurAktive(mitgl, stichtag);
-    MitgliedUtils.setMitglied(mitgl);
-    MitgliedUtils.setMitgliedNatuerlichePerson(mitgl);
-    mitgl.addFilter("geburtsdatum is not null");
-    mitgl.setOrder("order by geburtsdatum");
-    Calendar cal = Calendar.getInstance();
-    while (mitgl.hasNext())
-    {
-      Mitglied m = (Mitglied) mitgl.next();
-      cal.setTime(m.getGeburtsdatum());
-      String jg = cal.get(Calendar.YEAR) + "";
-      StatistikJahrgang dsbj = statistik.get(jg);
-      if (dsbj == null)
-      {
-        dsbj = new StatistikJahrgang();
-        statistik.put(jg, dsbj);
-      }
-      dsbj.incrementGesamt();
-      if (m.getGeschlecht().equals(GeschlechtInput.MAENNLICH))
-      {
-        dsbj.incrementMaennlich();
-      }
-      if (m.getGeschlecht().equals(GeschlechtInput.WEIBLICH))
-      {
-        dsbj.incrementWeiblich();
-      }
-      if (m.getGeschlecht().equals(GeschlechtInput.OHNEANGABE))
-      {
-        dsbj.incrementOhne();
-      }
-    }
-    /*
-     * Teil 2: Juristische Personen
-     */
-    DBIterator<Mitglied> mitglj = Einstellungen.getDBService()
-        .createList(Mitglied.class);
-    MitgliedUtils.setNurAktive(mitglj, stichtag);
-    MitgliedUtils.setMitglied(mitglj);
-    MitgliedUtils.setMitgliedJuristischePerson(mitglj);
-    while (mitglj.hasNext())
-    {
-      String jg = "juristische Personen";
-      StatistikJahrgang dsbj = statistik.get(jg);
-      if (dsbj == null)
-      {
-        dsbj = new StatistikJahrgang();
-        statistik.put(jg, dsbj);
-      }
-      dsbj.incrementGesamt();
-      dsbj.incrementOhne();
-      mitglj.next();
-    }
+	@Override
+	public void doExport(final Object[] objects, IOFormat format, File file,
+			ProgressMonitor monitor) throws DocumentException, IOException
+	{
+		this.file = file;
+		statistik = new TreeMap<>();
+		Integer jahr = (Integer) objects[0];
+		try
+		{
+			stichtag = Datum.toDate("31.12." + jahr);
+		}
+		catch (ParseException e)
+		{
+			Logger.error("Datum kann nicht geparsed werden: ", e);
+		}
+		/*
+		 * Teil 1: natürliche Personen
+		 */
+		DBIterator<Mitglied> mitgl = Einstellungen.getDBService()
+				.createList(Mitglied.class);
+		MitgliedUtils.setNurAktive(mitgl, stichtag);
+		MitgliedUtils.setMitglied(mitgl);
+		MitgliedUtils.setMitgliedNatuerlichePerson(mitgl);
+		mitgl.addFilter("geburtsdatum is not null");
+		mitgl.setOrder("order by geburtsdatum");
+		Calendar cal = Calendar.getInstance();
+		while (mitgl.hasNext())
+		{
+			Mitglied m = mitgl.next();
+			cal.setTime(m.getGeburtsdatum());
+			String jg = cal.get(Calendar.YEAR) + "";
+			StatistikJahrgang dsbj = statistik.get(jg);
+			if (dsbj == null)
+			{
+				dsbj = new StatistikJahrgang();
+				statistik.put(jg, dsbj);
+			}
+			dsbj.incrementGesamt();
+			if (m.getGeschlecht().equals(GeschlechtInput.MAENNLICH))
+			{
+				dsbj.incrementMaennlich();
+			}
+			if (m.getGeschlecht().equals(GeschlechtInput.WEIBLICH))
+			{
+				dsbj.incrementWeiblich();
+			}
+			if (m.getGeschlecht().equals(GeschlechtInput.OHNEANGABE))
+			{
+				dsbj.incrementOhne();
+			}
+		}
+		/*
+		 * Teil 2: Juristische Personen
+		 */
+		DBIterator<Mitglied> mitglj = Einstellungen.getDBService()
+				.createList(Mitglied.class);
+		MitgliedUtils.setNurAktive(mitglj, stichtag);
+		MitgliedUtils.setMitglied(mitglj);
+		MitgliedUtils.setMitgliedJuristischePerson(mitglj);
+		while (mitglj.hasNext())
+		{
+			String jg = "juristische Personen";
+			StatistikJahrgang dsbj = statistik.get(jg);
+			if (dsbj == null)
+			{
+				dsbj = new StatistikJahrgang();
+				statistik.put(jg, dsbj);
+			}
+			dsbj.incrementGesamt();
+			dsbj.incrementOhne();
+			mitglj.next();
+		}
 
-    open();
-    close();
-  }
+		open();
+		close();
+	}
 
-  @Override
-  public String getDateiname()
-  {
-    return "statistikjahrgaenge";
-  }
+	@Override
+	public String getDateiname()
+	{
+		return "statistikjahrgaenge";
+	}
 
-  protected abstract void open()
-      throws DocumentException, FileNotFoundException;
+	protected abstract void open()
+			throws DocumentException, FileNotFoundException;
 
-  protected abstract void close() throws IOException, DocumentException;
+	protected abstract void close() throws IOException, DocumentException;
 
-  public class StatistikJahrgang
-  {
+	public class StatistikJahrgang
+	{
 
-    private int anzahlgesamt = 0;
+		private int anzahlgesamt = 0;
 
-    private int anzahlmaennlich = 0;
+		private int anzahlmaennlich = 0;
 
-    private int anzahlweiblich = 0;
+		private int anzahlweiblich = 0;
 
-    private int anzahlohne = 0;
+		private int anzahlohne = 0;
 
-    public int getAnzahlgesamt()
-    {
-      return anzahlgesamt;
-    }
+		public int getAnzahlgesamt()
+		{
+			return anzahlgesamt;
+		}
 
-    public void incrementGesamt()
-    {
-      this.anzahlgesamt++;
-    }
+		public void incrementGesamt()
+		{
+			this.anzahlgesamt++;
+		}
 
-    public int getAnzahlmaennlich()
-    {
-      return anzahlmaennlich;
-    }
+		public int getAnzahlmaennlich()
+		{
+			return anzahlmaennlich;
+		}
 
-    public void incrementMaennlich()
-    {
-      this.anzahlmaennlich++;
-    }
+		public void incrementMaennlich()
+		{
+			this.anzahlmaennlich++;
+		}
 
-    public int getAnzahlweiblich()
-    {
-      return anzahlweiblich;
-    }
+		public int getAnzahlweiblich()
+		{
+			return anzahlweiblich;
+		}
 
-    public void incrementWeiblich()
-    {
-      this.anzahlweiblich++;
-    }
+		public void incrementWeiblich()
+		{
+			this.anzahlweiblich++;
+		}
 
-    public int getAnzahlOhne()
-    {
-      return anzahlohne;
-    }
+		public int getAnzahlOhne()
+		{
+			return anzahlohne;
+		}
 
-    public void incrementOhne()
-    {
-      this.anzahlohne++;
-    }
-  }
+		public void incrementOhne()
+		{
+			this.anzahlohne++;
+		}
+	}
 
 }

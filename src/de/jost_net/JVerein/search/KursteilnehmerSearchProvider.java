@@ -35,71 +35,71 @@ import de.willuhn.util.ApplicationException;
 public class KursteilnehmerSearchProvider implements SearchProvider
 {
 
-  @Override
-  public String getName()
-  {
-    return "Kursteilnehmer";
-  }
+	@Override
+	public String getName()
+	{
+		return "Kursteilnehmer";
+	}
 
-  @Override
-  public List<MyResult> search(String search) throws RemoteException
-  {
-    if (search == null || search.length() == 0)
-    {
-      return null;
-    }
+	@Override
+	public List<MyResult> search(String search) throws RemoteException
+	{
+		if (search == null || search.length() == 0)
+		{
+			return null;
+		}
 
-    String text = "%" + search.toLowerCase() + "%";
-    DBIterator<Kursteilnehmer> list = Einstellungen.getDBService()
-        .createList(Kursteilnehmer.class);
-    list.addFilter(
-        "LOWER(name) LIKE ? OR LOWER(vzweck1) LIKE ? OR iban LIKE ? OR BIC like ?",
-        text, text, text, text);
+		String text = "%" + search.toLowerCase() + "%";
+		DBIterator<Kursteilnehmer> list = Einstellungen.getDBService()
+				.createList(Kursteilnehmer.class);
+		list.addFilter(
+				"LOWER(name) LIKE ? OR LOWER(vzweck1) LIKE ? OR iban LIKE ? OR BIC like ?",
+				text, text, text, text);
 
-    ArrayList<MyResult> results = new ArrayList<>();
-    while (list.hasNext())
-    {
-      results.add(new MyResult((Kursteilnehmer) list.next()));
-    }
-    return results;
-  }
+		ArrayList<MyResult> results = new ArrayList<>();
+		while (list.hasNext())
+		{
+			results.add(new MyResult(list.next()));
+		}
+		return results;
+	}
 
-  /**
-   * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
-   */
-  private static class MyResult implements Result
-  {
+	/**
+	 * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
+	 */
+	private static class MyResult implements Result
+	{
 
-    private static final long serialVersionUID = -1685817053590491168L;
+		private static final long serialVersionUID = -1685817053590491168L;
 
-    private Kursteilnehmer k = null;
+		private Kursteilnehmer k = null;
 
-    private MyResult(Kursteilnehmer k)
-    {
-      this.k = k;
-    }
+		private MyResult(Kursteilnehmer k)
+		{
+			this.k = k;
+		}
 
-    @Override
-    public void execute() throws ApplicationException
-    {
-      new KursteilnehmerDetailAction().handleAction(this.k);
-    }
+		@Override
+		public void execute() throws ApplicationException
+		{
+			new KursteilnehmerDetailAction().handleAction(this.k);
+		}
 
-    @Override
-    public String getName()
-    {
-      try
-      {
-        return k.getName() + ", " + k.getVZweck1() + ", " + "IBAN: "
-            + k.getIban() + ", " + "BIC: " + k.getBic();
-      }
-      catch (RemoteException re)
-      {
-        Logger.error("unable to determin result name", re);
-        return null;
-      }
-    }
+		@Override
+		public String getName()
+		{
+			try
+			{
+				return k.getName() + ", " + k.getVZweck1() + ", " + "IBAN: "
+						+ k.getIban() + ", " + "BIC: " + k.getBic();
+			}
+			catch (RemoteException re)
+			{
+				Logger.error("unable to determin result name", re);
+				return null;
+			}
+		}
 
-  }
+	}
 
 }

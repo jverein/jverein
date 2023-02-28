@@ -97,7 +97,7 @@ public class SEPABugsControl extends AbstractControl
 
     while (it.hasNext())
     {
-      Mitglied m = (Mitglied) it.next();
+      Mitglied m =  it.next();
       if ((m.getBeitragsgruppe().getBetrag() > 0
           || m.getBeitragsgruppe().getBetragMonatlich() > 0
           || m.getBeitragsgruppe().getBetragVierteljaehrlich() > 0

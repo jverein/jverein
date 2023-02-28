@@ -333,7 +333,7 @@ public class QIFQuickenImport implements Importer
     it.addFilter(QIFImportPos.COL_HEADID + " = ?", importHead.getID());
     while (it.hasNext())
     {
-      QIFImportPos a = (QIFImportPos) it.next();
+      QIFImportPos a = it.next();
       a.delete();
     }
   }

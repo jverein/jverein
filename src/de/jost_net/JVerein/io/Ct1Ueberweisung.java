@@ -92,7 +92,7 @@ public class Ct1Ueberweisung
     DBIterator<Lastschrift> it = getIterator(abrl);
     while (it.hasNext())
     {
-      Lastschrift ls = (Lastschrift) it.next();
+      Lastschrift ls =  it.next();
       Empfaenger e = new Empfaenger();
       e.setBetrag(new BigDecimal("0.01"));
       e.setBic(ls.getBIC());
@@ -120,7 +120,7 @@ public class Ct1Ueberweisung
 
       while (it.hasNext())
       {
-        Lastschrift ls = (Lastschrift) it.next();
+        Lastschrift ls = it.next();
         DBService service = (DBService) Application.getServiceFactory()
             .lookup(HBCI.class, "database");
 

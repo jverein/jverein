@@ -78,7 +78,7 @@ public abstract class MitgliedskontoExport implements Exporter
 
     while (mitgl.hasNext())
     {
-      Mitglied m = (Mitglied) mitgl.next();
+      Mitglied m = mitgl.next();
       startMitglied(m);
       MitgliedskontoQuery mkq = new MitgliedskontoQuery(m, vonDatum, bisDatum,
           differenz, ohneAbbucher);

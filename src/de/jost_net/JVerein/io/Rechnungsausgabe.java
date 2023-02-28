@@ -96,7 +96,7 @@ public class Rechnungsausgabe extends AbstractMitgliedskontoDokument
       int i = 0;
       while (it.hasNext())
       {
-        mk[i] = (Mitgliedskonto) it.next();
+        mk[i] =  it.next();
         i++;
       }
       mks = getRechnungsempfaenger(mk);

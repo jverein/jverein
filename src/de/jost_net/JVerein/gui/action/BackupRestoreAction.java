@@ -56,173 +56,176 @@ import de.willuhn.util.ProgressMonitor;
 public class BackupRestoreAction implements Action
 {
 
-  /**
-   * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
-   */
-  @Override
-  public void handleAction(Object context)
-  {
-    try
-    {
-      if (Einstellungen.getDBService().createList(Mitglied.class).size() > 0)
-      {
-        String text = "Die JVerein-Datenbank enthält bereits Daten.\n"
-            + "Das Backup kann nur in eine neue JVerein-Installation importiert werden.";
-        Application.getCallback().notifyUser(text);
-        return;
-      }
+	/**
+	 * @see de.willuhn.jameica.gui.Action#handleAction(java.lang.Object)
+	 */
+	@Override
+	public void handleAction(Object context)
+	{
+		try
+		{
+			if (Einstellungen.getDBService().createList(Mitglied.class).size() > 0)
+			{
+				String text = "Die JVerein-Datenbank enthält bereits Daten.\n"
+						+ "Das Backup kann nur in eine neue JVerein-Installation importiert werden.";
+				Application.getCallback().notifyUser(text);
+				return;
+			}
 
-      // Vom System eingefügte Sätze löschen. Ansonsten gibt es duplicate keys
-      DBIterator<Adresstyp> itatyp = Einstellungen.getDBService()
-          .createList(Adresstyp.class);
-      while (itatyp.hasNext())
-      {
-        Adresstyp a = (Adresstyp) itatyp.next();
-        a.delete();
-      }
+			// Vom System eingefügte Sätze löschen. Ansonsten gibt es duplicate keys
+			DBIterator<Adresstyp> itatyp = Einstellungen.getDBService()
+					.createList(Adresstyp.class);
+			while (itatyp.hasNext())
+			{
+				Adresstyp a = itatyp.next();
+				a.delete();
+			}
 
-    }
-    catch (Exception e1)
-    {
-      Logger.error("Fehler: ", e1);
-    }
+		}
+		catch (Exception e1)
+		{
+			Logger.error("Fehler: ", e1);
+		}
 
-    FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
-    fd.setFileName(
-        "jverein-" + new JVDateFormatJJJJMMTT().format(new Date()) + ".xml");
-    fd.setFilterExtensions(new String[] { "*.xml" });
-    fd.setText("Bitte wählen Sie die Backup-Datei aus");
-    String f = fd.open();
-    if (f == null || f.length() == 0)
-    {
-      return;
-    }
+		FileDialog fd = new FileDialog(GUI.getShell(), SWT.OPEN);
+		fd.setFileName(
+				"jverein-" + new JVDateFormatJJJJMMTT().format(new Date()) + ".xml");
+		fd.setFilterExtensions(new String[]
+		{
+				"*.xml"
+		});
+		fd.setText("Bitte wählen Sie die Backup-Datei aus");
+		String f = fd.open();
+		if (f == null || f.length() == 0)
+		{
+			return;
+		}
 
-    final File file = new File(f);
-    if (!file.exists())
-    {
-      return;
-    }
+		final File file = new File(f);
+		if (!file.exists())
+		{
+			return;
+		}
 
-    Application.getController().start(new BackgroundTask()
-    {
+		Application.getController().start(new BackgroundTask()
+		{
 
-      private boolean cancel = false;
+			private boolean cancel = false;
 
-      /**
-       * @see de.willuhn.jameica.system.BackgroundTask#run(de.willuhn.util.ProgressMonitor)
-       */
-      @Override
-      public void run(ProgressMonitor monitor) throws ApplicationException
-      {
-        monitor.setStatusText("Importiere Backup");
-        Logger.info("importing backup " + file.getAbsolutePath());
-        final ClassLoader loader = Application.getPluginLoader()
-            .getPlugin(JVereinPlugin.class).getManifest().getClassLoader();
+			/**
+			 * @see de.willuhn.jameica.system.BackgroundTask#run(de.willuhn.util.ProgressMonitor)
+			 */
+			@Override
+			public void run(ProgressMonitor monitor) throws ApplicationException
+			{
+				monitor.setStatusText("Importiere Backup");
+				Logger.info("importing backup " + file.getAbsolutePath());
+				final ClassLoader loader = Application.getPluginLoader()
+						.getPlugin(JVereinPlugin.class).getManifest().getClassLoader();
 
-        Reader reader = null;
-        try
-        {
-          InputStream is = new BufferedInputStream(new FileInputStream(file));
-          reader = new XmlReader(is, new ObjectFactory()
-          {
+				Reader reader = null;
+				try
+				{
+					InputStream is = new BufferedInputStream(new FileInputStream(file));
+					reader = new XmlReader(is, new ObjectFactory()
+					{
 
-            @Override
-            public GenericObject create(String type, String id, Map values)
-                throws Exception
-            {
-              AbstractDBObject object = (AbstractDBObject) Einstellungen
-                  .getDBService().createObject(
-                      (Class<AbstractDBObject>) loader.loadClass(type), null);
-              object.setID(id);
-              Iterator i = values.keySet().iterator();
-              while (i.hasNext())
-              {
-                String name = (String) i.next();
-                object.setAttribute(name, values.get(name));
-              }
-              return object;
-            }
+						@Override
+						public GenericObject create(String type, String id, Map values)
+								throws Exception
+						{
+							AbstractDBObject object = (AbstractDBObject) Einstellungen
+									.getDBService().createObject(
+											(Class<AbstractDBObject>) loader.loadClass(type), null);
+							object.setID(id);
+							Iterator i = values.keySet().iterator();
+							while (i.hasNext())
+							{
+								String name = (String) i.next();
+								object.setAttribute(name, values.get(name));
+							}
+							return object;
+						}
 
-          });
+					});
 
-          long count = 1;
-          GenericObject o = null;
-          while ((o = reader.read()) != null)
-          {
-            try
-            {
-              ((AbstractDBObject) o).insert();
-            }
-            catch (Exception e)
-            {
-              if (o instanceof Protokoll)
-              {
-                // Bei den Protokollen kann das passieren. Denn beim Import der
-                // Datei werden vorher
-                // die Konten importiert. Und deren Anlage fuehrt auch bereits
-                // zur Erstellung von
-                // Protokollen, deren IDs dann im Konflikt zu diesen hier
-                // stehen.
-                Logger.write(Level.DEBUG, "unable to import "
-                    + o.getClass().getName() + ":" + o.getID() + ", skipping",
-                    e);
-              }
-              else
-              {
-                Logger.error("unable to import " + o.getClass().getName() + ":"
-                    + o.getID() + ", skipping", e);
-                monitor.log(String.format("  %s fehlerhaft %s, überspringe",
-                    BeanUtil.toString(o), e.getMessage()));
-              }
-            }
-            if (count++ % 100 == 0)
-              monitor.addPercentComplete(1);
-          }
+					long count = 1;
+					GenericObject o = null;
+					while ((o = reader.read()) != null)
+					{
+						try
+						{
+							((AbstractDBObject) o).insert();
+						}
+						catch (Exception e)
+						{
+							if (o instanceof Protokoll)
+							{
+								// Bei den Protokollen kann das passieren. Denn beim Import der
+								// Datei werden vorher
+								// die Konten importiert. Und deren Anlage fuehrt auch bereits
+								// zur Erstellung von
+								// Protokollen, deren IDs dann im Konflikt zu diesen hier
+								// stehen.
+								Logger.write(Level.DEBUG, "unable to import "
+										+ o.getClass().getName() + ":" + o.getID() + ", skipping",
+										e);
+							}
+							else
+							{
+								Logger.error("unable to import " + o.getClass().getName() + ":"
+										+ o.getID() + ", skipping", e);
+								monitor.log(String.format("  %s fehlerhaft %s, überspringe",
+										BeanUtil.toString(o), e.getMessage()));
+							}
+						}
+						if (count++ % 100 == 0)
+							monitor.addPercentComplete(1);
+					}
 
-          monitor.setStatus(ProgressMonitor.STATUS_DONE);
-          monitor.setStatusText("Backup importiert");
-          monitor.setPercentComplete(100);
-        }
-        catch (Exception e)
-        {
-          Logger.error("error while importing data", e);
-          throw new ApplicationException(e.getMessage());
-        }
-        finally
-        {
-          if (reader != null)
-          {
-            try
-            {
-              reader.close();
-              Logger.info("backup imported");
-            }
-            catch (Exception e)
-            {
-              /* useless */}
-          }
-        }
-      }
+					monitor.setStatus(ProgressMonitor.STATUS_DONE);
+					monitor.setStatusText("Backup importiert");
+					monitor.setPercentComplete(100);
+				}
+				catch (Exception e)
+				{
+					Logger.error("error while importing data", e);
+					throw new ApplicationException(e.getMessage());
+				}
+				finally
+				{
+					if (reader != null)
+					{
+						try
+						{
+							reader.close();
+							Logger.info("backup imported");
+						}
+						catch (Exception e)
+						{
+							/* useless */}
+					}
+				}
+			}
 
-      /**
-       * @see de.willuhn.jameica.system.BackgroundTask#isInterrupted()
-       */
-      @Override
-      public boolean isInterrupted()
-      {
-        return this.cancel;
-      }
+			/**
+			 * @see de.willuhn.jameica.system.BackgroundTask#isInterrupted()
+			 */
+			@Override
+			public boolean isInterrupted()
+			{
+				return this.cancel;
+			}
 
-      /**
-       * @see de.willuhn.jameica.system.BackgroundTask#interrupt()
-       */
-      @Override
-      public void interrupt()
-      {
-        this.cancel = true;
-      }
+			/**
+			 * @see de.willuhn.jameica.system.BackgroundTask#interrupt()
+			 */
+			@Override
+			public void interrupt()
+			{
+				this.cancel = true;
+			}
 
-    });
-  }
+		});
+	}
 }

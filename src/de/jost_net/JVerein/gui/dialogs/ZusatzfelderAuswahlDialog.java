@@ -44,332 +44,332 @@ import de.willuhn.util.Settings;
 public class ZusatzfelderAuswahlDialog extends AbstractDialog<Object>
 {
 
-  private ArrayList<Input> felder;
+	private ArrayList<Input> felder;
 
-  private Settings settings;
+	private Settings settings;
 
-  public ZusatzfelderAuswahlDialog(Settings settings)
-  {
-    super(EigenschaftenAuswahlDialog.POSITION_CENTER);
-    this.setSize(400, 700);
-    setTitle("Zusatzfelder-Bedingungen ");
-    this.settings = settings;
-  }
+	public ZusatzfelderAuswahlDialog(Settings settings)
+	{
+		super(EigenschaftenAuswahlDialog.POSITION_CENTER);
+		this.setSize(400, 700);
+		setTitle("Zusatzfelder-Bedingungen ");
+		this.settings = settings;
+	}
 
-  @Override
-  protected void paint(Composite parent) throws RemoteException
-  {
-    ScrolledContainer sc = new ScrolledContainer(parent);
-    LabelGroup group = new LabelGroup(sc.getComposite(), "Bedingungen", false);
-    felder = new ArrayList<>();
+	@Override
+	protected void paint(Composite parent) throws RemoteException
+	{
+		ScrolledContainer sc = new ScrolledContainer(parent);
+		LabelGroup group = new LabelGroup(sc.getComposite(), "Bedingungen", false);
+		felder = new ArrayList<>();
 
-    DBIterator<Felddefinition> it = Einstellungen.getDBService()
-        .createList(Felddefinition.class);
-    int counter = 0;
-    while (it.hasNext())
-    {
-      Felddefinition fd = (Felddefinition) it.next();
-      switch (fd.getDatentyp())
-      {
-        case Datentyp.ZEICHENFOLGE:
-        {
-          TextInput input = new TextInput("", fd.getLaenge());
-          input.setName(fd.getLabel());
-          felder.add(input);
-          group.addInput(input);
-          counter++;
-          settings.setAttribute("zusatzfeld." + counter + ".name",
-              fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", "LIKE");
-          settings.setAttribute("zusatzfeld." + counter + ".datentyp",
-              fd.getDatentyp());
-          settings.setAttribute("zusatzfeld." + counter + ".definition",
-              fd.getID());
-          input.setValue(
-              settings.getString("zusatzfeld." + counter + ".value", ""));
-          break;
-        }
-        case Datentyp.DATUM:
-        {
-          DateInput inputvon = new DateInput();
-          inputvon.setName(fd.getLabel() + " von");
-          felder.add(inputvon);
-          group.addInput(inputvon);
-          counter++;
-          settings.setAttribute("zusatzfeld." + counter + ".name",
-              fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
-          settings.setAttribute("zusatzfeld." + counter + ".datentyp",
-              fd.getDatentyp());
-          settings.setAttribute("zusatzfeld." + counter + ".definition",
-              fd.getID());
-          String datum = settings.getString("zusatzfeld." + counter + ".value",
-              "");
-          if (datum.length() == 10)
-          {
-            try
-            {
-              inputvon.setValue(new JVDateFormatTTMMJJJJ().parse(datum));
-            }
-            catch (ParseException e)
-            {
-              //
-            }
-          }
-          DateInput inputbis = new DateInput();
-          inputbis.setName(fd.getLabel() + " bis");
-          felder.add(inputbis);
-          group.addInput(inputbis);
-          counter++;
-          settings.setAttribute("zusatzfeld." + counter + ".name",
-              fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
-          settings.setAttribute("zusatzfeld." + counter + ".datentyp",
-              fd.getDatentyp());
-          settings.setAttribute("zusatzfeld." + counter + ".definition",
-              fd.getID());
-          datum = settings.getString("zusatzfeld." + counter + ".value", "");
-          if (datum.length() == 10)
-          {
-            try
-            {
-              inputbis.setValue(new JVDateFormatTTMMJJJJ().parse(datum));
-            }
-            catch (ParseException e)
-            {
-              //
-            }
-          }
-          break;
-        }
-        case Datentyp.GANZZAHL:
-        {
-          IntegerInput inputvon = new IntegerInput(-1);
-          inputvon.setName(fd.getLabel() + " von");
-          felder.add(inputvon);
-          group.addInput(inputvon);
-          counter++;
-          settings.setAttribute("zusatzfeld." + counter + ".name",
-              fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
-          settings.setAttribute("zusatzfeld." + counter + ".datentyp",
-              fd.getDatentyp());
-          settings.setAttribute("zusatzfeld." + counter + ".definition",
-              fd.getID());
-          inputvon.setValue(
-              settings.getInt("zusatzfeld." + counter + ".value", -1));
+		DBIterator<Felddefinition> it = Einstellungen.getDBService()
+				.createList(Felddefinition.class);
+		int counter = 0;
+		while (it.hasNext())
+		{
+			Felddefinition fd = it.next();
+			switch (fd.getDatentyp())
+			{
+				case Datentyp.ZEICHENFOLGE:
+				{
+					TextInput input = new TextInput("", fd.getLaenge());
+					input.setName(fd.getLabel());
+					felder.add(input);
+					group.addInput(input);
+					counter++;
+					settings.setAttribute("zusatzfeld." + counter + ".name",
+							fd.getName());
+					settings.setAttribute("zusatzfeld." + counter + ".cond", "LIKE");
+					settings.setAttribute("zusatzfeld." + counter + ".datentyp",
+							fd.getDatentyp());
+					settings.setAttribute("zusatzfeld." + counter + ".definition",
+							fd.getID());
+					input.setValue(
+							settings.getString("zusatzfeld." + counter + ".value", ""));
+					break;
+				}
+				case Datentyp.DATUM:
+				{
+					DateInput inputvon = new DateInput();
+					inputvon.setName(fd.getLabel() + " von");
+					felder.add(inputvon);
+					group.addInput(inputvon);
+					counter++;
+					settings.setAttribute("zusatzfeld." + counter + ".name",
+							fd.getName());
+					settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
+					settings.setAttribute("zusatzfeld." + counter + ".datentyp",
+							fd.getDatentyp());
+					settings.setAttribute("zusatzfeld." + counter + ".definition",
+							fd.getID());
+					String datum = settings.getString("zusatzfeld." + counter + ".value",
+							"");
+					if (datum.length() == 10)
+					{
+						try
+						{
+							inputvon.setValue(new JVDateFormatTTMMJJJJ().parse(datum));
+						}
+						catch (ParseException e)
+						{
+							//
+						}
+					}
+					DateInput inputbis = new DateInput();
+					inputbis.setName(fd.getLabel() + " bis");
+					felder.add(inputbis);
+					group.addInput(inputbis);
+					counter++;
+					settings.setAttribute("zusatzfeld." + counter + ".name",
+							fd.getName());
+					settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
+					settings.setAttribute("zusatzfeld." + counter + ".datentyp",
+							fd.getDatentyp());
+					settings.setAttribute("zusatzfeld." + counter + ".definition",
+							fd.getID());
+					datum = settings.getString("zusatzfeld." + counter + ".value", "");
+					if (datum.length() == 10)
+					{
+						try
+						{
+							inputbis.setValue(new JVDateFormatTTMMJJJJ().parse(datum));
+						}
+						catch (ParseException e)
+						{
+							//
+						}
+					}
+					break;
+				}
+				case Datentyp.GANZZAHL:
+				{
+					IntegerInput inputvon = new IntegerInput(-1);
+					inputvon.setName(fd.getLabel() + " von");
+					felder.add(inputvon);
+					group.addInput(inputvon);
+					counter++;
+					settings.setAttribute("zusatzfeld." + counter + ".name",
+							fd.getName());
+					settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
+					settings.setAttribute("zusatzfeld." + counter + ".datentyp",
+							fd.getDatentyp());
+					settings.setAttribute("zusatzfeld." + counter + ".definition",
+							fd.getID());
+					inputvon.setValue(
+							settings.getInt("zusatzfeld." + counter + ".value", -1));
 
-          IntegerInput inputbis = new IntegerInput(-1);
-          inputbis.setName(fd.getLabel() + " bis");
-          felder.add(inputbis);
-          group.addInput(inputbis);
-          counter++;
-          settings.setAttribute("zusatzfeld." + counter + ".name",
-              fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
-          settings.setAttribute("zusatzfeld." + counter + ".datentyp",
-              fd.getDatentyp());
-          settings.setAttribute("zusatzfeld." + counter + ".definition",
-              fd.getID());
-          inputbis.setValue(
-              settings.getInt("zusatzfeld." + counter + ".value", -1));
-          break;
-        }
-        case Datentyp.JANEIN:
-        {
-          CheckboxInput input = new CheckboxInput(false);
-          input.setName(fd.getLabel());
-          felder.add(input);
-          group.addInput(input);
-          counter++;
-          settings.setAttribute("zusatzfeld." + counter + ".name",
-              fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", "=");
-          settings.setAttribute("zusatzfeld." + counter + ".datentyp",
-              fd.getDatentyp());
-          settings.setAttribute("zusatzfeld." + counter + ".definition",
-              fd.getID());
-          input.setValue(
-              settings.getBoolean("zusatzfeld." + counter + ".value", false));
-          break;
-        }
-        case Datentyp.WAEHRUNG:
-        {
-          DecimalInput inputvon = new DecimalInput(Einstellungen.DECIMALFORMAT);
-          inputvon.setName(fd.getLabel() + " von");
-          felder.add(inputvon);
-          group.addInput(inputvon);
-          counter++;
-          settings.setAttribute("zusatzfeld." + counter + ".name",
-              fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
-          settings.setAttribute("zusatzfeld." + counter + ".datentyp",
-              fd.getDatentyp());
-          settings.setAttribute("zusatzfeld." + counter + ".definition",
-              fd.getID());
-          try
-          {
-            String value = settings
-                .getString("zusatzfeld." + counter + ".value", "");
+					IntegerInput inputbis = new IntegerInput(-1);
+					inputbis.setName(fd.getLabel() + " bis");
+					felder.add(inputbis);
+					group.addInput(inputbis);
+					counter++;
+					settings.setAttribute("zusatzfeld." + counter + ".name",
+							fd.getName());
+					settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
+					settings.setAttribute("zusatzfeld." + counter + ".datentyp",
+							fd.getDatentyp());
+					settings.setAttribute("zusatzfeld." + counter + ".definition",
+							fd.getID());
+					inputbis.setValue(
+							settings.getInt("zusatzfeld." + counter + ".value", -1));
+					break;
+				}
+				case Datentyp.JANEIN:
+				{
+					CheckboxInput input = new CheckboxInput(false);
+					input.setName(fd.getLabel());
+					felder.add(input);
+					group.addInput(input);
+					counter++;
+					settings.setAttribute("zusatzfeld." + counter + ".name",
+							fd.getName());
+					settings.setAttribute("zusatzfeld." + counter + ".cond", "=");
+					settings.setAttribute("zusatzfeld." + counter + ".datentyp",
+							fd.getDatentyp());
+					settings.setAttribute("zusatzfeld." + counter + ".definition",
+							fd.getID());
+					input.setValue(
+							settings.getBoolean("zusatzfeld." + counter + ".value", false));
+					break;
+				}
+				case Datentyp.WAEHRUNG:
+				{
+					DecimalInput inputvon = new DecimalInput(Einstellungen.DECIMALFORMAT);
+					inputvon.setName(fd.getLabel() + " von");
+					felder.add(inputvon);
+					group.addInput(inputvon);
+					counter++;
+					settings.setAttribute("zusatzfeld." + counter + ".name",
+							fd.getName());
+					settings.setAttribute("zusatzfeld." + counter + ".cond", ">=");
+					settings.setAttribute("zusatzfeld." + counter + ".datentyp",
+							fd.getDatentyp());
+					settings.setAttribute("zusatzfeld." + counter + ".definition",
+							fd.getID());
+					try
+					{
+						String value = settings
+								.getString("zusatzfeld." + counter + ".value", "");
 
-            if (value.length() > 0)
-            {
-              Number n = Einstellungen.DECIMALFORMAT.parse(value);
-              inputvon.setValue(n.doubleValue());
-            }
-          }
-          catch (ParseException e)
-          {
-            //
-          }
+						if (value.length() > 0)
+						{
+							Number n = Einstellungen.DECIMALFORMAT.parse(value);
+							inputvon.setValue(n.doubleValue());
+						}
+					}
+					catch (ParseException e)
+					{
+						//
+					}
 
-          DecimalInput inputbis = new DecimalInput(Einstellungen.DECIMALFORMAT);
-          inputbis.setName(fd.getLabel() + " bis");
-          felder.add(inputbis);
-          group.addInput(inputbis);
-          counter++;
-          settings.setAttribute("zusatzfeld." + counter + ".name",
-              fd.getName());
-          settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
-          settings.setAttribute("zusatzfeld." + counter + ".datentyp",
-              fd.getDatentyp());
-          settings.setAttribute("zusatzfeld." + counter + ".definition",
-              fd.getID());
-          inputbis.setValue(
-              settings.getString("zusatzfeld." + counter + ".value", ""));
-          break;
-        }
-      }
-      settings.setAttribute("zusatzfelder.counter", counter);
-    }
+					DecimalInput inputbis = new DecimalInput(Einstellungen.DECIMALFORMAT);
+					inputbis.setName(fd.getLabel() + " bis");
+					felder.add(inputbis);
+					group.addInput(inputbis);
+					counter++;
+					settings.setAttribute("zusatzfeld." + counter + ".name",
+							fd.getName());
+					settings.setAttribute("zusatzfeld." + counter + ".cond", "<=");
+					settings.setAttribute("zusatzfeld." + counter + ".datentyp",
+							fd.getDatentyp());
+					settings.setAttribute("zusatzfeld." + counter + ".definition",
+							fd.getID());
+					inputbis.setValue(
+							settings.getString("zusatzfeld." + counter + ".value", ""));
+					break;
+				}
+			}
+			settings.setAttribute("zusatzfelder.counter", counter);
+		}
 
-    ButtonArea buttons = new ButtonArea();
-    buttons.addButton("OK", new Action()
-    {
+		ButtonArea buttons = new ButtonArea();
+		buttons.addButton("OK", new Action()
+		{
 
-      @Override
-      public void handleAction(Object context)
-      {
-        int counter = 0;
-        int selcounter = 0;
-        for (Input inp : felder)
-        {
-          counter++;
-          switch (settings.getInt("zusatzfeld." + counter + ".datentyp", 0))
-          {
-            case Datentyp.ZEICHENFOLGE:
-            {
-              String s = (String) inp.getValue();
-              settings.setAttribute("zusatzfeld." + counter + ".value", s);
-              if (s.length() > 0)
-              {
-                selcounter++;
-              }
-              break;
-            }
-            case Datentyp.DATUM:
-            {
-              if (inp.getValue() != null)
-              {
-                settings.setAttribute("zusatzfeld." + counter + ".value",
-                    new JVDateFormatTTMMJJJJ().format((Date) inp.getValue()));
-                selcounter++;
-              }
-              else
-              {
-                String s = null;
-                settings.setAttribute("zusatzfeld." + counter + ".value", s);
-              }
-              break;
-            }
-            case Datentyp.GANZZAHL:
-            {
-              if (inp.getValue() != null)
-              {
-                settings.setAttribute("zusatzfeld." + counter + ".value",
-                    (Integer) inp.getValue());
-                selcounter++;
-              }
-              else
-              {
-                String s = null;
-                settings.setAttribute("zusatzfeld." + counter + ".value", s);
-              }
-              break;
-            }
-            case Datentyp.JANEIN:
-            {
-              Boolean b = (Boolean) inp.getValue();
-              settings.setAttribute("zusatzfeld." + counter + ".value", b);
-              if (b)
-              {
-                selcounter++;
-              }
-              break;
-            }
-            case Datentyp.WAEHRUNG:
-            {
-              if (inp.getValue() != null)
-              {
-                settings.setAttribute("zusatzfeld." + counter + ".value",
-                    Einstellungen.DECIMALFORMAT.format(inp.getValue()));
-                selcounter++;
-              }
-              else
-              {
-                String s = null;
-                settings.setAttribute("zusatzfeld." + counter + ".value", s);
-              }
-              break;
-            }
-          }
-        }
-        settings.setAttribute("zusatzfelder.selected", selcounter);
-        close();
-      }
-    });
-    buttons.paint(parent);
-  }
+			@Override
+			public void handleAction(Object context)
+			{
+				int counter = 0;
+				int selcounter = 0;
+				for (Input inp : felder)
+				{
+					counter++;
+					switch (settings.getInt("zusatzfeld." + counter + ".datentyp", 0))
+					{
+						case Datentyp.ZEICHENFOLGE:
+						{
+							String s = (String) inp.getValue();
+							settings.setAttribute("zusatzfeld." + counter + ".value", s);
+							if (s.length() > 0)
+							{
+								selcounter++;
+							}
+							break;
+						}
+						case Datentyp.DATUM:
+						{
+							if (inp.getValue() != null)
+							{
+								settings.setAttribute("zusatzfeld." + counter + ".value",
+										new JVDateFormatTTMMJJJJ().format((Date) inp.getValue()));
+								selcounter++;
+							}
+							else
+							{
+								String s = null;
+								settings.setAttribute("zusatzfeld." + counter + ".value", s);
+							}
+							break;
+						}
+						case Datentyp.GANZZAHL:
+						{
+							if (inp.getValue() != null)
+							{
+								settings.setAttribute("zusatzfeld." + counter + ".value",
+										(Integer) inp.getValue());
+								selcounter++;
+							}
+							else
+							{
+								String s = null;
+								settings.setAttribute("zusatzfeld." + counter + ".value", s);
+							}
+							break;
+						}
+						case Datentyp.JANEIN:
+						{
+							Boolean b = (Boolean) inp.getValue();
+							settings.setAttribute("zusatzfeld." + counter + ".value", b);
+							if (b)
+							{
+								selcounter++;
+							}
+							break;
+						}
+						case Datentyp.WAEHRUNG:
+						{
+							if (inp.getValue() != null)
+							{
+								settings.setAttribute("zusatzfeld." + counter + ".value",
+										Einstellungen.DECIMALFORMAT.format(inp.getValue()));
+								selcounter++;
+							}
+							else
+							{
+								String s = null;
+								settings.setAttribute("zusatzfeld." + counter + ".value", s);
+							}
+							break;
+						}
+					}
+				}
+				settings.setAttribute("zusatzfelder.selected", selcounter);
+				close();
+			}
+		});
+		buttons.paint(parent);
+	}
 
-  @Override
-  protected Object getData()
-  {
-    return null;
-  }
+	@Override
+	protected Object getData()
+	{
+		return null;
+	}
 
-  public void reset()
-  {
-    int counter = 0;
-    for (Input f : felder)
-    {
-      counter++;
-      if (f instanceof CheckboxInput)
-      {
-        settings.setAttribute("zusatzfeld." + counter + ".value", "false");
-        f.setValue(false);
-      }
-      if (f instanceof IntegerInput)
-      {
-        settings.setAttribute("zusatzfeld." + counter + ".value", -1);
-        f.setValue(-1);
-      }
-      else if (f instanceof DecimalInput)
-      {
-        settings.setAttribute("zusatzfeld." + counter + ".value", "");
-        f.setValue(null);
-      }
-      else if (f instanceof DateInput)
-      {
-        settings.setAttribute("zusatzfeld." + counter + ".value", "");
-        f.setValue(null);
-      }
-      else
-      {
-        settings.setAttribute("zusatzfeld." + counter + ".value", "");
-        f.setValue("");
-      }
-    }
-    settings.setAttribute("zusatzfelder.selected", 0);
+	public void reset()
+	{
+		int counter = 0;
+		for (Input f : felder)
+		{
+			counter++;
+			if (f instanceof CheckboxInput)
+			{
+				settings.setAttribute("zusatzfeld." + counter + ".value", "false");
+				f.setValue(false);
+			}
+			if (f instanceof IntegerInput)
+			{
+				settings.setAttribute("zusatzfeld." + counter + ".value", -1);
+				f.setValue(-1);
+			}
+			else if (f instanceof DecimalInput)
+			{
+				settings.setAttribute("zusatzfeld." + counter + ".value", "");
+				f.setValue(null);
+			}
+			else if (f instanceof DateInput)
+			{
+				settings.setAttribute("zusatzfeld." + counter + ".value", "");
+				f.setValue(null);
+			}
+			else
+			{
+				settings.setAttribute("zusatzfeld." + counter + ".value", "");
+				f.setValue("");
+			}
+		}
+		settings.setAttribute("zusatzfelder.selected", 0);
 
-  }
+	}
 }

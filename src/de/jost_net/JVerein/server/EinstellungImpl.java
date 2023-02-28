@@ -412,7 +412,7 @@ public class EinstellungImpl extends AbstractDBObject implements Einstellung
 			Logger.debug("Vereinskonto: " + Einstellungen.getEinstellung().getIban());
 			if (konten.hasNext())
 			{
-				return (Konto) konten.next();
+				return konten.next();
 			}
 			else
 			{

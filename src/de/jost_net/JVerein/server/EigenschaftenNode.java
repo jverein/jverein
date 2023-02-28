@@ -92,7 +92,7 @@ public class EigenschaftenNode implements GenericObjectNode
     it.setOrder("order by bezeichnung");
     while (it.hasNext())
     {
-      EigenschaftGruppe eg = (EigenschaftGruppe) it.next();
+      EigenschaftGruppe eg =  it.next();
       childrens.add(new EigenschaftenNode(this, mitglied, eg, eigenschaftids));
     }
   }
@@ -113,7 +113,7 @@ public class EigenschaftenNode implements GenericObjectNode
     it.setOrder("order by bezeichnung");
     while (it.hasNext())
     {
-      Eigenschaft eigenschaft = (Eigenschaft) it.next();
+      Eigenschaft eigenschaft =  it.next();
       Eigenschaften eigenschaften = null;
       if (mitglied != null)
       {
@@ -123,7 +123,7 @@ public class EigenschaftenNode implements GenericObjectNode
             new Object[] { mitglied.getID(), eigenschaft.getID() });
         if (it2.hasNext())
         {
-          eigenschaften = (Eigenschaften) it2.next();
+          eigenschaften = it2.next();
         }
       }
       childrens.add(new EigenschaftenNode(this, mitglied, eigenschaft,

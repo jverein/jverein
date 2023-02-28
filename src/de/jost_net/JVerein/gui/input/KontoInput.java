@@ -40,94 +40,94 @@ import de.willuhn.util.I18N;
 public class KontoInput extends SelectInput
 {
 
-  private final static I18N i18n = Application.getPluginLoader()
-      .getPlugin(HBCI.class).getResources().getI18N();
+	private final static I18N i18n = Application.getPluginLoader()
+			.getPlugin(HBCI.class).getResources().getI18N();
 
-  /**
-   * ct.
-   * 
-   * @param konto
-   *          ausgewaehltes Konto.
-   * @throws RemoteException
-   */
-  public KontoInput(Konto konto) throws RemoteException
-  {
-    super(init(), konto);
-    setName(i18n.tr("Konto"));
-    setPleaseChoose(i18n.tr("Bitte wählen..."));
-  }
+	/**
+	 * ct.
+	 * 
+	 * @param konto ausgewaehltes Konto.
+	 * @throws RemoteException
+	 */
+	public KontoInput(Konto konto)
+			throws RemoteException
+	{
+		super(init(), konto);
+		setName(i18n.tr("Konto"));
+		setPleaseChoose(i18n.tr("Bitte wählen..."));
+	}
 
-  /**
-   * Initialisiert die Liste der Konten.
-   * 
-   * @return Liste der Konten.
-   * @throws RemoteException
-   */
-  private static GenericIterator<Konto> init() throws RemoteException
-  {
-    DBIterator<Konto> it = Settings.getDBService().createList(Konto.class);
-    it.setOrder("ORDER BY blz, kontonummer");
-    List<Konto> l = new ArrayList<>();
-    while (it.hasNext())
-    {
-      l.add((Konto) it.next());
-    }
-    return PseudoIterator.fromArray(l.toArray(new Konto[l.size()]));
-  }
+	/**
+	 * Initialisiert die Liste der Konten.
+	 * 
+	 * @return Liste der Konten.
+	 * @throws RemoteException
+	 */
+	private static GenericIterator<Konto> init() throws RemoteException
+	{
+		DBIterator<Konto> it = Settings.getDBService().createList(Konto.class);
+		it.setOrder("ORDER BY blz, kontonummer");
+		List<Konto> l = new ArrayList<>();
+		while (it.hasNext())
+		{
+			l.add(it.next());
+		}
+		return PseudoIterator.fromArray(l.toArray(new Konto[l.size()]));
+	}
 
-  /**
-   * @see de.willuhn.jameica.gui.input.SelectInput#format(java.lang.Object)
-   */
-  @Override
-  protected String format(Object bean)
-  {
-    if (bean == null)
-      return null;
+	/**
+	 * @see de.willuhn.jameica.gui.input.SelectInput#format(java.lang.Object)
+	 */
+	@Override
+	protected String format(Object bean)
+	{
+		if (bean == null)
+			return null;
 
-    if (!(bean instanceof Konto))
-      return bean.toString();
+		if (!(bean instanceof Konto))
+			return bean.toString();
 
-    try
-    {
-      Konto k = (Konto) bean;
-      boolean disabled = (k.getFlags()
-          & Konto.FLAG_DISABLED) == Konto.FLAG_DISABLED;
-      StringBuffer sb = new StringBuffer();
-      if (disabled)
-        sb.append("[");
+		try
+		{
+			Konto k = (Konto) bean;
+			boolean disabled = (k.getFlags()
+					& Konto.FLAG_DISABLED) == Konto.FLAG_DISABLED;
+			StringBuffer sb = new StringBuffer();
+			if (disabled)
+				sb.append("[");
 
-      sb.append(String.format("Kto. %s", k.getKontonummer()));
+			sb.append(String.format("Kto. %s", k.getKontonummer()));
 
-      String blz = k.getBLZ();
-      sb.append(" [");
-      String bankName = HBCIUtils.getNameForBLZ(blz);
-      if (bankName != null && bankName.length() > 0)
-      {
-        sb.append(bankName);
-      }
-      else
-      {
-        sb.append("BLZ" + " ");
-        sb.append(blz);
-      }
-      sb.append("] ");
-      sb.append(k.getName());
+			String blz = k.getBLZ();
+			sb.append(" [");
+			String bankName = HBCIUtils.getNameForBLZ(blz);
+			if (bankName != null && bankName.length() > 0)
+			{
+				sb.append(bankName);
+			}
+			else
+			{
+				sb.append("BLZ" + " ");
+				sb.append(blz);
+			}
+			sb.append("] ");
+			sb.append(k.getName());
 
-      String bez = k.getBezeichnung();
-      if (bez != null && bez.length() > 0)
-      {
-        sb.append(" - ");
-        sb.append(bez);
-      }
-      if (disabled)
-        sb.append("]");
-      return sb.toString();
-    }
-    catch (RemoteException re)
-    {
-      Logger.error("unable to format address", re);
-      return null;
-    }
-  }
+			String bez = k.getBezeichnung();
+			if (bez != null && bez.length() > 0)
+			{
+				sb.append(" - ");
+				sb.append(bez);
+			}
+			if (disabled)
+				sb.append("]");
+			return sb.toString();
+		}
+		catch (RemoteException re)
+		{
+			Logger.error("unable to format address", re);
+			return null;
+		}
+	}
 
 }

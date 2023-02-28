@@ -212,7 +212,7 @@ public class DefaultZusatzbetraegeImport implements Importer
           else
           // list.size() == 1
           {
-            Mitglied m = (Mitglied) list.next();
+            Mitglied m =  list.next();
             Zusatzbetrag zus = (Zusatzbetrag) Einstellungen.getDBService()
                 .createObject(Zusatzbetrag.class, null);
             zus.setMitglied(new Integer(m.getID()));

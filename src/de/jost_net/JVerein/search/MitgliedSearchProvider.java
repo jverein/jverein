@@ -37,78 +37,78 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedSearchProvider implements SearchProvider
 {
 
-  /**
-   * @see de.willuhn.jameica.search.SearchProvider#getName()
-   */
-  @Override
-  public String getName()
-  {
-    return "Mitglieder";
-  }
+	/**
+	 * @see de.willuhn.jameica.search.SearchProvider#getName()
+	 */
+	@Override
+	public String getName()
+	{
+		return "Mitglieder";
+	}
 
-  @Override
-  public List<MyResult> search(String search) throws RemoteException
-  {
-    if (search == null || search.length() == 0)
-      return null;
+	@Override
+	public List<MyResult> search(String search) throws RemoteException
+	{
+		if (search == null || search.length() == 0)
+			return null;
 
-    String text = "%" + search.toLowerCase() + "%";
-    DBIterator<Mitglied> list = Einstellungen.getDBService()
-        .createList(Mitglied.class);
-    list.addFilter(
-        "LOWER(name) LIKE ? OR " + "LOWER(vorname) LIKE ? OR "
-            + "ort LIKE ? OR " + "bic LIKE ? OR " + "iban LIKE ?",
-        text, text, text, text, text);
+		String text = "%" + search.toLowerCase() + "%";
+		DBIterator<Mitglied> list = Einstellungen.getDBService()
+				.createList(Mitglied.class);
+		list.addFilter(
+				"LOWER(name) LIKE ? OR " + "LOWER(vorname) LIKE ? OR "
+						+ "ort LIKE ? OR " + "bic LIKE ? OR " + "iban LIKE ?",
+				text, text, text, text, text);
 
-    ArrayList<MyResult> results = new ArrayList<>();
-    while (list.hasNext())
-    {
-      results.add(new MyResult((Mitglied) list.next()));
-    }
-    return results;
-  }
+		ArrayList<MyResult> results = new ArrayList<>();
+		while (list.hasNext())
+		{
+			results.add(new MyResult(list.next()));
+		}
+		return results;
+	}
 
-  /**
-   * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
-   */
-  private static class MyResult implements Result
-  {
+	/**
+	 * Hilfsklasse fuer die formatierte Anzeige der Ergebnisse.
+	 */
+	private static class MyResult implements Result
+	{
 
-    private static final long serialVersionUID = -1084818772620611937L;
+		private static final long serialVersionUID = -1084818772620611937L;
 
-    private Mitglied m = null;
+		private Mitglied m = null;
 
-    private MyResult(Mitglied m)
-    {
-      this.m = m;
-    }
+		private MyResult(Mitglied m)
+		{
+			this.m = m;
+		}
 
-    @Override
-    public void execute() throws ApplicationException
-    {
-      new MitgliedDetailAction().handleAction(this.m);
-    }
+		@Override
+		public void execute() throws ApplicationException
+		{
+			new MitgliedDetailAction().handleAction(this.m);
+		}
 
-    @Override
-    public String getName()
-    {
-      try
-      {
-        return Adressaufbereitung.getNameVorname(m) + ", "
-            + Adressaufbereitung.getAnschrift(m)
-            + (m.getGeburtsdatum() != null
-                ? ", " + new JVDateFormatTTMMJJJJ().format(m.getGeburtsdatum())
-                : "")
-            + (m.getIban() != null ? ", " + "IBAN" + ": " + m.getIban() + ", "
-                + "BIC" + ": " + m.getBic() : "");
-      }
-      catch (RemoteException re)
-      {
-        Logger.error("unable to determin result name", re);
-        return null;
-      }
-    }
+		@Override
+		public String getName()
+		{
+			try
+			{
+				return Adressaufbereitung.getNameVorname(m) + ", "
+						+ Adressaufbereitung.getAnschrift(m)
+						+ (m.getGeburtsdatum() != null
+								? ", " + new JVDateFormatTTMMJJJJ().format(m.getGeburtsdatum())
+								: "")
+						+ (m.getIban() != null ? ", " + "IBAN" + ": " + m.getIban() + ", "
+								+ "BIC" + ": " + m.getBic() : "");
+			}
+			catch (RemoteException re)
+			{
+				Logger.error("unable to determin result name", re);
+				return null;
+			}
+		}
 
-  }
+	}
 
 }

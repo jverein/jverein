@@ -35,153 +35,154 @@ import de.willuhn.logging.Logger;
 
 public class Buchungsuebernahme
 {
-  private ArrayList<Buchung> buchungen;
+	private ArrayList<Buchung> buchungen;
 
-  private Buchung fehlerbuchung = null;
+	private Buchung fehlerbuchung = null;
 
-  private Exception exception = null;
+	private Exception exception = null;
 
-  public Buchungsuebernahme()
-  {
-    uebernahme();
-  }
+	public Buchungsuebernahme()
+	{
+		uebernahme();
+	}
 
-  private void uebernahme()
-  {
-    try
-    {
-      Logger.info("Buchungsübernahme zu JVerein gestartet");
+	private void uebernahme()
+	{
+		try
+		{
+			Logger.info("Buchungsübernahme zu JVerein gestartet");
 
-      // Protokollliste initialisieren
-      buchungen = new ArrayList<>();
-      // Über alle Hibiscus-Konten (aus JVerein-Sicht) iterieren
-      DBIterator<Konto> hibkto = Einstellungen.getDBService()
-          .createList(Konto.class);
-      hibkto.addFilter("hibiscusid > 0");
-      while (hibkto.hasNext())
-      {
-        Konto kto = (Konto) hibkto.next();
-        leseHibiscus(kto);
-      }
-      Logger.info("Buchungsübernahme zu JVerein abgeschlossen");
-    }
-    catch (Exception e)
-    {
-      Logger.error("Buchungsübernahme zu JVerein fehlerhaft", e);
-    }
-    try
-    {
-      BuchungUebernahmeProtokollDialog bup = new BuchungUebernahmeProtokollDialog(
-          buchungen, fehlerbuchung, exception);
-      bup.open();
-    }
-    catch (Exception e)
-    {
-      Logger.error("Fehler", e);
-    }
+			// Protokollliste initialisieren
+			buchungen = new ArrayList<>();
+			// Über alle Hibiscus-Konten (aus JVerein-Sicht) iterieren
+			DBIterator<
+					Konto> hibkto = Einstellungen.getDBService().createList(Konto.class);
+			hibkto.addFilter("hibiscusid > 0");
+			while (hibkto.hasNext())
+			{
+				Konto kto = hibkto.next();
+				leseHibiscus(kto);
+			}
+			Logger.info("Buchungsübernahme zu JVerein abgeschlossen");
+		}
+		catch (Exception e)
+		{
+			Logger.error("Buchungsübernahme zu JVerein fehlerhaft", e);
+		}
+		try
+		{
+			BuchungUebernahmeProtokollDialog bup = new BuchungUebernahmeProtokollDialog(
+					buchungen, fehlerbuchung, exception);
+			bup.open();
+		}
+		catch (Exception e)
+		{
+			Logger.error("Fehler", e);
+		}
 
-  }
+	}
 
-  private void leseHibiscus(Konto kto) throws Exception
-  {
-    Integer hibid = kto.getHibiscusId();
-    Integer jvid = new Integer(kto.getID());
-    DBService service = Einstellungen.getDBService();
-    String sql = "select max(umsatzid) from buchung where konto = "
-        + jvid.toString();
+	private void leseHibiscus(Konto kto) throws Exception
+	{
+		Integer hibid = kto.getHibiscusId();
+		Integer jvid = new Integer(kto.getID());
+		DBService service = Einstellungen.getDBService();
+		String sql = "select max(umsatzid) from buchung where konto = "
+				+ jvid.toString();
 
-    ResultSetExtractor rs = new ResultSetExtractor()
-    {
-      @Override
-      public Object extract(ResultSet rs) throws SQLException
-      {
-        if (!rs.next())
-        {
-          return Integer.valueOf(0);
-        }
-        return Integer.valueOf(rs.getInt(1));
-      }
-    };
-    Integer maximum = (Integer) service.execute(sql, new Object[] {}, rs);
+		ResultSetExtractor rs = new ResultSetExtractor()
+		{
+			@Override
+			public Object extract(ResultSet rs) throws SQLException
+			{
+				if (!rs.next())
+				{
+					return Integer.valueOf(0);
+				}
+				return Integer.valueOf(rs.getInt(1));
+			}
+		};
+		Integer maximum = (Integer) service.execute(sql, new Object[]
+		{}, rs);
 
-    DBIterator<Jahresabschluss> itjahresabschl = Einstellungen.getDBService()
-        .createList(Jahresabschluss.class);
-    itjahresabschl.setOrder("order by bis desc");
-    Jahresabschluss ja = null;
-    if (itjahresabschl.hasNext())
-    {
-      ja = (Jahresabschluss) itjahresabschl.next();
-    }
+		DBIterator<Jahresabschluss> itjahresabschl = Einstellungen.getDBService()
+				.createList(Jahresabschluss.class);
+		itjahresabschl.setOrder("order by bis desc");
+		Jahresabschluss ja = null;
+		if (itjahresabschl.hasNext())
+		{
+			ja = itjahresabschl.next();
+		}
 
-    DBService hibservice = (DBService) Application.getServiceFactory()
-        .lookup(HBCI.class, "database");
-    DBIterator<Umsatz> hibbuchungen = hibservice.createList(Umsatz.class);
-    if (maximum.intValue() > 0)
-    {
-      hibbuchungen.addFilter("id > ?", maximum);
-    }
-    hibbuchungen.addFilter("konto_id = ?", hibid);
-    if (ja != null)
-    {
-      Logger.info("datum=" + ja.getBis());
-      hibbuchungen.addFilter("datum > ?", ja.getBis());
-    }
-    hibbuchungen.setOrder("ORDER BY id");
-    while (hibbuchungen.hasNext())
-    {
-      Umsatz u = (Umsatz) hibbuchungen.next();
-      importiereUmsatz(u, kto);
-    }
-  }
+		DBService hibservice = (DBService) Application.getServiceFactory()
+				.lookup(HBCI.class, "database");
+		DBIterator<Umsatz> hibbuchungen = hibservice.createList(Umsatz.class);
+		if (maximum.intValue() > 0)
+		{
+			hibbuchungen.addFilter("id > ?", maximum);
+		}
+		hibbuchungen.addFilter("konto_id = ?", hibid);
+		if (ja != null)
+		{
+			Logger.info("datum=" + ja.getBis());
+			hibbuchungen.addFilter("datum > ?", ja.getBis());
+		}
+		hibbuchungen.setOrder("ORDER BY id");
+		while (hibbuchungen.hasNext())
+		{
+			Umsatz u = hibbuchungen.next();
+			importiereUmsatz(u, kto);
+		}
+	}
 
-  private void importiereUmsatz(Umsatz u, Konto kto) throws Exception
-  {
-    if ((u.getFlags() & Umsatz.FLAG_NOTBOOKED) == 0)
-    {
-      Buchung b = null;
-      try
-      {
-        b = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
-            null);
-        b.setUmsatzid(new Integer(u.getID()));
-        b.setKonto(kto);
-        b.setName(u.getGegenkontoName());
-        b.setBetrag(u.getBetrag());
-        b.setZweck(u.getZweck());
-        String[] moreLines = u.getWeitereVerwendungszwecke();
-        String zweck = u.getZweck();
-        String line2 = u.getZweck2();
-        if (line2 != null && line2.trim().length() > 0)
-        {
-          zweck += "\r\n" + line2.trim();
-        }
-        if (moreLines != null && moreLines.length > 0)
-        {
-          for (String s : moreLines)
-          {
-            if (s == null || s.trim().length() == 0)
-              continue;
-            zweck += "\r\n" + s.trim();
-          }
-        }
-        if (zweck != null && zweck.length() > 500)
-        {
-          zweck = zweck.substring(0, 500);
-        }
-        b.setZweck(zweck);
-        b.setDatum(u.getDatum());
-        b.setArt(u.getArt());
-        b.setKommentar(u.getKommentar());
-        b.store();
-        buchungen.add(b);
-      }
-      catch (Exception e)
-      {
-        this.fehlerbuchung = b;
-        this.exception = e;
-        throw e;
-      }
-    }
-  }
+	private void importiereUmsatz(Umsatz u, Konto kto) throws Exception
+	{
+		if ((u.getFlags() & Umsatz.FLAG_NOTBOOKED) == 0)
+		{
+			Buchung b = null;
+			try
+			{
+				b = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
+						null);
+				b.setUmsatzid(new Integer(u.getID()));
+				b.setKonto(kto);
+				b.setName(u.getGegenkontoName());
+				b.setBetrag(u.getBetrag());
+				b.setZweck(u.getZweck());
+				String[] moreLines = u.getWeitereVerwendungszwecke();
+				String zweck = u.getZweck();
+				String line2 = u.getZweck2();
+				if (line2 != null && line2.trim().length() > 0)
+				{
+					zweck += "\r\n" + line2.trim();
+				}
+				if (moreLines != null && moreLines.length > 0)
+				{
+					for (String s : moreLines)
+					{
+						if (s == null || s.trim().length() == 0)
+							continue;
+						zweck += "\r\n" + s.trim();
+					}
+				}
+				if (zweck != null && zweck.length() > 500)
+				{
+					zweck = zweck.substring(0, 500);
+				}
+				b.setZweck(zweck);
+				b.setDatum(u.getDatum());
+				b.setArt(u.getArt());
+				b.setKommentar(u.getKommentar());
+				b.store();
+				buchungen.add(b);
+			}
+			catch (Exception e)
+			{
+				this.fehlerbuchung = b;
+				this.exception = e;
+				throw e;
+			}
+		}
+	}
 
 }

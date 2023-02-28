@@ -109,7 +109,7 @@ public class FormularAufbereitung
             new Object[] { formular.getID(), i });
         while (it.hasNext())
         {
-          Formularfeld f = (Formularfeld) it.next();
+          Formularfeld f =  it.next();
           goFormularfeld(contentByte, f, map.get(f.getName()));
         }
       }

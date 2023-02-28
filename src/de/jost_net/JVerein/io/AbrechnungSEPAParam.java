@@ -36,119 +36,120 @@ import de.willuhn.util.ApplicationException;
 
 public class AbrechnungSEPAParam
 {
-  public final int abbuchungsmodus;
+	public final int abbuchungsmodus;
 
-  public final int abrechnungsmonat;
+	public final int abrechnungsmonat;
 
-  public final Date faelligkeit1;
+	public final Date faelligkeit1;
 
-  public final Date faelligkeit2;
+	public final Date faelligkeit2;
 
-  public final Date stichtag;
+	public final Date stichtag;
 
-  public final Abrechnungsausgabe abbuchungsausgabe;
+	public final Abrechnungsausgabe abbuchungsausgabe;
 
-  public final Date vondatum;
+	public final Date vondatum;
 
-  public final Date bisdatum;
+	public final Date bisdatum;
 
-  public final String verwendungszweck;
+	public final String verwendungszweck;
 
-  public final Boolean zusatzbetraege;
+	public final Boolean zusatzbetraege;
 
-  public final Boolean kursteilnehmer;
+	public final Boolean kursteilnehmer;
 
-  public final Boolean kompakteabbuchung;
+	public final Boolean kompakteabbuchung;
 
-  public final Boolean sepaprint;
+	public final Boolean sepaprint;
 
-  public final File sepafileFRST;
+	public final File sepafileFRST;
 
-  public final File sepafileRCUR;
+	public final File sepafileRCUR;
 
-  public final String pdffileFRST;
+	public final String pdffileFRST;
 
-  public final String pdffileRCUR;
+	public final String pdffileRCUR;
 
-  public final DBService service;
+	public final DBService service;
 
-  public Konto konto;
+	public Konto konto;
 
-  public AbrechnungSEPAParam(AbrechnungSEPAControl ac, File sepafileFRST,
-      File sepafileRCUR, String pdffileFRST, String pdffileRCUR)
-      throws ApplicationException, RemoteException
-  {
-    abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
-    Monat monat = (Monat) ac.getAbrechnungsmonat().getValue();
-    abrechnungsmonat = monat.getKey();
-    faelligkeit1 = (Date) ac.getFaelligkeit1().getValue();
-    faelligkeit2 = (Date) ac.getFaelligkeit2().getValue();
-    stichtag = (Date) ac.getStichtag().getValue();
-    abbuchungsausgabe = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
-        .getValue();
-    vondatum = (Date) ac.getVondatum().getValue();
-    bisdatum = (Date) ac.getBisdatum().getValue();
-    verwendungszweck = (String) ac.getZahlungsgrund().getValue();
-    zusatzbetraege = (Boolean) ac.getZusatzbetrag().getValue();
-    kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();
-    kompakteabbuchung = (Boolean) ac.getKompakteAbbuchung().getValue();
-    sepaprint = (Boolean) ac.getSEPAPrint().getValue();
-    this.pdffileFRST = pdffileFRST;
-    this.pdffileRCUR = pdffileRCUR;
-    this.sepafileFRST = sepafileFRST;
-    this.sepafileRCUR = sepafileRCUR;
+	public AbrechnungSEPAParam(AbrechnungSEPAControl ac, File sepafileFRST,
+			File sepafileRCUR, String pdffileFRST, String pdffileRCUR)
+			throws ApplicationException,
+			RemoteException
+	{
+		abbuchungsmodus = (Integer) ac.getAbbuchungsmodus().getValue();
+		Monat monat = (Monat) ac.getAbrechnungsmonat().getValue();
+		abrechnungsmonat = monat.getKey();
+		faelligkeit1 = (Date) ac.getFaelligkeit1().getValue();
+		faelligkeit2 = (Date) ac.getFaelligkeit2().getValue();
+		stichtag = (Date) ac.getStichtag().getValue();
+		abbuchungsausgabe = (Abrechnungsausgabe) ac.getAbbuchungsausgabe()
+				.getValue();
+		vondatum = (Date) ac.getVondatum().getValue();
+		bisdatum = (Date) ac.getBisdatum().getValue();
+		verwendungszweck = (String) ac.getZahlungsgrund().getValue();
+		zusatzbetraege = (Boolean) ac.getZusatzbetrag().getValue();
+		kursteilnehmer = (Boolean) ac.getKursteilnehmer().getValue();
+		kompakteabbuchung = (Boolean) ac.getKompakteAbbuchung().getValue();
+		sepaprint = (Boolean) ac.getSEPAPrint().getValue();
+		this.pdffileFRST = pdffileFRST;
+		this.pdffileRCUR = pdffileRCUR;
+		this.sepafileFRST = sepafileFRST;
+		this.sepafileRCUR = sepafileRCUR;
 
-    if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS)
-    {
-      // DB-Service holen
-      try
-      {
-        service = (DBService) Application.getServiceFactory().lookup(HBCI.class,
-            "database");
-        DBIterator<Konto> konten = service.createList(Konto.class);
-        Logger
-            .debug("Vereinskonto: " + Einstellungen.getEinstellung().getIban());
-        while (konten.hasNext())
-        {
-          konto = (Konto) konten.next();
-          Logger.debug("Hibiscus-Konto: " + konto.getIban());
-          if (Einstellungen.getEinstellung().getIban().equals(konto.getIban()))
-          {
-            // passendes Konto gefunden
-            break;
-          }
-          else
-          {
-            konto = null;
-          }
-        }
-        if (konto == null)
-        {
-          // Kein passendes Konto gefunden. Deshalb Kontoauswahldialog.
-          KontoAuswahlDialog d = new KontoAuswahlDialog(
-              KontoAuswahlDialog.POSITION_CENTER);
-          konto = (Konto) d.open();
-          if (konto == null)
-          {
-            throw new ApplicationException("Bitte wählen Sie ein Konto aus");
-          }
-        }
-      }
-      catch (OperationCanceledException e)
-      {
-        throw new ApplicationException("Bitte wählen Sie ein Konto aus");
-      }
-      catch (Exception e)
-      {
-        Logger.error("Fehler", e);
-        throw new ApplicationException(
-            "Hibiscus-Datenbank kann nicht geöffnet werden.");
-      }
-    }
-    else
-    {
-      service = null;
-    }
+		if (abbuchungsausgabe == Abrechnungsausgabe.HIBISCUS)
+		{
+			// DB-Service holen
+			try
+			{
+				service = (DBService) Application.getServiceFactory().lookup(HBCI.class,
+						"database");
+				DBIterator<Konto> konten = service.createList(Konto.class);
+				Logger
+						.debug("Vereinskonto: " + Einstellungen.getEinstellung().getIban());
+				while (konten.hasNext())
+				{
+					konto = konten.next();
+					Logger.debug("Hibiscus-Konto: " + konto.getIban());
+					if (Einstellungen.getEinstellung().getIban().equals(konto.getIban()))
+					{
+						// passendes Konto gefunden
+						break;
+					}
+					else
+					{
+						konto = null;
+					}
+				}
+				if (konto == null)
+				{
+					// Kein passendes Konto gefunden. Deshalb Kontoauswahldialog.
+					KontoAuswahlDialog d = new KontoAuswahlDialog(
+							KontoAuswahlDialog.POSITION_CENTER);
+					konto = (Konto) d.open();
+					if (konto == null)
+					{
+						throw new ApplicationException("Bitte wählen Sie ein Konto aus");
+					}
+				}
+			}
+			catch (OperationCanceledException e)
+			{
+				throw new ApplicationException("Bitte wählen Sie ein Konto aus");
+			}
+			catch (Exception e)
+			{
+				Logger.error("Fehler", e);
+				throw new ApplicationException(
+						"Hibiscus-Datenbank kann nicht geöffnet werden.");
+			}
+		}
+		else
+		{
+			service = null;
+		}
 
-  }
+	}
 }

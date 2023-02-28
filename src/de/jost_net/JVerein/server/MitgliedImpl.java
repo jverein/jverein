@@ -272,7 +272,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 				getExterneMitgliedsnummer());
 		if (mitglieder.hasNext())
 		{
-			Mitglied mitglied = (Mitglied) mitglieder.next();
+			Mitglied mitglied = mitglieder.next();
 			throw new ApplicationException(
 					"Die externe Mitgliedsnummer wird bereits verwendet für Mitglied : "
 							+ mitglied.getAttribute("namevorname"));
@@ -1201,7 +1201,7 @@ public class MitgliedImpl extends AbstractDBObject implements Mitglied
 			{
 					fieldName.substring(13)
 			});
-			Felddefinition fd = (Felddefinition) it.next();
+			Felddefinition fd = it.next();
 			it = Einstellungen.getDBService().createList(Zusatzfelder.class);
 			it.addFilter("felddefinition = ? AND mitglied = ?", new Object[]
 			{

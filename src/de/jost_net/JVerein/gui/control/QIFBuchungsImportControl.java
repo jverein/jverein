@@ -691,12 +691,12 @@ public class QIFBuchungsImportControl extends AbstractControl
 					QIFImportPos> iteratorQIFImportPos = loadExterneBuchungen(importHead);
 			speichernKontoeroeffnung(konto, importHead);
 			speichernAnfangsbestand(importHead.getStartSaldo(), konto,
-					(QIFImportPos) iteratorQIFImportPos.next());
+					iteratorQIFImportPos.next());
 
 			iteratorQIFImportPos.begin();
 			while (iteratorQIFImportPos.hasNext())
 			{
-				QIFImportPos importPos = (QIFImportPos) iteratorQIFImportPos.next();
+				QIFImportPos importPos =  iteratorQIFImportPos.next();
 				if (pruefeImportPos(importPos))
 				{
 					neuerAnfangsBestandWennNotwendig(importPos, konto);
@@ -899,7 +899,7 @@ public class QIFBuchungsImportControl extends AbstractControl
 					.createList(QIFImportHead.class);
 			while (headIterator.hasNext())
 			{
-				QIFImportHead importHead = (QIFImportHead) headIterator.next();
+				QIFImportHead importHead = headIterator.next();
 				pruefeHeadDaten(importHead);
 				importHeadList.add(importHead);
 			}
@@ -1112,7 +1112,7 @@ public class QIFBuchungsImportControl extends AbstractControl
 		{
 			while (itHeader.hasNext())
 			{
-				QIFImportHead head = (QIFImportHead) itHeader.next();
+				QIFImportHead head = itHeader.next();
 				head.delete();
 			}
 		}
@@ -1124,7 +1124,7 @@ public class QIFBuchungsImportControl extends AbstractControl
 					.createList(QIFImportPos.class);
 			while (iterator.hasNext())
 			{
-				QIFImportPos pos = (QIFImportPos) iterator.next();
+				QIFImportPos pos = iterator.next();
 				pos.delete();
 			}
 		}
@@ -1167,7 +1167,7 @@ public class QIFBuchungsImportControl extends AbstractControl
 					headerSelected.getID());
 			while (iterator.hasNext())
 			{
-				QIFImportPos pos = (QIFImportPos) iterator.next();
+				QIFImportPos pos = iterator.next();
 				pos.delete();
 			}
 			headerSelected.delete();

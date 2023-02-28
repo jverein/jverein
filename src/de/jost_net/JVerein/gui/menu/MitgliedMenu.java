@@ -56,90 +56,93 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedMenu extends ContextMenu
 {
 
-  /**
-   * Erzeugt ein Kontext-Menu für die Liste der Mitglieder.
-   * 
-   * @throws RemoteException
-   */
-  public MitgliedMenu(Action detailaction) throws RemoteException
-  {
-    addItem(new CheckedSingleContextMenuItem("bearbeiten", detailaction,
-        "edit.png"));
-    addItem(new CheckedSingleContextMenuItem("duplizieren",
-        new MitgliedDuplizierenAction(), "copy.png"));
-    addItem(new CheckedContextMenuItem("in Zwischenablage kopieren",
-        new MitgliedInZwischenablageKopierenAction(), "copy.png"));
-    if (detailaction instanceof AdresseDetailAction)
-    {
-      addItem(new CheckedContextMenuItem("zu Mitglied umwandeln", new Action()
-      {
+	/**
+	 * Erzeugt ein Kontext-Menu für die Liste der Mitglieder.
+	 * 
+	 * @throws RemoteException
+	 */
+	public MitgliedMenu(Action detailaction)
+			throws RemoteException
+	{
+		addItem(new CheckedSingleContextMenuItem("bearbeiten", detailaction,
+				"edit.png"));
+		addItem(new CheckedSingleContextMenuItem("duplizieren",
+				new MitgliedDuplizierenAction(), "copy.png"));
+		addItem(new CheckedContextMenuItem("in Zwischenablage kopieren",
+				new MitgliedInZwischenablageKopierenAction(), "copy.png"));
+		if (detailaction instanceof AdresseDetailAction)
+		{
+			addItem(new CheckedContextMenuItem("zu Mitglied umwandeln", new Action()
+			{
 
-        @Override
-        public void handleAction(Object context) throws ApplicationException
-        {
-          Mitglied m = (Mitglied) context;
-          try
-          {
-            SimpleDialog sd = new SimpleDialog(SimpleDialog.POSITION_CENTER);
-            sd.setText(
-                "Bitte die für Mitglieder erforderlichen Daten nacherfassen.");
-            sd.setSideImage(SWTUtil.getImage("dialog-warning-large.png"));
-            sd.setSize(400, 150);
-            sd.setTitle("Daten nacherfassen");
-            try
-            {
-              sd.open();
-            }
-            catch (Exception e)
-            {
-              Logger.error("Fehler", e);
-            }
-            m.setAdresstyp(1);
-            m.setEingabedatum();
-            GUI.startView(MitgliedDetailView.class.getName(), m);
-          }
-          catch (RemoteException e)
-          {
-            throw new ApplicationException(e);
-          }
-        }
-      }, "arrows-alt-h.png"));
-    }
-    addItem(new CheckedSingleContextMenuItem("löschen...",
-        new MitgliedDeleteAction(), "trash-alt.png"));
-    addItem(ContextMenuItem.SEPARATOR);
-    addItem(new CheckedContextMenuItem("Mail senden ...",
-        new MitgliedMailSendenAction(), "envelope-open.png"));
-    addItem(new CheckedContextMenuItem("vCard-Datei",
-        new MitgliedVCardDateiAction(), "address-card.png"));
-    addItem(new CheckedSingleContextMenuItem("vCard QR-Code",
-        new MitgliedVCardQRCodeAction(), "qr-code.png"));
-    addItem(new CheckedContextMenuItem("Eigenschaften",
-        new MitgliedEigenschaftZuordnungAction(), "check-double.png"));
-    if (Einstellungen.getEinstellung().getArbeitseinsatz())
-    {
-      addItem(new CheckedContextMenuItem("Arbeitseinsätze zuweisen",
-          new MitgliedArbeitseinsatzZuordnungAction(), "screwdriver.png"));
-    }
-    addItem(new CheckedContextMenuItem("Zusatzbeträge zuweisen",
-        new MitgliedZusatzbetraegeZuordnungAction(), "coins.png"));
-    addItem(new CheckedContextMenuItem("Kontoauszug", new KontoauszugAction(),
-        "rechnung.png"));
-    addItem(new CheckedSingleContextMenuItem("Spendenbescheinigung",
-        new SpendenbescheinigungAction(), "file-invoice.png"));
-    addItem(new CheckedContextMenuItem("Personalbogen",
-        new PersonalbogenAction(), "file-invoice.png"));
-    addItem(new CheckedSingleContextMenuItem("Manuelle Lastschrift ...",
-        new MitgliedLastschriftAction(), "file-invoice.png"));
-    DBIterator<Formular> it = Einstellungen.getDBService()
-        .createList(Formular.class);
-    it.addFilter("art = ?",
-        new Object[] { FormularArt.FREIESFORMULAR.getKey() });
-    while (it.hasNext())
-    {
-      Formular f = (Formular) it.next();
-      addItem(new CheckedContextMenuItem(f.getBezeichnung(),
-          new FreiesFormularAction(f.getID()), "file-invoice.png"));
-    }
-  }
+				@Override
+				public void handleAction(Object context) throws ApplicationException
+				{
+					Mitglied m = (Mitglied) context;
+					try
+					{
+						SimpleDialog sd = new SimpleDialog(SimpleDialog.POSITION_CENTER);
+						sd.setText(
+								"Bitte die für Mitglieder erforderlichen Daten nacherfassen.");
+						sd.setSideImage(SWTUtil.getImage("dialog-warning-large.png"));
+						sd.setSize(400, 150);
+						sd.setTitle("Daten nacherfassen");
+						try
+						{
+							sd.open();
+						}
+						catch (Exception e)
+						{
+							Logger.error("Fehler", e);
+						}
+						m.setAdresstyp(1);
+						m.setEingabedatum();
+						GUI.startView(MitgliedDetailView.class.getName(), m);
+					}
+					catch (RemoteException e)
+					{
+						throw new ApplicationException(e);
+					}
+				}
+			}, "arrows-alt-h.png"));
+		}
+		addItem(new CheckedSingleContextMenuItem("löschen...",
+				new MitgliedDeleteAction(), "trash-alt.png"));
+		addItem(ContextMenuItem.SEPARATOR);
+		addItem(new CheckedContextMenuItem("Mail senden ...",
+				new MitgliedMailSendenAction(), "envelope-open.png"));
+		addItem(new CheckedContextMenuItem("vCard-Datei",
+				new MitgliedVCardDateiAction(), "address-card.png"));
+		addItem(new CheckedSingleContextMenuItem("vCard QR-Code",
+				new MitgliedVCardQRCodeAction(), "qr-code.png"));
+		addItem(new CheckedContextMenuItem("Eigenschaften",
+				new MitgliedEigenschaftZuordnungAction(), "check-double.png"));
+		if (Einstellungen.getEinstellung().getArbeitseinsatz())
+		{
+			addItem(new CheckedContextMenuItem("Arbeitseinsätze zuweisen",
+					new MitgliedArbeitseinsatzZuordnungAction(), "screwdriver.png"));
+		}
+		addItem(new CheckedContextMenuItem("Zusatzbeträge zuweisen",
+				new MitgliedZusatzbetraegeZuordnungAction(), "coins.png"));
+		addItem(new CheckedContextMenuItem("Kontoauszug", new KontoauszugAction(),
+				"rechnung.png"));
+		addItem(new CheckedSingleContextMenuItem("Spendenbescheinigung",
+				new SpendenbescheinigungAction(), "file-invoice.png"));
+		addItem(new CheckedContextMenuItem("Personalbogen",
+				new PersonalbogenAction(), "file-invoice.png"));
+		addItem(new CheckedSingleContextMenuItem("Manuelle Lastschrift ...",
+				new MitgliedLastschriftAction(), "file-invoice.png"));
+		DBIterator<
+				Formular> it = Einstellungen.getDBService().createList(Formular.class);
+		it.addFilter("art = ?", new Object[]
+		{
+				FormularArt.FREIESFORMULAR.getKey()
+		});
+		while (it.hasNext())
+		{
+			Formular f = it.next();
+			addItem(new CheckedContextMenuItem(f.getBezeichnung(),
+					new FreiesFormularAction(f.getID()), "file-invoice.png"));
+		}
+	}
 }

@@ -40,129 +40,133 @@ import de.willuhn.util.ApplicationException;
 public class BuchungsklassesaldoCSV
 {
 
-  private static CellProcessor[] getProcessors()
-  {
+	private static CellProcessor[] getProcessors()
+	{
 
-    final CellProcessor[] processors = new CellProcessor[] { new NotNull(), // BuchungsArt/Klasse,
-                                                                            // Summe
-        // new Optional(new FmtNumber(Einstellungen.DECIMALFORMAT)), //
-        // Einnahmen
-        new ConvertNullTo("", new FmtNumber(Einstellungen.DECIMALFORMAT)), // Einnahmen
-        new ConvertNullTo("", new FmtNumber(Einstellungen.DECIMALFORMAT)), // Ausgaben
-        new ConvertNullTo("", new FmtNumber(Einstellungen.DECIMALFORMAT)) // Umbuchung
-    };
+		final CellProcessor[] processors = new CellProcessor[]
+		{
+				new NotNull(), // BuchungsArt/Klasse,
+												// Summe
+				// new Optional(new FmtNumber(Einstellungen.DECIMALFORMAT)), //
+				// Einnahmen
+				new ConvertNullTo("", new FmtNumber(Einstellungen.DECIMALFORMAT)), // Einnahmen
+				new ConvertNullTo("", new FmtNumber(Einstellungen.DECIMALFORMAT)), // Ausgaben
+				new ConvertNullTo("", new FmtNumber(Einstellungen.DECIMALFORMAT)) // Umbuchung
+		};
 
-    return processors;
-  }
+		return processors;
+	}
 
-  public BuchungsklassesaldoCSV(ArrayList<BuchungsklasseSaldoZeile> zeile,
-      final File file, Date datumvon, Date datumbis) throws ApplicationException
-  {
-    ICsvMapWriter writer = null;
-    try
-    {
-      writer = new CsvMapWriter(new FileWriter(file),
-          CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
-      final CellProcessor[] processors = getProcessors();
-      Map<String, Object> csvzeile = new HashMap<>();
+	public BuchungsklassesaldoCSV(ArrayList<BuchungsklasseSaldoZeile> zeile,
+			final File file, Date datumvon, Date datumbis)
+			throws ApplicationException
+	{
+		ICsvMapWriter writer = null;
+		try
+		{
+			writer = new CsvMapWriter(new FileWriter(file),
+					CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
+			final CellProcessor[] processors = getProcessors();
+			Map<String, Object> csvzeile = new HashMap<>();
 
-      String[] header = { "Buchungsart", "Einnahmen", "Ausgaben", "Umbuchung" };
-      writer.writeHeader(header);
+			String[] header =
+			{
+					"Buchungsart", "Einnahmen", "Ausgaben", "Umbuchung"
+			};
+			writer.writeHeader(header);
 
-      String subtitle = new JVDateFormatTTMMJJJJ().format(datumvon) + " - "
-          + new JVDateFormatTTMMJJJJ().format(datumbis);
-      csvzeile.put(header[0], subtitle);
-      writer.write(csvzeile, header, processors);
+			String subtitle = new JVDateFormatTTMMJJJJ().format(datumvon) + " - "
+					+ new JVDateFormatTTMMJJJJ().format(datumbis);
+			csvzeile.put(header[0], subtitle);
+			writer.write(csvzeile, header, processors);
 
-      for (BuchungsklasseSaldoZeile bkz : zeile)
-      {
-        csvzeile = new HashMap<>();
-        switch (bkz.getStatus())
-        {
-          case BuchungsklasseSaldoZeile.HEADER:
-          {
-            csvzeile.put(header[0],
-                (String) bkz.getAttribute("buchungsklassenbezeichnung"));
-            break;
-          }
-          case BuchungsklasseSaldoZeile.DETAIL:
-          {
-            csvzeile.put(header[0],
-                (String) bkz.getAttribute("buchungsartbezeichnung"));
-            csvzeile.put(header[1], (Double) bkz.getAttribute("einnahmen"));
-            csvzeile.put(header[2], (Double) bkz.getAttribute("ausgaben"));
-            csvzeile.put(header[3], (Double) bkz.getAttribute("umbuchungen"));
-            break;
-          }
-          case BuchungsklasseSaldoZeile.SALDOFOOTER:
-          {
-            csvzeile.put(header[0],
-                (String) bkz.getAttribute("buchungsklassenbezeichnung"));
-            csvzeile.put(header[1], (Double) bkz.getAttribute("einnahmen"));
-            csvzeile.put(header[2], (Double) bkz.getAttribute("ausgaben"));
-            csvzeile.put(header[3], (Double) bkz.getAttribute("umbuchungen"));
-            break;
-          }
-          case BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER:
-          {
-            csvzeile.put(header[0],
-                (String) bkz.getAttribute("buchungsklassenbezeichnung"));
-            csvzeile.put(header[1], (Double) bkz.getAttribute("einnahmen"));
-            csvzeile.put(header[2], (Double) bkz.getAttribute("ausgaben"));
-            csvzeile.put(header[3], (Double) bkz.getAttribute("umbuchungen"));
-            break;
-          }
-          case BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST:
-          case BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST:
-          {
-            csvzeile.put(header[0],
-                (String) bkz.getAttribute("buchungsklassenbezeichnung"));
-            csvzeile.put(header[1], (Double) bkz.getAttribute("einnahmen"));
-            break;
-          }
-          case BuchungsklasseSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN:
-          {
-            csvzeile.put(header[0],
-                (String) bkz.getAttribute("buchungsklassenbezeichnung"));
-            csvzeile.put(header[1],
-                (Integer) bkz.getAttribute("anzahlbuchungen"));
-            break;
-          }
-          default:
-          {
-            csvzeile.put(header[0], "leer - warum auch immer");
-          }
+			for (BuchungsklasseSaldoZeile bkz : zeile)
+			{
+				csvzeile = new HashMap<>();
+				switch (bkz.getStatus())
+				{
+					case BuchungsklasseSaldoZeile.HEADER:
+					{
+						csvzeile.put(header[0],
+								bkz.getAttribute("buchungsklassenbezeichnung"));
+						break;
+					}
+					case BuchungsklasseSaldoZeile.DETAIL:
+					{
+						csvzeile.put(header[0], bkz.getAttribute("buchungsartbezeichnung"));
+						csvzeile.put(header[1], bkz.getAttribute("einnahmen"));
+						csvzeile.put(header[2], bkz.getAttribute("ausgaben"));
+						csvzeile.put(header[3], bkz.getAttribute("umbuchungen"));
+						break;
+					}
+					case BuchungsklasseSaldoZeile.SALDOFOOTER:
+					{
+						csvzeile.put(header[0],
+								bkz.getAttribute("buchungsklassenbezeichnung"));
+						csvzeile.put(header[1], bkz.getAttribute("einnahmen"));
+						csvzeile.put(header[2], bkz.getAttribute("ausgaben"));
+						csvzeile.put(header[3], bkz.getAttribute("umbuchungen"));
+						break;
+					}
+					case BuchungsklasseSaldoZeile.GESAMTSALDOFOOTER:
+					{
+						csvzeile.put(header[0],
+								bkz.getAttribute("buchungsklassenbezeichnung"));
+						csvzeile.put(header[1], bkz.getAttribute("einnahmen"));
+						csvzeile.put(header[2], bkz.getAttribute("ausgaben"));
+						csvzeile.put(header[3], bkz.getAttribute("umbuchungen"));
+						break;
+					}
+					case BuchungsklasseSaldoZeile.GESAMTGEWINNVERLUST:
+					case BuchungsklasseSaldoZeile.SALDOGEWINNVERLUST:
+					{
+						csvzeile.put(header[0],
+								bkz.getAttribute("buchungsklassenbezeichnung"));
+						csvzeile.put(header[1], bkz.getAttribute("einnahmen"));
+						break;
+					}
+					case BuchungsklasseSaldoZeile.NICHTZUGEORDNETEBUCHUNGEN:
+					{
+						csvzeile.put(header[0],
+								bkz.getAttribute("buchungsklassenbezeichnung"));
+						csvzeile.put(header[1], bkz.getAttribute("anzahlbuchungen"));
+						break;
+					}
+					default:
+					{
+						csvzeile.put(header[0], "leer - warum auch immer");
+					}
 
-        }
+				}
 
-        writer.write(csvzeile, header, processors);
-      }
-      GUI.getStatusBar().setSuccessText("Auswertung fertig.");
-      writer.close();
+				writer.write(csvzeile, header, processors);
+			}
+			GUI.getStatusBar().setSuccessText("Auswertung fertig.");
+			writer.close();
 
-      FileViewer.show(file);
-    }
-    catch (Exception e)
-    {
-      Logger.error("error while creating report", e);
-      throw new ApplicationException("Fehler", e);
-    }
-    finally
-    {
-      if (writer != null)
-      {
-        try
-        {
-          writer.close();
-        }
-        catch (Exception e)
-        {
-          Logger.error("error while creating report", e);
-          throw new ApplicationException("Fehler", e);
-        }
-      }
-    }
+			FileViewer.show(file);
+		}
+		catch (Exception e)
+		{
+			Logger.error("error while creating report", e);
+			throw new ApplicationException("Fehler", e);
+		}
+		finally
+		{
+			if (writer != null)
+			{
+				try
+				{
+					writer.close();
+				}
+				catch (Exception e)
+				{
+					Logger.error("error while creating report", e);
+					throw new ApplicationException("Fehler", e);
+				}
+			}
+		}
 
-  }
+	}
 
 }

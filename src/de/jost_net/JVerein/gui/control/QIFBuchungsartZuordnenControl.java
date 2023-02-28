@@ -194,7 +194,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     posBeispielListTable.removeAll();
     while (iteratorQIFImportPosList.hasNext())
     {
-      QIFImportPos importPos = (QIFImportPos) iteratorQIFImportPosList.next();
+      QIFImportPos importPos = iteratorQIFImportPosList.next();
       posBeispielListTable.addItem(importPos);
     }
     posBeispielListTable.sort();
@@ -314,7 +314,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
       iteratorQIFImportPosList.begin();
       while (iteratorQIFImportPosList.hasNext())
       {
-        QIFImportPos importPos = (QIFImportPos) iteratorQIFImportPosList.next();
+        QIFImportPos importPos = iteratorQIFImportPosList.next();
         importPos.setBuchungsart(storeBuchart);
         importPos.setGesperrt(storeSperre);
         importPos.setMitgliedZuordenbar(storeMitgliedbar);
@@ -350,7 +350,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
     String letzteBuchart = "";
     while (it.hasNext())
     {
-      QIFImportPos pos = (QIFImportPos) it.next();
+      QIFImportPos pos = it.next();
       String qifBuchart = pos.getQIFBuchart();
       if (null == qifBuchart)
       {

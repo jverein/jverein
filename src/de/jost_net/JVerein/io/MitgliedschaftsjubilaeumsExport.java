@@ -78,7 +78,7 @@ public abstract class MitgliedschaftsjubilaeumsExport implements Exporter
     mitgliederListe.begin();
     while (mitgliederListe.hasNext())
     {
-      Mitglied mitglied = (Mitglied) mitgliederListe.next();
+      Mitglied mitglied = mitgliederListe.next();
       if (hatMitgliedJubileum(jubi, mitglied))
       {
         add(mitglied);

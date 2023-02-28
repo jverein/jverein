@@ -56,7 +56,7 @@ public class MailSearchProvider implements SearchProvider
     ArrayList<MyResult> results = new ArrayList<>();
     while (list.hasNext())
     {
-      results.add(new MyResult((Mail) list.next()));
+      results.add(new MyResult(list.next()));
     }
     return results;
   }

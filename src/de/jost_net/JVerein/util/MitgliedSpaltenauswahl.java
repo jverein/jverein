@@ -35,108 +35,108 @@ import de.willuhn.logging.Logger;
 public class MitgliedSpaltenauswahl extends Spaltenauswahl
 {
 
-  public MitgliedSpaltenauswahl()
-  {
-    super("mitglied");
-    add("ID", "idint", false, true);
-    try
-    {
-      if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
-      {
-        add("externe Mitgliedsnummer", "externemitgliedsnummer", false, false);
-      }
-    }
-    catch (RemoteException re)
-    {
-      //
-    }
-    add("Anrede", "anrede", false, true);
-    add("Titel", "titel", false, true);
-    add("Name", "name", true, true);
-    add("Vorname", "vorname", true, true);
-    add("Adressierungszusatz", "adressierungszusatz", false, true);
-    add("Straße", "strasse", true, true);
-    add("PLZ", "plz", false, true);
-    add("Ort", "ort", true, true);
-    add("Zahlungsweg", "zahlungsweg", false, new ZahlungswegFormatter(),
-        Column.ALIGN_LEFT, false);
-    add("Zahlungsrhytmus", "zahlungsrhytmus", false,
-        new ZahlungsrhythmusFormatter(), Column.ALIGN_LEFT, false);
-    add("Zahlungstermin", "zahlungstermin", false,
-        new ZahlungsterminFormatter(), Column.ALIGN_LEFT, true);
-    add("Datum des Mandats", "mandatdatum", false, false);
-    add("BIC", "bic", false, true);
-    add("IBAN", "iban", false, true);
-    add("BLZ", "blz", false, true);
-    add("Konto", "konto", false, true);
-    add("Kontoinhaber Anrede", "ktoianrede", false, true);
-    add("Kontoinhaber Name", "ktoiname", false, true);
-    add("Kontoinhaber Titel", "ktoititel", false, true);
-    add("Kontoinhaber Vorname", "ktoivorname", false, true);
-    add("Kontoinhaber Straße", "ktoistrasse", false, true);
-    add("Kontoinhaber Adressierungszusatz", "ktoiadressierungszsatz", false,
-        true);
-    add("Kontoinhaber PLZ", "ktoiplz", false, true);
-    add("Kontoinhaber Ort", "ktoiort", false, true);
-    add("Kontoinhaber Staat", "ktoistaat", false, true);
-    add("Kontoinhaber Email", "ktoiemail", false, true);
-    add("Mandat Version", "mandatversion", false, true);
-    add("Mandat Sequence", "mandatsequence", false, true);
-    add("Geburtsdatum", "geburtsdatum", true,
-        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
-    add("Alter", "alter", false, true);
-    add("Geschlecht", "geschlecht", false, true);
-    add("Telefon privat", "telefonprivat", true, true);
-    add("Telefon dienstlich", "telefondienstlich", false, true);
-    add("Handy", "handy", false, true);
-    add("Email", "email", false, true);
-    add("Eintritt", "eintritt", true,
-        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
-        false);
-    add("Beitragsgruppe", "beitragsgruppe", false,
-        new BeitragsgruppeFormatter(), Column.ALIGN_LEFT, false);
-    add("Austritt", "austritt", true,
-        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
-        false);
-    add("Kündigung", "kuendigung", false,
-        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
-        false);
-    add("Eingabedatum", "eingabedatum", false,
-        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
-    add("letzte Änderung", "letzteaenderung", false,
-        new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
-    try
-    {
-      DBIterator<Felddefinition> it = Einstellungen.getDBService()
-          .createList(Felddefinition.class);
-      while (it.hasNext())
-      {
-        Felddefinition fd = (Felddefinition) it.next();
-        switch (fd.getDatentyp())
-        {
-          case Datentyp.DATUM:
-            add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
-                new DateFormatter(new JVDateFormatTTMMJJJJ()),
-                Column.ALIGN_AUTO, true);
-            break;
-          case Datentyp.WAEHRUNG:
-            add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
-                new CurrencyFormatter("", Einstellungen.DECIMALFORMAT),
-                Column.ALIGN_AUTO, true);
-            break;
-          case Datentyp.JANEIN:
-            add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
-                new JaNeinFormatter(), Column.ALIGN_AUTO, true);
-            break;
-          default:
-            add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false, true);
-            break;
-        }
-      }
-    }
-    catch (RemoteException e)
-    {
-      Logger.error("Fehler", e);
-    }
-  }
+	public MitgliedSpaltenauswahl()
+	{
+		super("mitglied");
+		add("ID", "idint", false, true);
+		try
+		{
+			if (Einstellungen.getEinstellung().getExterneMitgliedsnummer())
+			{
+				add("externe Mitgliedsnummer", "externemitgliedsnummer", false, false);
+			}
+		}
+		catch (RemoteException re)
+		{
+			//
+		}
+		add("Anrede", "anrede", false, true);
+		add("Titel", "titel", false, true);
+		add("Name", "name", true, true);
+		add("Vorname", "vorname", true, true);
+		add("Adressierungszusatz", "adressierungszusatz", false, true);
+		add("Straße", "strasse", true, true);
+		add("PLZ", "plz", false, true);
+		add("Ort", "ort", true, true);
+		add("Zahlungsweg", "zahlungsweg", false, new ZahlungswegFormatter(),
+				Column.ALIGN_LEFT, false);
+		add("Zahlungsrhytmus", "zahlungsrhytmus", false,
+				new ZahlungsrhythmusFormatter(), Column.ALIGN_LEFT, false);
+		add("Zahlungstermin", "zahlungstermin", false,
+				new ZahlungsterminFormatter(), Column.ALIGN_LEFT, true);
+		add("Datum des Mandats", "mandatdatum", false, false);
+		add("BIC", "bic", false, true);
+		add("IBAN", "iban", false, true);
+		add("BLZ", "blz", false, true);
+		add("Konto", "konto", false, true);
+		add("Kontoinhaber Anrede", "ktoianrede", false, true);
+		add("Kontoinhaber Name", "ktoiname", false, true);
+		add("Kontoinhaber Titel", "ktoititel", false, true);
+		add("Kontoinhaber Vorname", "ktoivorname", false, true);
+		add("Kontoinhaber Straße", "ktoistrasse", false, true);
+		add("Kontoinhaber Adressierungszusatz", "ktoiadressierungszsatz", false,
+				true);
+		add("Kontoinhaber PLZ", "ktoiplz", false, true);
+		add("Kontoinhaber Ort", "ktoiort", false, true);
+		add("Kontoinhaber Staat", "ktoistaat", false, true);
+		add("Kontoinhaber Email", "ktoiemail", false, true);
+		add("Mandat Version", "mandatversion", false, true);
+		add("Mandat Sequence", "mandatsequence", false, true);
+		add("Geburtsdatum", "geburtsdatum", true,
+				new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+		add("Alter", "alter", false, true);
+		add("Geschlecht", "geschlecht", false, true);
+		add("Telefon privat", "telefonprivat", true, true);
+		add("Telefon dienstlich", "telefondienstlich", false, true);
+		add("Handy", "handy", false, true);
+		add("Email", "email", false, true);
+		add("Eintritt", "eintritt", true,
+				new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
+				false);
+		add("Beitragsgruppe", "beitragsgruppe", false,
+				new BeitragsgruppeFormatter(), Column.ALIGN_LEFT, false);
+		add("Austritt", "austritt", true,
+				new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
+				false);
+		add("Kündigung", "kuendigung", false,
+				new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO,
+				false);
+		add("Eingabedatum", "eingabedatum", false,
+				new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+		add("letzte Änderung", "letzteaenderung", false,
+				new DateFormatter(new JVDateFormatTTMMJJJJ()), Column.ALIGN_AUTO, true);
+		try
+		{
+			DBIterator<Felddefinition> it = Einstellungen.getDBService()
+					.createList(Felddefinition.class);
+			while (it.hasNext())
+			{
+				Felddefinition fd = it.next();
+				switch (fd.getDatentyp())
+				{
+					case Datentyp.DATUM:
+						add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
+								new DateFormatter(new JVDateFormatTTMMJJJJ()),
+								Column.ALIGN_AUTO, true);
+						break;
+					case Datentyp.WAEHRUNG:
+						add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
+								new CurrencyFormatter("", Einstellungen.DECIMALFORMAT),
+								Column.ALIGN_AUTO, true);
+						break;
+					case Datentyp.JANEIN:
+						add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false,
+								new JaNeinFormatter(), Column.ALIGN_AUTO, true);
+						break;
+					default:
+						add(fd.getLabel(), "zusatzfelder_" + fd.getName(), false, true);
+						break;
+				}
+			}
+		}
+		catch (RemoteException e)
+		{
+			Logger.error("Fehler", e);
+		}
+	}
 }
