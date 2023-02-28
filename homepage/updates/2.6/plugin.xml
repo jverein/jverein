@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?> 
+
+<plugin name="jverein" version="2.6.3"
+  class="de.jost_net.JVerein.JVereinPlugin"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="http://www.willuhn.de/schema/jameica-plugin-1.1.xsd">
+
+  <description>OpenSource-Vereinsverwaltung</description>
+  <url>http://www.jverein.de/updates/2.6/jverein.2.6.3.zip</url>
+  <homepage>http://www.jverein.de</homepage>
+  <license>GPL - http://www.gnu.org/copyleft/gpl.html</license>
+  <icon>jverein-icon-64x64.png</icon>
+  <menu>
+    <item name="JVerein" >
+  	<item name="&amp;Über" 
+          action="de.jost_net.JVerein.gui.action.AboutAction" 
+          icon="gtk-info.png"  />
+        	</item>
+  </menu>
+  <classfinder>
+    <include>jverein\.jar</include>
+    <include>.*\.class</include>
+  </classfinder>
+
+  <navigation>
+    <item name="JVerein"		
+	  icon-close="folder.png" 
+	  icon-open="folder-open.png" 	
+    id="jverein.main">
+    </item>
+  </navigation>
+   
+  <services>
+    <service name="database" depends="" autostart="true"
+	  class="de.jost_net.JVerein.server.JVereinDBServiceImpl" />
+  </services>
+	
+  <requires jameica="2.6+">
+    <import plugin="hibiscus" version="2.6.4+"/>
+  </requires>
+	
+</plugin>
+
