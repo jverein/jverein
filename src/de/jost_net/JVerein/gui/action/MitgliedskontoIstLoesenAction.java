@@ -32,49 +32,54 @@ import de.willuhn.util.ApplicationException;
 public class MitgliedskontoIstLoesenAction implements Action
 {
 
-  @Override
-  public void handleAction(Object context) throws ApplicationException
-  {
-    YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
-    d.setTitle("Istbuchung vom Mitgliedskonto lösen");
-    d.setText("Wollen Sie die Istbuchung wirklich vom Mitgliedskonto lösen?");
+	@Override
+	public void handleAction(Object context) throws ApplicationException
+	{
+		if (context == null || !(context instanceof MitgliedskontoNode))
+		{
+			throw new ApplicationException("Keine Istbuchung ausgewählt");
+		}
 
-    try
-    {
-      Boolean choice = (Boolean) d.open();
-      if (!choice.booleanValue())
-      {
-        return;
-      }
-    }
-    catch (Exception e)
-    {
-      Logger.error("Fehler", e);
-      return;
-    }
-    MitgliedskontoNode mkn = null;
-    Buchung bu = null;
+		YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
+		d.setTitle("Istbuchung vom Mitgliedskonto lösen");
+		d.setText("Wollen Sie die Istbuchung wirklich vom Mitgliedskonto lösen?");
 
-    if (context != null && (context instanceof MitgliedskontoNode))
-    {
-      mkn = (MitgliedskontoNode) context;
-      try
-      {
-        bu = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
-            mkn.getID());
-        bu.setMitgliedskonto(null);
-        bu.store();
-        GUI.getStatusBar().setSuccessText(
+		try
+		{
+			Boolean choice = (Boolean) d.open();
+			if (!choice.booleanValue())
+			{
+				return;
+			}
+		}
+		catch (Exception e)
+		{
+			Logger.error("Fehler", e);
+			return;
+		}
+		MitgliedskontoNode mkn = null;
+		Buchung bu = null;
 
-        "Istbuchung vom Mitgliedskonto gelöst.");
-        Application.getMessagingFactory().sendMessage(
-            new MitgliedskontoMessage(mkn.getMitglied()));
-      }
-      catch (RemoteException e)
-      {
-        throw new ApplicationException(
-            "Fehler beim lösen der Istbuchung vom Mitgliedskonto");
-      }
-    }
-  }
+		if (context != null && (context instanceof MitgliedskontoNode))
+		{
+			mkn = (MitgliedskontoNode) context;
+			try
+			{
+				bu = (Buchung) Einstellungen.getDBService().createObject(Buchung.class,
+						mkn.getID());
+				bu.setMitgliedskonto(null);
+				bu.store();
+				GUI.getStatusBar().setSuccessText(
+
+						"Istbuchung vom Mitgliedskonto gelöst.");
+				Application.getMessagingFactory()
+						.sendMessage(new MitgliedskontoMessage(mkn.getMitglied()));
+			}
+			catch (RemoteException e)
+			{
+				throw new ApplicationException(
+						"Fehler beim lösen der Istbuchung vom Mitgliedskonto");
+			}
+		}
+	}
 }
