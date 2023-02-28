@@ -45,7 +45,7 @@ public class QIFExternKontenInput extends SelectInput
    */
   public void refresh() throws RemoteException
   {
-    GenericIterator it = init();
+    GenericIterator<?> it = init();
     if (null == it)
       super.setList(null);
     else

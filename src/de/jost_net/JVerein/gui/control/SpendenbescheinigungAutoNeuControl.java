@@ -152,7 +152,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 					SpendenbescheinigungNode spn = (SpendenbescheinigungNode) items
 							.get(0);
 					// Loop über die Mitglieder
-					GenericIterator it1 = spn.getChildren();
+					GenericIterator<?> it1 = spn.getChildren();
 					while (it1.hasNext())
 					{
 						SpendenbescheinigungNode sp1 = (SpendenbescheinigungNode) it1
@@ -174,7 +174,7 @@ public class SpendenbescheinigungAutoNeuControl extends AbstractControl
 						spbescheinigung.setBetrag(0.01);
 						spbescheinigung.setAutocreate(Boolean.TRUE);
 						// Loop über die Buchungen eines Mitglieds
-						GenericIterator it2 = sp1.getChildren();
+						GenericIterator<?> it2 = sp1.getChildren();
 						while (it2.hasNext())
 						{
 							SpendenbescheinigungNode sp2 = (SpendenbescheinigungNode) it2

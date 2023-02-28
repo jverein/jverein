@@ -47,7 +47,7 @@ public class MailAuswertungInput extends SelectInput
    * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
    */
-  private static GenericIterator init() throws RemoteException
+  private static GenericIterator<?> init() throws RemoteException
   {
     ArrayList<MailAuswertungObject> l = new ArrayList<>();
     l.add(new MailAuswertungObject(MailAuswertungInput.ALLE));

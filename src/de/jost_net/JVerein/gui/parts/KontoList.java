@@ -43,7 +43,7 @@ public class KontoList extends TablePart implements Part
     this(init(onlyHibiscus, nurAktuelleKonten), action);
   }
 
-  public KontoList(GenericIterator konten, Action action)
+  public KontoList(GenericIterator<?> konten, Action action)
   {
     super(konten, action);
 

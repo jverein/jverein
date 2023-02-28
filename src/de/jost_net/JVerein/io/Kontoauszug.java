@@ -126,12 +126,12 @@ public class Kontoauszug
 
     MitgliedskontoNode node = new MitgliedskontoNode(m, von, bis);
     generiereZeile(node);
-    GenericIterator gi1 = node.getChildren();
+    GenericIterator<?> gi1 = node.getChildren();
     while (gi1.hasNext())
     {
       MitgliedskontoNode n1 = (MitgliedskontoNode) gi1.next();
       generiereZeile(n1);
-      GenericIterator gi2 = n1.getChildren();
+      GenericIterator<?> gi2 = n1.getChildren();
       while (gi2.hasNext())
       {
         MitgliedskontoNode n2 = (MitgliedskontoNode) gi2.next();

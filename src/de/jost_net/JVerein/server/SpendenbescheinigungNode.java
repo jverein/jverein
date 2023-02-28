@@ -192,7 +192,7 @@ public class SpendenbescheinigungNode implements GenericObjectNode
   }
 
   @Override
-  public GenericIterator getChildren() throws RemoteException
+  public GenericIterator<?> getChildren() throws RemoteException
   {
     if (childrens == null)
     {
@@ -214,13 +214,13 @@ public class SpendenbescheinigungNode implements GenericObjectNode
   }
 
   @Override
-  public GenericIterator getPath()
+  public GenericIterator<?> getPath()
   {
     return null;
   }
 
   @Override
-  public GenericIterator getPossibleParents()
+  public GenericIterator<?> getPossibleParents()
   {
     return null;
   }

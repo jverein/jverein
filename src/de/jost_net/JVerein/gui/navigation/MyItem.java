@@ -151,7 +151,7 @@ public class MyItem implements NavigationItem
    * @see de.willuhn.datasource.GenericObjectNode#getChildren()
    */
   @Override
-  public GenericIterator getChildren() throws RemoteException
+  public GenericIterator<?> getChildren() throws RemoteException
   {
     // if (children.size() == 0)
     // {
@@ -190,7 +190,7 @@ public class MyItem implements NavigationItem
    * @see de.willuhn.datasource.GenericObjectNode#getPossibleParents()
    */
   @Override
-  public GenericIterator getPossibleParents() throws RemoteException
+  public GenericIterator<?> getPossibleParents() throws RemoteException
   {
     throw new RemoteException("not implemented");
   }

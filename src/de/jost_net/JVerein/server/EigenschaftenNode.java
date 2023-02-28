@@ -147,7 +147,7 @@ public class EigenschaftenNode implements GenericObjectNode
   }
 
   @Override
-  public GenericIterator getChildren() throws RemoteException
+  public GenericIterator<?> getChildren() throws RemoteException
   {
     if (childrens == null)
     {
@@ -169,13 +169,13 @@ public class EigenschaftenNode implements GenericObjectNode
   }
 
   @Override
-  public GenericIterator getPath()
+  public GenericIterator<?> getPath()
   {
     return null;
   }
 
   @Override
-  public GenericIterator getPossibleParents()
+  public GenericIterator<?> getPossibleParents()
   {
     return null;
   }

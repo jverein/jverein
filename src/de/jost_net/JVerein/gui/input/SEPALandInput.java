@@ -47,7 +47,7 @@ public class SEPALandInput extends SelectInput
    * @return initialisiert die Liste der Optionen.
    * @throws RemoteException
    */
-  private static GenericIterator init() throws RemoteException
+  private static GenericIterator<?> init() throws RemoteException
   {
     ArrayList<SEPALand> l = SEPALaender.getLaender();
     ArrayList<SEPALandObject> lo = new ArrayList<>();

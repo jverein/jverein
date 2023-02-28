@@ -320,11 +320,11 @@ public class QIFBuchungsImportControl extends AbstractControl
 		endSaldo.setValue(Double.valueOf(saldo));
 	}
 
-	private GenericIterator getIterator() throws RemoteException
+	private GenericIterator<?> getIterator() throws RemoteException
 	{
 		ArrayList<QIFImportPos> zeile = new ArrayList<>();
 
-		GenericIterator gi = PseudoIterator
+		GenericIterator<?> gi = PseudoIterator
 				.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
 		return gi;
 	}

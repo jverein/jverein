@@ -66,7 +66,7 @@ public class BuchungsklasseSaldoList extends TablePart implements Part
 
 			if (saldoList == null)
 			{
-				GenericIterator gi = PseudoIterator
+				GenericIterator<?> gi = PseudoIterator
 						.fromArray(zeile.toArray(new GenericObject[zeile.size()]));
 
 				saldoList = new TablePart(gi, null)

@@ -240,13 +240,13 @@ public class MitgliedskontoNode implements GenericObjectNode
   }
 
   @Override
-  public GenericIterator getPossibleParents()
+  public GenericIterator<?> getPossibleParents()
   {
     return null;
   }
 
   @Override
-  public GenericIterator getPath()
+  public GenericIterator<?> getPath()
   {
     return null;
   }
@@ -258,7 +258,7 @@ public class MitgliedskontoNode implements GenericObjectNode
   }
 
   @Override
-  public GenericIterator getChildren() throws RemoteException
+  public GenericIterator<?> getChildren() throws RemoteException
   {
     if (children != null)
     {

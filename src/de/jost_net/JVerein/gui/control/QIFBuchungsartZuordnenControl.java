@@ -338,7 +338,7 @@ public class QIFBuchungsartZuordnenControl extends AbstractControl
    * 
    * @throws RemoteException
    */
-  private GenericIterator getDistinctQIFBuchartList() throws RemoteException
+  private GenericIterator<?> getDistinctQIFBuchartList() throws RemoteException
   {
     DBIterator<QIFImportPos> it = Einstellungen.getDBService()
         .createList(QIFImportPos.class);

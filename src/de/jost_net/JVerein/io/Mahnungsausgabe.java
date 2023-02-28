@@ -28,37 +28,38 @@ import de.willuhn.datasource.GenericIterator;
 public class Mahnungsausgabe extends AbstractMitgliedskontoDokument
 {
 
-  public Mahnungsausgabe(MitgliedskontoControl control) throws IOException
-  {
-    super(control, MitgliedskontoControl.TYP.MAHNUNG);
+	public Mahnungsausgabe(MitgliedskontoControl control)
+			throws IOException
+	{
+		super(control, MitgliedskontoControl.TYP.MAHNUNG);
 
-    Formular form = (Formular) control.getFormular(FormularArt.MAHNUNG)
-        .getValue();
-    if (form == null)
-    {
-      throw new IOException("kein Mahnungsformular ausgewählt");
-    }
-    Formular formular = (Formular) Einstellungen.getDBService().createObject(
-        Formular.class, form.getID());
+		Formular form = (Formular) control.getFormular(FormularArt.MAHNUNG)
+				.getValue();
+		if (form == null)
+		{
+			throw new IOException("kein Mahnungsformular ausgewählt");
+		}
+		Formular formular = (Formular) Einstellungen.getDBService()
+				.createObject(Formular.class, form.getID());
 
-    // Wurde ein Object übergeben?
-    if (control.getCurrentObject() != null)
-    {
-      // Ja: Einzeldruck aus dem Kontextmenu
-      mks = getRechnungsempfaenger(control.getCurrentObject());
-    }
-    else
-    {
-      GenericIterator it = control.getMitgliedskontoIterator();
-      Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];
-      int i = 0;
-      while (it.hasNext())
-      {
-        mk[i] = (Mitgliedskonto) it.next();
-        i++;
-      }
-      mks = getRechnungsempfaenger(mk);
-    }
-    aufbereitung(formular);
-  }
+		// Wurde ein Object übergeben?
+		if (control.getCurrentObject() != null)
+		{
+			// Ja: Einzeldruck aus dem Kontextmenu
+			mks = getRechnungsempfaenger(control.getCurrentObject());
+		}
+		else
+		{
+			GenericIterator<?> it = control.getMitgliedskontoIterator();
+			Mitgliedskonto[] mk = new Mitgliedskonto[it.size()];
+			int i = 0;
+			while (it.hasNext())
+			{
+				mk[i] = (Mitgliedskonto) it.next();
+				i++;
+			}
+			mks = getRechnungsempfaenger(mk);
+		}
+		aufbereitung(formular);
+	}
 }
