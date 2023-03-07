@@ -28,6 +28,10 @@ public enum SpendenbescheinigungVar {
   ERSATZAUFWENDUNGEN_JA("spendenbescheinigung_ersatzaufwendungen_ja"), //
   ERSATZAUFWENDUNGEN_NEIN("spendenbescheinigung_ersatzaufwendungen_nein"), //
   BUCHUNGSLISTE("spendenbescheinigung_buchungsliste"), //
+  BUCHUNGSLISTE_DATEN("spendenbescheinigung_buchungsliste_daten"), //
+  BUCHUNGSLISTE_ART("spendenbescheinigung_buchungsliste_art"), //
+  BUCHUNGSLISTE_VERZICHT("spendenbescheinigung_buchungsliste_verzicht"), //
+  BUCHUNGSLISTE_BETRAG("spendenbescheinigung_buchungsliste_betrag"), //
   BEZEICHNUNGSACHZUWENDUNG("spendenbescheinigung_bezeichnungsachzuwendung"), //
   HERKUNFTSACHZUWENDUNG("spendenbescheinigung_herkunftsachzuwendung"), //
   UNTERLAGENWERTERMITTUNG("spendenbescheinigung_unterlagenwertermittlung");//
