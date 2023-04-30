@@ -36,6 +36,7 @@ import de.willuhn.jameica.gui.Action;
 import de.willuhn.jameica.gui.GUI;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.ButtonArea;
+import de.willuhn.jameica.gui.util.LabelGroup;
 import de.willuhn.jameica.system.Settings;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
@@ -98,6 +99,14 @@ public class MailDetailView extends AbstractView
     JameicaUtil.addLabel("Text", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     control.getTxt().paint(comp);
 
+    JameicaUtil.addLabel("", comp, GridData.VERTICAL_ALIGN_CENTER);
+    LabelGroup group = new LabelGroup(comp, "Spendenquittung");
+    group.addText("Achtung! - experimentell. Diese Funktion ermöglicht es, alle bereits erstellen Spendenquittungen (also in der Liste sichtbaren) innerhalb eines gewissen Datumbereichts automatisch an die E-Mail als PDF anzuhängen... theoretisch.", true);
+    group.addLabelPair("", control.getSpendenquittung());
+    group.addLabelPair("", control.getSpendenquittungIndividuell());
+    group.addLabelPair("Von:", control.getSpendenquittungAnfang());
+    group.addLabelPair("Bis:", control.getSpendenquittungEnde());
+    
     JameicaUtil.addLabel("Anhang", comp, GridData.VERTICAL_ALIGN_BEGINNING);
     Composite comp4 = new Composite(comp, SWT.NONE);
     GridData gd4 = new GridData(GridData.FILL_HORIZONTAL);
