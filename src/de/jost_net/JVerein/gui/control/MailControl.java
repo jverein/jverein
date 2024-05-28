@@ -16,6 +16,8 @@
  **********************************************************************/
 package de.jost_net.JVerein.gui.control;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.rmi.RemoteException;
@@ -36,14 +38,18 @@ import de.jost_net.JVerein.Variable.AllgemeineMap;
 import de.jost_net.JVerein.Variable.MitgliedMap;
 import de.jost_net.JVerein.Variable.VarTools;
 import de.jost_net.JVerein.gui.action.MailDetailAction;
+import de.jost_net.JVerein.gui.action.SpendenbescheinigungPrintAction;
 import de.jost_net.JVerein.gui.menu.MailAnhangMenu;
 import de.jost_net.JVerein.gui.menu.MailAuswahlMenu;
 import de.jost_net.JVerein.gui.menu.MailMenu;
+import de.jost_net.JVerein.io.FormularAufbereitung;
 import de.jost_net.JVerein.io.MailSender;
+import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Mail;
 import de.jost_net.JVerein.rmi.MailAnhang;
 import de.jost_net.JVerein.rmi.MailEmpfaenger;
 import de.jost_net.JVerein.rmi.Mitglied;
+import de.jost_net.JVerein.rmi.Spendenbescheinigung;
 import de.jost_net.JVerein.util.JVDateFormatDATETIME;
 import de.jost_net.JVerein.util.JVDateFormatTTMMJJJJ;
 import de.willuhn.datasource.rmi.DBIterator;
@@ -56,12 +62,15 @@ import de.willuhn.jameica.gui.Part;
 import de.willuhn.jameica.gui.dialogs.SimpleDialog;
 import de.willuhn.jameica.gui.dialogs.YesNoDialog;
 import de.willuhn.jameica.gui.formatter.DateFormatter;
+import de.willuhn.jameica.gui.input.CheckboxInput;
+import de.willuhn.jameica.gui.input.DateInput;
 import de.willuhn.jameica.gui.input.TextAreaInput;
 import de.willuhn.jameica.gui.input.TextInput;
 import de.willuhn.jameica.gui.parts.Button;
 import de.willuhn.jameica.gui.parts.TablePart;
 import de.willuhn.jameica.system.Application;
 import de.willuhn.jameica.system.BackgroundTask;
+import de.willuhn.jameica.util.DateUtil;
 import de.willuhn.logging.Logger;
 import de.willuhn.util.ApplicationException;
 import de.willuhn.util.ProgressMonitor;
@@ -78,6 +87,15 @@ public class MailControl extends AbstractControl
   private TextAreaInput txt;
 
   private TablePart anhang;
+  
+  // Sollen die Spendenquittungen automatisiert angehängt werden?
+  private CheckboxInput Spendenquittung;
+  // Soll die PDF standard oder individuell sein?
+  private CheckboxInput SpendenquittungIndividuell;
+  // Beginn Zeitraum, in dem die Spendenquittungen erstellt wurden
+  private DateInput	SpendenquittungAnfang;
+  // Ende Zeitraum, in dem die Spendenquittungen erstellt wurden
+  private DateInput	SpendenquittungEnde;
 
   private TablePart mitgliedmitmail;
 
@@ -136,6 +154,7 @@ public class MailControl extends AbstractControl
     empfaenger = new TablePart(empf2, null);
     empfaenger.addColumn("Mail-Adresse", "mailadresse");
     empfaenger.addColumn("Name", "name");
+    empfaenger.addColumn("Anrede", "ansprache_sie_briefanfang");
     empfaenger.addColumn("Versand", "versand",
         new DateFormatter(new JVDateFormatDATETIME()));
     empfaenger.setContextMenu(new MailAuswahlMenu(this));
@@ -214,6 +233,58 @@ public class MailControl extends AbstractControl
     txt = new TextAreaInput(getMail().getTxt(), 10000);
     txt.setName("Text");
     return txt;
+  }
+
+  public CheckboxInput getSpendenquittung() throws RemoteException
+  {
+	    if (Spendenquittung != null)
+	    {
+	      return Spendenquittung;
+	    }
+	    Spendenquittung = new CheckboxInput(false);
+	    Spendenquittung
+	        .setName("Spendenquittung(en) anhängen");
+	    return Spendenquittung;
+  }
+
+  public CheckboxInput getSpendenquittungIndividuell() throws RemoteException
+  {
+	    if (SpendenquittungIndividuell != null)
+	    {
+	      return SpendenquittungIndividuell;
+	    }
+	    SpendenquittungIndividuell = new CheckboxInput(false);
+	    SpendenquittungIndividuell
+	        .setName("Anstatt der Standardvorlage die in den Einstellungen festgelegte individuelle Vorlage verwenden.");
+	    return SpendenquittungIndividuell;
+  }
+
+  public DateInput getSpendenquittungAnfang()
+  {
+    if (SpendenquittungAnfang != null)
+    {
+      return SpendenquittungAnfang;
+    }
+    Date d = null;
+    this.SpendenquittungAnfang = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    this.SpendenquittungAnfang.setTitle("Von: ");
+    this.SpendenquittungAnfang.setText("Es werden nur Spendenquittungen in einem bestimmten Zeitraum versendet, gib hier das Startdatum ein. Entscheidend ist das Datum der Erstellung der Quittung, nicht der Spende selbst.");
+    this.SpendenquittungAnfang.setComment("*)");
+    return SpendenquittungAnfang;
+  }
+
+  public DateInput getSpendenquittungEnde()
+  {
+    if (SpendenquittungEnde != null)
+    {
+      return SpendenquittungEnde;
+    }
+    Date d = null;
+    this.SpendenquittungEnde = new DateInput(d, new JVDateFormatTTMMJJJJ());
+    this.SpendenquittungEnde.setTitle("Bis: ");
+    this.SpendenquittungEnde.setText("Es werden nur Spendenquittungen in einem bestimmten Zeitraum versendet, gib hier das Enddatum ein. Entscheidend ist das Datum der Erstellung der Quittung, nicht der Spende selbst.");
+    this.SpendenquittungEnde.setComment("*)");
+    return SpendenquittungEnde;
   }
 
   public TablePart getAnhang() throws RemoteException
@@ -356,6 +427,7 @@ public class MailControl extends AbstractControl
           }
           if (mailAlreadySent)
           {
+        	 
             YesNoDialog d = new YesNoDialog(YesNoDialog.POSITION_CENTER);
             d.setTitle("Mail erneut senden?");
             d.setText(
@@ -381,7 +453,7 @@ public class MailControl extends AbstractControl
           throw new ApplicationException("Fehler beim Senden der Mail");
         }
       }
-    }, null, false, "envelope-open.png");
+    }, null, false, "mail-message-new.png");
     return b;
   }
 
@@ -395,7 +467,7 @@ public class MailControl extends AbstractControl
       {
         handleStore(false);
       }
-    }, null, true, "envelope-open.png");
+    }, null, true, "mail-message-new.png");
     return b;
   }
 
@@ -430,8 +502,14 @@ public class MailControl extends AbstractControl
       // MailSignatur mit Separator einfach anh?ngen
       text = text + Einstellungen.getEinstellung().getMailSignatur(true);
     }
-    final String txt = text;
     final String betr = getBetreffString();
+    final String txt = getTxtString()
+        + Einstellungen.getEinstellung().getMailSignatur(true);
+    final boolean spendQuitt = (Boolean) (getSpendenquittung().getValue());
+    final boolean spendQuittIndividuell = (Boolean) (getSpendenquittungIndividuell().getValue());
+    final Date spendQuittAnfang = (Date) (getSpendenquittungAnfang().getValue());
+    final Date spendQuittEnde = (Date) (getSpendenquittungEnde().getValue());
+    
     BackgroundTask t = new BackgroundTask()
     {
 
@@ -460,13 +538,95 @@ public class MailControl extends AbstractControl
           monitor.setPercentComplete(0);
           int zae = 0;
           int sentCount = 0;
+          TreeSet<MailAnhang> angheange = (TreeSet<MailAnhang> )getMail().getAnhang().clone(); // Wir clonen hier, damit die original Mail nicht beeinflusst wird.
+          
+	    	DBIterator<Spendenbescheinigung> spendenbescheinigungen = null;
+	    	DBService service = null;
+	    	File file = null;
+	    	String tmpFileName = null;
+	    	MailAnhang anh = null;
+	      	if(spendQuitt){
+	      		tmpFileName = Einstellungen.getEinstellung()
+	                .getSpendenbescheinigungverzeichnis();
+	            if (tmpFileName == null || tmpFileName.length() == 0)
+	            {
+	            	tmpFileName = settings.getString("lastdir", System.getProperty("user.home"));
+	            }
+
+	            settings.setAttribute("lastdir", tmpFileName);
+	            tmpFileName = tmpFileName.endsWith("\\") ? tmpFileName : tmpFileName + "\\";
+	            // Das hier funktioniert nur unter Windows...
+	            tmpFileName += "tmp.pdf";
+	            //ToDo.: TempFile auch wieder löschen. 
+		    	service = Einstellungen.getDBService();
+	      	}
           for (final MailEmpfaenger empf : getMail().getEmpfaenger())
           {
             EvalMail em = new EvalMail(empf);
             if (erneutSenden || empf.getVersand() == null)
             {
+            	if(spendQuitt){
+                    angheange = (TreeSet<MailAnhang> ) getMail().getAnhang().clone(); // hier muss das noch mal auf den default der Mail geschrieben werden, da sonst alle Spendenquittungen hier auflaufen...
+    		   	    spendenbescheinigungen = service.createList(Spendenbescheinigung.class);
+        	   	    spendenbescheinigungen.addFilter("mitglied=?", empf.getMitglied().getID());
+        	   	    spendenbescheinigungen.addFilter("spendedatum >= ?", new java.sql.Date(DateUtil.startOfDay(spendQuittAnfang).getTime()));
+        	   	    spendenbescheinigungen.addFilter("spendedatum <= ?", new java.sql.Date(DateUtil.startOfDay(spendQuittEnde).getTime()));
+    	   	    	if(spendenbescheinigungen.size()>0){
+    	                monitor.log(empf.getMailAdresse() + ":" + spendenbescheinigungen.size() + " Spendenquittungen gefunden.");
+
+    	                while (spendenbescheinigungen.hasNext())
+    	                {
+    	                	Spendenbescheinigung sb = spendenbescheinigungen.next();
+      	                	
+    	                	file = new File(tmpFileName);
+							
+    	                	if (spendQuittIndividuell){
+    	                		// Individuell
+	    	                	settings.setAttribute("lastdir", file.getParent());
+								 /* Check ob auch ein Formular ausgewaehlt ist */
+								Formular spendeformular = sb.getFormular();
+								if (spendeformular == null)
+								{
+	    	    	              monitor.log("Achtung! - Es wurde in den Einstellungen kein Formular definiert. - So geht das nicht. Abbruch!");
+								  GUI.getStatusBar().setErrorText("Achtung! - Es wurde in den Einstellungen kein Formular definiert. - So geht das nicht. Abbruch! Gab es evtl. beim Ersetllen der Bescheinigung noch kein Formular? - Dann muss die Bescheinigung neu gespeichert werden.");
+								  return;
+								}
+								Formular fo = (Formular) Einstellungen.getDBService()
+								    .createObject(Formular.class, spendeformular.getID());
+								Map<String, Object> map = sb.getMap(null);
+								map = new AllgemeineMap().getMap(map);
+								FormularAufbereitung fa = new FormularAufbereitung(file);
+								fa.writeForm(fo, map);
+								fa.closeFormular();
+								
+    	                	}else{
+    	    	                //monitor.log(empf.getMailAdresse() + ": Standard Spendenbescheinigungen sind ungetestet und daher deaktiviert. - Sorry.");
+    	    		            //Standard
+    	                		SpendenbescheinigungPrintAction spa = new SpendenbescheinigungPrintAction(
+    	                				true, tmpFileName);
+    	                		spa.handleAction(sb);
+    	                	}
+    	                	anh = (MailAnhang) Einstellungen.getDBService()
+    	                            .createObject(MailAnhang.class, null);
+	                        anh.setDateiname("Spendenquittung_" + empf.getMitglied().getName() + "_" + sb.getID() + ".pdf");
+	                        FileInputStream fis = new FileInputStream(file);
+	                        byte[] buffer = new byte[(int) file.length()];
+	                        fis.read(buffer);
+	                        anh.setAnhang(buffer);
+	                        fis.close();
+	                        angheange.add(anh);
+	                        //anh.clear();
+							file.delete();
+    	                }
+    	                
+    	   	    	}else{
+    	                monitor.log(empf.getMailAdresse() + ": Keine Spendenquittung gefunden, es wird daher keine Mail versandt!");
+    	                continue;
+    	   	    	}
+            	}
+	            if (false) continue;
               sender.sendMail(empf.getMailAdresse(), em.evalBetreff(betr),
-                  em.evalText(txt), getMail().getAnhang());
+                  em.evalText(txt), angheange);
               sentCount++;
               monitor.log(empf.getMailAdresse() + " - versendet");
               // Nachricht wurde erfolgreich versendet; speicher Versand-Datum
