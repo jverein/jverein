@@ -83,7 +83,10 @@ public class BuchungsklasseSaldoView extends AbstractView
         });
 
     Calendar calendar = new GregorianCalendar();
-    calendar.setTime(earliest);
+    if (earliest != null)
+    {
+      calendar.setTime(earliest);
+    }
     return calendar.get(Calendar.YEAR);
   }
 
